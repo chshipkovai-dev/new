@@ -2,128 +2,142 @@
 
 import { useState } from 'react';
 import PricingCard from '@/components/ui/PricingCard';
-import LeadModal from '@/components/ui/LeadModal';
 
-type Plan = 'free' | 'pro' | 'business';
-
-interface PricingPlan {
-  id: Plan;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-  cta: string;
-  highlighted: boolean;
-  badge?: string;
-}
-
-const plans: PricingPlan[] = [
+const plans = [
   {
     id: 'free',
     name: 'Free',
-    price: '€0',
-    period: 'forever',
-    description: 'Perfect for testing ReviewAgent and seeing the value before committing.',
+    price: { monthly: 0, annual: 0 },
+    description: 'Perfect for single-location businesses just getting started with review automation.',
+    badge: null,
     features: [
-      '1 location',
-      'Up to 20 AI replies/month',
-      'Google Reviews integration',
-      'Basic response templates',
-      'Email support',
-      'ReviewAgent branding',
+      { text: 'Up to 50 reviews monitored/month', included: true },
+      { text: '1 platform (Google or Tripadvisor)', included: true },
+      { text: 'AI-generated reply suggestions', included: true },
+      { text: 'Basic sentiment analysis', included: true },
+      { text: 'Email digest (weekly)', included: true },
+      { text: 'Multi-platform monitoring', included: false },
+      { text: 'Auto-publish replies', included: false },
+      { text: 'Review analytics dashboard', included: false },
+      { text: 'CRM integrations', included: false },
+      { text: 'Priority support', included: false },
     ],
     cta: 'Start for Free',
+    ctaVariant: 'outline' as const,
     highlighted: false,
   },
   {
     id: 'pro',
     name: 'Pro',
-    price: '€49',
-    period: 'per month',
-    description: 'Ideal for single-location restaurants and salons ready to automate their reputation.',
-    features: [
-      '1 location',
-      'Unlimited AI replies',
-      'Google & Tripadvisor integration',
-      'Custom brand voice & tone',
-      'Review analytics dashboard',
-      'Negative review alerts',
-      'Priority email support',
-      'Remove ReviewAgent branding',
-    ],
-    cta: 'Start Pro Trial',
-    highlighted: true,
+    price: { monthly: 49, annual: 39 },
+    description: 'Ideal for growing restaurants and salons that want to automate review management end-to-end.',
     badge: 'Most Popular',
+    features: [
+      { text: 'Unlimited reviews monitored', included: true },
+      { text: '5 platforms (Google, Tripadvisor, Yelp, Booking, Facebook)', included: true },
+      { text: 'AI-generated reply suggestions', included: true },
+      { text: 'Advanced sentiment & keyword analysis', included: true },
+      { text: 'Email digest (daily)', included: true },
+      { text: 'Multi-platform monitoring', included: true },
+      { text: 'Auto-publish replies', included: true },
+      { text: 'Review analytics dashboard', included: true },
+      { text: 'CRM integrations', included: false },
+      { text: 'Priority support', included: false },
+    ],
+    cta: 'Get Started',
+    ctaVariant: 'primary' as const,
+    highlighted: true,
   },
   {
     id: 'business',
     name: 'Business',
-    price: '€149',
-    period: 'per month',
-    description: 'Built for multi-location chains and agencies managing multiple brands.',
+    price: { monthly: 149, annual: 119 },
+    description: 'Built for multi-location chains, hospitality groups, and agencies managing multiple brands.',
+    badge: null,
     features: [
-      'Up to 10 locations',
-      'Unlimited AI replies',
-      'All integrations incl. Yelp & Booking.com',
-      'Custom brand voice per location',
-      'Advanced analytics & reports',
-      'Negative review escalation',
-      'Dedicated account manager',
-      'API access',
-      'SLA guarantee',
+      { text: 'Unlimited reviews monitored', included: true },
+      { text: 'All platforms + custom integrations', included: true },
+      { text: 'AI-generated reply suggestions', included: true },
+      { text: 'Advanced sentiment & competitor benchmarking', included: true },
+      { text: 'Real-time alerts & digest', included: true },
+      { text: 'Multi-platform monitoring', included: true },
+      { text: 'Auto-publish replies', included: true },
+      { text: 'Review analytics dashboard', included: true },
+      { text: 'CRM integrations (HubSpot, Salesforce)', included: true },
+      { text: 'Priority support + dedicated CSM', included: true },
     ],
     cta: 'Contact Sales',
+    ctaVariant: 'outline' as const,
     highlighted: false,
   },
 ];
 
-export default function Pricing() {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface PricingSectionProps {
+  onSelectPlan?: (planId: string) => void;
+}
 
-  const handleSelectPlan = (plan: Plan) => {
-    setSelectedPlan(plan);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPlan(null);
-  };
+export default function Pricing({ onSelectPlan }: PricingSectionProps) {
+  const [isAnnual, setIsAnnual] = useState(false);
 
   return (
-    <section id="pricing" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-[#0a0a0f] overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[#00e5ff] opacity-[0.03] rounded-full blur-3xl" />
-      </div>
+    <section
+      id="pricing"
+      className="relative py-24 px-4 overflow-hidden"
+      style={{ background: '#0a0a0f' }}
+    >
+      {/* Background decorations */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-5 blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #00e5ff 0%, transparent 70%)' }}
+      />
 
       <div className="relative max-w-7xl mx-auto">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00e5ff]/20 bg-[#00e5ff]/5 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#00e5ff] animate-pulse" />
-            <span className="text-[#00e5ff] text-sm font-medium tracking-wide">Simple Pricing</span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-5 leading-tight">
-            Choose the plan that fits
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] to-[#0099aa]">
-              your business size
-            </span>
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span
+            className="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4 border"
+            style={{ color: '#00e5ff', borderColor: 'rgba(0,229,255,0.3)', background: 'rgba(0,229,255,0.05)' }}
+          >
+            Pricing
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            Simple, transparent pricing
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Start free and upgrade as you grow. No hidden fees, no long-term contracts.
-            Cancel anytime.
+            No hidden fees. No long-term contracts. Cancel anytime.
+            All plans include a{' '}
+            <span style={{ color: '#00e5ff' }}>14-day free trial</span>.
           </p>
-        </div>
 
-        {/* Billing toggle label */}
-        <div className="flex items-center justify-center gap-3 mb-12">
-          <span className="text-gray-400 text-sm">All prices in EUR, billed monthly</span>
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#00e5ff]/10 border border-[#00e5ff]/20 text-[#00e5ff] text-xs font-semibold">
-            14-day free trial on paid plans
-          </span>
+          {/* Billing toggle */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <span className={`text-sm font-medium ${!isAnnual ? 'text-white' : 'text-gray-500'}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setIsAnnual((prev) => !prev)}
+              className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black"
+              style={{
+                background: isAnnual ? '#00e5ff' : 'rgba(255,255,255,0.1)',
+                focusRingColor: '#00e5ff',
+              }}
+              aria-label="Toggle billing period"
+            >
+              <span
+                className="absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300"
+                style={{ transform: isAnnual ? 'translateX(28px)' : 'translateX(0)' }}
+              />
+            </button>
+            <span className={`text-sm font-medium flex items-center gap-2 ${isAnnual ? 'text-white' : 'text-gray-500'}`}>
+              Annual
+              <span
+                className="text-xs font-bold px-2 py-0.5 rounded-full"
+                style={{ background: 'rgba(0,229,255,0.15)', color: '#00e5ff' }}
+              >
+                Save 20%
+              </span>
+            </span>
+          </div>
         </div>
 
         {/* Pricing cards */}
@@ -131,72 +145,63 @@ export default function Pricing() {
           {plans.map((plan) => (
             <PricingCard
               key={plan.id}
-              id={plan.id}
-              name={plan.name}
-              price={plan.price}
-              period={plan.period}
-              description={plan.description}
-              features={plan.features}
-              cta={plan.cta}
-              highlighted={plan.highlighted}
-              badge={plan.badge}
-              onSelect={handleSelectPlan}
+              plan={plan}
+              isAnnual={isAnnual}
+              onSelectPlan={onSelectPlan}
             />
           ))}
         </div>
 
-        {/* Bottom trust note */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-500">
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-[#00e5ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <span>No credit card required for Free</span>
-          </div>
-          <div className="hidden sm:block w-px h-4 bg-gray-700" />
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-[#00e5ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-            <span>Secure payment via Stripe</span>
-          </div>
-          <div className="hidden sm:block w-px h-4 bg-gray-700" />
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-[#00e5ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span>Cancel anytime, no questions asked</span>
-          </div>
-        </div>
-
-        {/* Enterprise callout */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl border border-gray-800 bg-[#111118] flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Enterprise note */}
+        <div
+          className="mt-12 rounded-2xl border p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderColor: 'rgba(255,255,255,0.07)', background: '#111118' }}
+        >
           <div>
-            <h3 className="text-white font-semibold text-lg mb-1">Need a custom enterprise plan?</h3>
+            <p className="text-white font-semibold text-lg mb-1">
+              Need a custom Enterprise plan?
+            </p>
             <p className="text-gray-400 text-sm">
-              More than 10 locations, custom integrations, white-label, or dedicated infrastructure?
-              Let&apos;s talk.
+              For large hospitality groups with 20+ locations, white-label options, or custom AI training on your brand voice.
             </p>
           </div>
-          <a
-            href="mailto:enterprise@ailnex.com"
-            className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-[#00e5ff]/30 text-[#00e5ff] text-sm font-semibold hover:bg-[#00e5ff]/10 transition-colors duration-200 whitespace-nowrap"
+          <button
+            onClick={() => onSelectPlan?.('business')}
+            className="shrink-0 px-6 py-3 rounded-xl text-sm font-semibold border transition-all duration-200 hover:bg-white/5"
+            style={{ borderColor: 'rgba(0,229,255,0.4)', color: '#00e5ff' }}
           >
-            Contact Enterprise Team
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            Talk to Sales
+          </button>
+        </div>
+
+        {/* Trust signals */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-          </a>
+            No credit card required
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            Cancel anytime
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            GDPR compliant
+          </div>
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            Prices in EUR
+          </div>
         </div>
       </div>
-
-      {/* Lead capture modal */}
-      {isModalOpen && selectedPlan && (
-        <LeadModal
-          plan={selectedPlan}
-          onClose={handleCloseModal}
-        />
-      )}
     </section>
   );
 }
