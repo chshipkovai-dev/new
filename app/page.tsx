@@ -1,23 +1,13 @@
-import Navbar from '@/components/layout/Navbar';
-import Hero from '@/components/sections/Hero';
-import Features from '@/components/sections/Features';
-import HowItWorks from '@/components/sections/HowItWorks';
-import SocialProof from '@/components/sections/SocialProof';
-import Pricing from '@/components/sections/Pricing';
-import FAQ from '@/components/sections/FAQ';
-import Footer from '@/components/sections/Footer';
+import Hero from '@/components/Hero';
+import Sections from '@/components/Sections';
+import Pricing from '@/components/Pricing';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
-      <Navbar />
+    <main className="min-h-screen" style={{ backgroundColor: '#0a0a0f', color: '#ffffff' }}>
       <Hero />
-      <Features />
-      <HowItWorks />
-      <SocialProof />
+      <Sections />
       <Pricing />
-      <FAQ />
-      <Footer />
     </main>
   );
 }
