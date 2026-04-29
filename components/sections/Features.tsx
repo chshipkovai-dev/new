@@ -7,212 +7,274 @@ interface Feature {
   badge?: string;
 }
 
+const CheckIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 10L8 14L16 6" stroke="#00e5ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const AutoReplyIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <path d="M7 9h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H9l-3 2V10a1 1 0 0 1 1-1z" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M11 13h6M11 16h4" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const SentimentIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <circle cx="14" cy="14" r="6" stroke="#00e5ff" strokeWidth="1.5" />
+    <path d="M11 15.5s.8 1.5 3 1.5 3-1.5 3-1.5" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="12" cy="13" r="0.75" fill="#00e5ff" />
+    <circle cx="16" cy="13" r="0.75" fill="#00e5ff" />
+  </svg>
+);
+
+const MultiPlatformIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <circle cx="14" cy="10" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <circle cx="8" cy="18" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <circle cx="20" cy="18" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <path d="M11.8 11.8L9.5 15.8M16.2 11.8L18.5 15.8M10.5 18h7" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const AnalyticsIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <path d="M7 19l4-4 3 3 4-5 3 3" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7 8v11h14" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const AlertIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <path d="M14 8v6M14 17v1" stroke="#00e5ff" strokeWidth="2" strokeLinecap="round" />
+    <path d="M12 6.2L7 16a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 21 16l-5-9.8a2 2 0 0 0-3.5 0z" stroke="#00e5ff" strokeWidth="1.5" strokeLinejoin="round" />
+  </svg>
+);
+
+const PersonalizationIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <circle cx="14" cy="11" r="3" stroke="#00e5ff" strokeWidth="1.5" />
+    <path d="M8 21c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M19 8l1.5 1.5L23 7" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const IntegrationIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
+    <rect x="7" y="7" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <rect x="15" y="7" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <rect x="7" y="15" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
+    <rect x="15" y="15" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
+  </svg>
+);
+
 const features: Feature[] = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3C7.925 3 3 7.925 3 14s4.925 11 11 11 11-4.925 11-11S20.075 3 14 3zm0 2a9 9 0 110 18A9 9 0 0114 5zm-1 4v5.586l3.707 3.707-1.414 1.414L11 15.414V9h2z" fill="#00e5ff"/>
-      </svg>
-    ),
-    title: 'Real-Time Review Monitoring',
-    description: 'ReviewAgent scans Google, TripAdvisor, Yelp and 12 other platforms 24/7. Get instant Slack or email alerts the moment a new review lands — never miss a customer signal again.',
-    badge: 'Live'
-  },
-  {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2C7.373 2 2 7.373 2 14c0 2.09.54 4.054 1.487 5.757L2 26l6.457-1.467A11.945 11.945 0 0014 26c6.627 0 12-5.373 12-12S20.627 2 14 2zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 01-5.03-1.355l-.36-.214-3.83.87.9-3.717-.23-.374A9.95 9.95 0 014 14c0-5.523 4.477-10 10-10zm-3 6a1 1 0 00-1 1v6a1 1 0 001 1h6a1 1 0 001-1v-6a1 1 0 00-1-1h-6zm1 2h4v4h-4v-4z" fill="#00e5ff"/>
-      </svg>
-    ),
+    icon: <AutoReplyIcon />,
     title: 'AI-Powered Auto-Replies',
-    description: 'Our GPT-4o model drafts personalised, on-brand responses in the language of the reviewer — English, German, Spanish, French and more. Responses are reviewed or published automatically based on your approval settings.',
+    description:
+      'ReviewAgent reads every incoming review and crafts a personalised, on-brand response in seconds — available in English, German, Spanish, French and more.',
+    badge: 'Core',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2H6zm0 2h16v16H6V6zm2 2v2h12V8H8zm0 4v2h8v-2H8zm0 4v2h5v-2H8z" fill="#00e5ff"/>
-      </svg>
-    ),
-    title: 'Sentiment & Trend Analytics',
-    description: 'Turn raw review data into actionable insights. Track sentiment score over time, identify recurring complaints before they damage your rating, and benchmark against local competitors.',
-    badge: 'Pro+'
+    icon: <SentimentIcon />,
+    title: 'Sentiment Analysis',
+    description:
+      'Every review is scored and categorised as positive, neutral or negative. Instantly understand guest emotion trends and spot recurring service issues before they escalate.',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2l3.09 6.26L24 9.27l-5 4.87 1.18 6.88L14 17.77l-6.18 3.25L9 14.14 4 9.27l6.91-1.01L14 2zm0 3.2L11.6 10H6.5l4.26 4.15-.99 5.8L14 17.3l4.23 2.65-.99-5.8L21.5 10h-5.1L14 5.2z" fill="#00e5ff"/>
-      </svg>
-    ),
-    title: 'Review Generation Campaigns',
-    description: 'Automatically send post-visit SMS or email prompts asking happy customers to leave a review. Smart timing and personalised copy lift your average star rating within 30 days.',
-    badge: 'Pro+'
+    icon: <MultiPlatformIcon />,
+    title: 'Multi-Platform Coverage',
+    description:
+      'Google Business Profile, TripAdvisor, Booking.com and Yelp — all managed from one dashboard. No tab-switching, no missed reviews.',
+    badge: 'Popular',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 4a1 1 0 00-1 1v18a1 1 0 001 1h18a1 1 0 001-1V5a1 1 0 00-1-1H5zm1 2h16v16H6V6zm3 3v2h8V9H9zm0 4v2h5v-2H9zm6 0v2h2v-2h-2z" fill="#00e5ff"/>
-      </svg>
-    ),
-    title: 'Multi-Location Dashboard',
-    description: 'Manage reviews for every branch from a single workspace. Assign staff to locations, set per-location tone of voice, and roll up reporting across your entire portfolio.',
-    badge: 'Business'
+    icon: <AnalyticsIcon />,
+    title: 'Review Analytics Dashboard',
+    description:
+      'Track your average rating over time, response rate, review volume and sentiment breakdown. Export weekly PDF reports and share them with your team in one click.',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3a11 11 0 100 22A11 11 0 0014 3zm0 2a9 9 0 110 18A9 9 0 0114 5zm-1 2v7.414l4.293 4.293-1.414 1.414L11 15.414V7h2z" fill="#00e5ff"/>
-      </svg>
-    ),
-    title: 'Seamless Integrations',
-    description: 'Connect ReviewAgent with your existing stack in minutes. Native integrations with Slack, Zapier, Google Business Profile API, and open Webhooks for custom workflows.',
+    icon: <AlertIcon />,
+    title: 'Real-Time Alerts',
+    description:
+      'Get instant Slack, email or SMS notifications when a 1- or 2-star review arrives so you can intervene personally when it matters most.',
+  },
+  {
+    icon: <PersonalizationIcon />,
+    title: 'Brand Voice Customisation',
+    description:
+      'Train the AI on your tone — formal, friendly or playful. Set custom phrases to avoid, preferred greetings and response length so every reply sounds unmistakably you.',
+  },
+  {
+    icon: <IntegrationIcon />,
+    title: 'One-Click Integrations',
+    description:
+      'Connect your existing POS, CRM or reservation system via Zapier or our native webhooks. ReviewAgent fits into your workflow — not the other way around.',
+  },
+  {
+    icon: <MultiPlatformIcon />,
+    title: 'GDPR-Compliant Data Handling',
+    description:
+      'All review data is processed and stored on EU servers. We never sell guest data and are fully compliant with GDPR, giving your European customers peace of mind.',
   },
 ];
 
-const BadgeChip: React.FC<{ label: string }> = ({ label }) => (
-  <span
-    className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide uppercase"
-    style={{
-      background: 'rgba(0,229,255,0.12)',
-      color: '#00e5ff',
-      border: '1px solid rgba(0,229,255,0.25)',
-    }}
-  >
-    {label}
-  </span>
-);
+const stats = [
+  { value: '4.2×', label: 'faster response time' },
+  { value: '94%', label: 'positive guest satisfaction' },
+  { value: '3 hrs', label: 'saved per week on average' },
+  { value: '12+', label: 'platforms supported' },
+];
 
-const FeatureCard: React.FC<Feature> = ({ icon, title, description, badge }) => (
-  <div
-    className="group relative flex flex-col gap-4 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
-    style={{
-      background: '#111118',
-      border: '1px solid rgba(255,255,255,0.06)',
-      boxShadow: '0 0 0 0 rgba(0,229,255,0)',
-    }}
-    onMouseEnter={e => {
-      (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 32px 0 rgba(0,229,255,0.08)';
-      (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(0,229,255,0.2)';
-    }}
-    onMouseLeave={e => {
-      (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 0 0 rgba(0,229,255,0)';
-      (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.06)';
-    }}
-  >
-    <div
-      className="flex h-12 w-12 items-center justify-center rounded-xl flex-shrink-0"
-      style={{ background: 'rgba(0,229,255,0.08)' }}
-    >
-      {icon}
-    </div>
-
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2 flex-wrap">
-        <h3 className="text-base font-semibold text-white leading-snug">{title}</h3>
-        {badge && <BadgeChip label={badge} />}
-      </div>
-      <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
-        {description}
-      </p>
-    </div>
-
-    <div
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-px rounded-b-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-      style={{ background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }}
-    />
-  </div>
-);
-
-const Features: React.FC = () => {
+export default function Features() {
   return (
     <section
       id="features"
-      className="relative w-full py-24 md:py-32 overflow-hidden"
+      className="relative w-full py-24 overflow-hidden"
       style={{ background: '#0a0a0f' }}
     >
-      {/* Background grid */}
+      {/* Background grid decoration */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
+            'linear-gradient(#00e5ff 1px, transparent 1px), linear-gradient(90deg, #00e5ff 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
         }}
       />
 
-      {/* Ambient glow */}
+      {/* Radial glow */}
       <div
-        className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)',
+        }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-6"
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span
+            className="inline-block text-xs font-semibold tracking-[0.2em] uppercase px-3 py-1 rounded-full border mb-4"
             style={{
-              background: 'rgba(0,229,255,0.08)',
               color: '#00e5ff',
-              border: '1px solid rgba(0,229,255,0.2)',
+              borderColor: 'rgba(0,229,255,0.3)',
+              background: 'rgba(0,229,255,0.06)',
             }}
           >
-            <span
-              className="h-1.5 w-1.5 rounded-full animate-pulse"
-              style={{ background: '#00e5ff' }}
-            />
             Everything you need
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight tracking-tight">
-            One agent.{' '}
-            <span style={{ color: '#00e5ff' }}>All your reviews.</span>
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+            Built for hospitality.
+            <br />
+            <span style={{ color: '#00e5ff' }}>Powered by AI.</span>
           </h2>
-
-          <p className="mt-4 text-base sm:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
-            ReviewAgent handles every step of the review lifecycle — from monitoring and analysis to
-            personalised AI replies and proactive generation — so your team can focus on delivering
-            great experiences.
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            ReviewAgent combines deep AI understanding with industry-specific logic
+            to handle every review — so your team can focus on delivering great
+            experiences, not writing responses.
           </p>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-          {features.map((feature) => (
-            <FeatureCard key={feature.title} {...feature} />
-          ))}
-        </div>
-
-        {/* Bottom stat strip */}
+        {/* Stats row */}
         <div
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden"
-          style={{ border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.04)' }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px mb-16 rounded-2xl overflow-hidden border"
+          style={{
+            borderColor: 'rgba(0,229,255,0.12)',
+            background: 'rgba(0,229,255,0.08)',
+          }}
         >
-          {[
-            { value: '14+', label: 'Review platforms' },
-            { value: '2 min', label: 'Average setup time' },
-            { value: '4.8★', label: 'Avg. rating lift' },
-            { value: '98%', label: 'Reply accuracy' },
-          ].map(({ value, label }) => (
+          {stats.map((stat) => (
             <div
-              key={label}
-              className="flex flex-col items-center justify-center gap-1 py-6 px-4"
+              key={stat.label}
+              className="flex flex-col items-center justify-center py-8 px-4 text-center"
               style={{ background: '#111118' }}
             >
               <span
-                className="text-2xl sm:text-3xl font-bold"
+                className="text-3xl sm:text-4xl font-bold mb-1"
                 style={{ color: '#00e5ff' }}
               >
-                {value}
+                {stat.value}
               </span>
-              <span className="text-xs sm:text-sm text-center" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                {label}
-              </span>
+              <span className="text-sm text-gray-400">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Features grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {features.map((feature, index) => (
+            <div
+              key={feature.title}
+              className="group relative rounded-2xl p-6 border transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1"
+              style={{
+                background: '#111118',
+                borderColor: 'rgba(255,255,255,0.07)',
+              }}
+            >
+              {/* Hover glow */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at top left, rgba(0,229,255,0.06) 0%, transparent 60%)',
+                }}
+              />
+
+              <div className="relative z-10">
+                {/* Icon + badge row */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-shrink-0">{feature.icon}</div>
+                  {feature.badge && (
+                    <span
+                      className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
+                      style={{
+                        color: '#00e5ff',
+                        background: 'rgba(0,229,255,0.12)',
+                        border: '1px solid rgba(0,229,255,0.25)',
+                      }}
+                    >
+                      {feature.badge}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-white font-semibold text-base mb-2 leading-snug">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom proof line */}
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+          {[
+            'No technical setup required',
+            'Cancel anytime',
+            '14-day free trial on Pro',
+          ].map((item) => (
+            <div key={item} className="flex items-center gap-2">
+              <CheckIcon />
+              <span className="text-gray-300 text-sm">{item}</span>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default Features;
+}
