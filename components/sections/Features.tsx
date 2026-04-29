@@ -7,270 +7,155 @@ interface Feature {
   badge?: string;
 }
 
-const CheckIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 10L8 14L16 6" stroke="#00e5ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const AutoReplyIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <path d="M7 9h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H9l-3 2V10a1 1 0 0 1 1-1z" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M11 13h6M11 16h4" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const SentimentIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <circle cx="14" cy="14" r="6" stroke="#00e5ff" strokeWidth="1.5" />
-    <path d="M11 15.5s.8 1.5 3 1.5 3-1.5 3-1.5" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
-    <circle cx="12" cy="13" r="0.75" fill="#00e5ff" />
-    <circle cx="16" cy="13" r="0.75" fill="#00e5ff" />
-  </svg>
-);
-
-const MultiPlatformIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <circle cx="14" cy="10" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <circle cx="8" cy="18" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <circle cx="20" cy="18" r="2.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <path d="M11.8 11.8L9.5 15.8M16.2 11.8L18.5 15.8M10.5 18h7" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const AnalyticsIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <path d="M7 19l4-4 3 3 4-5 3 3" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M7 8v11h14" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const AlertIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <path d="M14 8v6M14 17v1" stroke="#00e5ff" strokeWidth="2" strokeLinecap="round" />
-    <path d="M12 6.2L7 16a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 21 16l-5-9.8a2 2 0 0 0-3.5 0z" stroke="#00e5ff" strokeWidth="1.5" strokeLinejoin="round" />
-  </svg>
-);
-
-const PersonalizationIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <circle cx="14" cy="11" r="3" stroke="#00e5ff" strokeWidth="1.5" />
-    <path d="M8 21c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M19 8l1.5 1.5L23 7" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const IntegrationIcon = () => (
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="28" height="28" rx="8" fill="#00e5ff" fillOpacity="0.1" />
-    <rect x="7" y="7" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <rect x="15" y="7" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <rect x="7" y="15" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
-    <rect x="15" y="15" width="6" height="6" rx="1.5" stroke="#00e5ff" strokeWidth="1.5" />
-  </svg>
-);
-
 const features: Feature[] = [
   {
-    icon: <AutoReplyIcon />,
-    title: 'AI-Powered Auto-Replies',
-    description:
-      'ReviewAgent reads every incoming review and crafts a personalised, on-brand response in seconds — available in English, German, Spanish, French and more.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 3L17.5 10.5L26 11.5L20 17.5L21.5 26L14 22L6.5 26L8 17.5L2 11.5L10.5 10.5L14 3Z" stroke="#00e5ff" strokeWidth="1.8" strokeLinejoin="round" fill="none"/>
+      </svg>
+    ),
+    title: 'Instant AI Replies',
+    description: 'ReviewAgent reads every new review on Google, Yelp, TripAdvisor and Booking.com within seconds and crafts a personalised, on-brand response — no templates, no copy-paste.',
     badge: 'Core',
   },
   {
-    icon: <SentimentIcon />,
-    title: 'Sentiment Analysis',
-    description:
-      'Every review is scored and categorised as positive, neutral or negative. Instantly understand guest emotion trends and spot recurring service issues before they escalate.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="5" width="22" height="18" rx="3" stroke="#00e5ff" strokeWidth="1.8"/>
+        <path d="M3 11H25" stroke="#00e5ff" strokeWidth="1.8"/>
+        <path d="M9 17H12" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M16 17H19" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: 'Multi-Platform Dashboard',
+    description: 'Manage reviews from all major platforms in one unified inbox. Filter by rating, date, platform or sentiment. Never miss a negative review again.',
   },
   {
-    icon: <MultiPlatformIcon />,
-    title: 'Multi-Platform Coverage',
-    description:
-      'Google Business Profile, TripAdvisor, Booking.com and Yelp — all managed from one dashboard. No tab-switching, no missed reviews.',
-    badge: 'Popular',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14" cy="14" r="10" stroke="#00e5ff" strokeWidth="1.8"/>
+        <path d="M14 8V14L18 17" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: 'Smart Escalation Alerts',
+    description: 'When a review signals a serious complaint or legal risk, ReviewAgent pauses auto-reply and pings your team via email or Slack so a human can step in immediately.',
+    badge: 'Safety',
   },
   {
-    icon: <AnalyticsIcon />,
-    title: 'Review Analytics Dashboard',
-    description:
-      'Track your average rating over time, response rate, review volume and sentiment breakdown. Export weekly PDF reports and share them with your team in one click.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 20L10 14L14 18L20 10L24 14" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M4 24H24" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: 'Reputation Analytics',
+    description: 'Track your average rating trends, response rate, sentiment score and competitor benchmarks over time. Weekly PDF reports delivered straight to your inbox.',
   },
   {
-    icon: <AlertIcon />,
-    title: 'Real-Time Alerts',
-    description:
-      'Get instant Slack, email or SMS notifications when a 1- or 2-star review arrives so you can intervene personally when it matters most.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="4" stroke="#00e5ff" strokeWidth="1.8"/>
+        <circle cx="20" cy="18" r="4" stroke="#00e5ff" strokeWidth="1.8"/>
+        <path d="M14 10H20V14" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    title: 'Multi-Location Support',
+    description: 'Running a chain of restaurants or a group of beauty salons? Connect unlimited locations under one account. Each branch gets its own tone, language and escalation rules.',
+    badge: 'Business',
   },
   {
-    icon: <PersonalizationIcon />,
-    title: 'Brand Voice Customisation',
-    description:
-      'Train the AI on your tone — formal, friendly or playful. Set custom phrases to avoid, preferred greetings and response length so every reply sounds unmistakably you.',
-  },
-  {
-    icon: <IntegrationIcon />,
-    title: 'One-Click Integrations',
-    description:
-      'Connect your existing POS, CRM or reservation system via Zapier or our native webhooks. ReviewAgent fits into your workflow — not the other way around.',
-  },
-  {
-    icon: <MultiPlatformIcon />,
-    title: 'GDPR-Compliant Data Handling',
-    description:
-      'All review data is processed and stored on EU servers. We never sell guest data and are fully compliant with GDPR, giving your European customers peace of mind.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 14C6 9.58 9.58 6 14 6C18.42 6 22 9.58 22 14" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M4 16C4 12 8.69 9 14 9" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" opacity="0.4"/>
+        <rect x="10" y="17" width="8" height="5" rx="1.5" stroke="#00e5ff" strokeWidth="1.8"/>
+        <path d="M14 17V14" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: 'GDPR-Ready & Secure',
+    description: 'All data processed on EU servers. ReviewAgent is fully compliant with GDPR regulations. No personal review data is stored beyond what is strictly required for response generation.',
   },
 ];
 
-const stats = [
-  { value: '4.2×', label: 'faster response time' },
-  { value: '94%', label: 'positive guest satisfaction' },
-  { value: '3 hrs', label: 'saved per week on average' },
-  { value: '12+', label: 'platforms supported' },
-];
+function FeatureCard({ feature }: { feature: Feature }) {
+  return (
+    <div className="group relative flex flex-col gap-4 rounded-2xl border border-white/[0.06] bg-[#111118] p-6 transition-all duration-300 hover:border-[#00e5ff]/30 hover:shadow-[0_0_32px_rgba(0,229,255,0.06)]">
+      {/* Subtle top gradient line on hover */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-[#00e5ff]/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-[#0a0a0f]">
+          {feature.icon}
+        </div>
+        {feature.badge && (
+          <span className="mt-1 rounded-full border border-[#00e5ff]/30 bg-[#00e5ff]/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[#00e5ff]">
+            {feature.badge}
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <h3 className="text-[17px] font-semibold leading-snug text-white">{feature.title}</h3>
+        <p className="text-[14px] leading-relaxed text-white/50">{feature.description}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function Features() {
   return (
     <section
       id="features"
-      className="relative w-full py-24 overflow-hidden"
-      style={{ background: '#0a0a0f' }}
+      className="relative w-full overflow-hidden bg-[#0a0a0f] py-24 lg:py-32"
     >
-      {/* Background grid decoration */}
+      {/* Background decoration */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(#00e5ff 1px, transparent 1px), linear-gradient(90deg, #00e5ff 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[#00e5ff] opacity-[0.03] blur-[120px]"
       />
 
-      {/* Radial glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span
-            className="inline-block text-xs font-semibold tracking-[0.2em] uppercase px-3 py-1 rounded-full border mb-4"
-            style={{
-              color: '#00e5ff',
-              borderColor: 'rgba(0,229,255,0.3)',
-              background: 'rgba(0,229,255,0.06)',
-            }}
-          >
-            Everything you need
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-            Built for hospitality.
+        <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00e5ff]/20 bg-[#00e5ff]/10 px-4 py-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00e5ff]" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#00e5ff]">
+              Everything you need
+            </span>
+          </div>
+          <h2 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl">
+            Built for hospitality,
             <br />
-            <span style={{ color: '#00e5ff' }}>Powered by AI.</span>
+            <span className="bg-gradient-to-r from-[#00e5ff] to-[#00b8d4] bg-clip-text text-transparent">
+              not for enterprise IT
+            </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            ReviewAgent combines deep AI understanding with industry-specific logic
-            to handle every review — so your team can focus on delivering great
-            experiences, not writing responses.
+          <p className="mt-5 text-lg leading-relaxed text-white/50">
+            ReviewAgent handles the entire review lifecycle — from detection to reply to reporting — so your team focuses on delivering great experiences, not managing feedback.
           </p>
         </div>
 
-        {/* Stats row */}
-        <div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-px mb-16 rounded-2xl overflow-hidden border"
-          style={{
-            borderColor: 'rgba(0,229,255,0.12)',
-            background: 'rgba(0,229,255,0.08)',
-          }}
-        >
-          {stats.map((stat) => (
+        {/* Features grid */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} feature={feature} />
+          ))}
+        </div>
+
+        {/* Bottom stats row */}
+        <div className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.04] sm:grid-cols-4">
+          {[
+            { value: '< 90s', label: 'Average reply time' },
+            { value: '4.8★', label: 'Avg. rating lift in 90 days' },
+            { value: '12+', label: 'Platforms supported' },
+            { value: '99.9%', label: 'Uptime SLA' },
+          ].map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-8 px-4 text-center"
-              style={{ background: '#111118' }}
+              className="flex flex-col items-center gap-1 bg-[#111118] px-6 py-8 text-center"
             >
-              <span
-                className="text-3xl sm:text-4xl font-bold mb-1"
-                style={{ color: '#00e5ff' }}
-              >
-                {stat.value}
-              </span>
-              <span className="text-sm text-gray-400">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Features grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {features.map((feature, index) => (
-            <div
-              key={feature.title}
-              className="group relative rounded-2xl p-6 border transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1"
-              style={{
-                background: '#111118',
-                borderColor: 'rgba(255,255,255,0.07)',
-              }}
-            >
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background:
-                    'radial-gradient(ellipse at top left, rgba(0,229,255,0.06) 0%, transparent 60%)',
-                }}
-              />
-
-              <div className="relative z-10">
-                {/* Icon + badge row */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-shrink-0">{feature.icon}</div>
-                  {feature.badge && (
-                    <span
-                      className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
-                      style={{
-                        color: '#00e5ff',
-                        background: 'rgba(0,229,255,0.12)',
-                        border: '1px solid rgba(0,229,255,0.25)',
-                      }}
-                    >
-                      {feature.badge}
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="text-white font-semibold text-base mb-2 leading-snug">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom proof line */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-          {[
-            'No technical setup required',
-            'Cancel anytime',
-            '14-day free trial on Pro',
-          ].map((item) => (
-            <div key={item} className="flex items-center gap-2">
-              <CheckIcon />
-              <span className="text-gray-300 text-sm">{item}</span>
+              <span className="text-3xl font-bold tracking-tight text-white">{stat.value}</span>
+              <span className="text-xs font-medium text-white/40">{stat.label}</span>
             </div>
           ))}
         </div>
