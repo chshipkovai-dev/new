@@ -3,59 +3,50 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface Review {
-  id: string;
-  author: string;
-  avatar: string;
-  rating: number;
-  date: string;
-  text: string;
-  type: 'positive' | 'negative' | 'neutral';
-  response: string;
-  responseTime: string;
-}
-
-const reviews: Review[] = [
+const reviews = [
   {
-    id: '1',
-    author: 'Sarah Mitchell',
-    avatar: 'SM',
+    id: 'negative',
+    label: 'Negative Review',
+    badgeColor: 'bg-red-500/20 text-red-400 border border-red-500/30',
+    dotColor: 'bg-red-400',
+    author: 'Marcus T.',
     rating: 2,
-    date: '2 hours ago',
-    text: 'Waited 40 minutes for our table even with a reservation. The pasta was cold and the waiter seemed completely overwhelmed. Really disappointing experience for the price we paid.',
-    type: 'negative',
-    response: 'Dear Sarah, thank you for taking the time to share your experience. We sincerely apologize for the long wait and the cold pasta — this is absolutely not the standard we hold ourselves to. Our team was understaffed that evening, and we completely understand your frustration. We would love to make this right: please reach out to us directly at hello@restaurant.com and we will arrange a complimentary dinner for you and your guest. Your feedback helps us improve, and we hope to restore your confidence in us.',
+    time: '2 days ago',
+    reviewText:
+      'Very disappointed with my visit. The pasta was cold and the service was incredibly slow — waited over 40 minutes for our main course. The waiter seemed disinterested and never apologized. For the price, I expected much better. Won\'t be coming back.',
+    response:
+      'Dear Marcus, thank you for taking the time to share your experience — we\'re truly sorry it didn\'t meet your expectations. Cold pasta and a 40-minute wait are simply not acceptable, and we completely understand your frustration. We\'ve already spoken with our kitchen and front-of-house teams to address these issues directly. We\'d love the opportunity to make this right: please reach out to us at hello@lapiazzarome.com and we\'ll arrange a complimentary visit at your convenience. Your feedback helps us grow, and we hope to welcome you back soon. — The La Piazza Team',
     responseTime: 'Responded in 4 minutes',
   },
   {
-    id: '2',
-    author: 'Marco Bianchi',
-    avatar: 'MB',
-    rating: 5,
-    date: '1 day ago',
-    text: 'Absolutely fantastic experience from start to finish! The tiramisu was the best I have had outside of Italy. Staff were warm and attentive. Will definitely be back with the whole family.',
-    type: 'positive',
-    response: 'Grazie mille, Marco! Your kind words truly made our day. We are so happy you loved the tiramisu — our pastry chef will be thrilled to hear that! We look forward to welcoming you and your family back very soon. Next time, ask for our off-menu limoncello dessert — we think you will love it just as much!',
-    responseTime: 'Responded in 3 minutes',
+    id: 'neutral',
+    label: 'Neutral Review',
+    badgeColor: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+    dotColor: 'bg-yellow-400',
+    author: 'Sophie L.',
+    rating: 3,
+    time: '5 days ago',
+    reviewText:
+      'Decent place overall. The coffee was good but the pastries were a bit dry. Atmosphere is nice and staff were friendly enough. Nothing extraordinary but not bad either. Might give it another try.',
+    response:
+      'Hi Sophie, thank you for stopping by and for your honest feedback! We\'re glad you enjoyed the coffee and the atmosphere. You\'re absolutely right about the pastries — freshness is something we take seriously, and we\'re working with our bakery supplier to improve consistency. We\'d love to impress you on your next visit: ask our barista about our daily fresh-baked specials when you come in. See you soon! — The Brew & Co. Team',
+    responseTime: 'Responded in 6 minutes',
   },
   {
-    id: '3',
-    author: 'Lena Hofmann',
-    avatar: 'LH',
-    rating: 3,
-    date: '3 days ago',
-    text: 'The food was decent but nothing special. Ambiance is nice but the music was too loud for a conversation. Service was friendly though. Might try again on a quieter night.',
-    type: 'neutral',
-    response: 'Thank you for the honest feedback, Lena! We really appreciate you mentioning the music — it is something we have heard from a couple of guests recently and we are actively adjusting the volume levels during dinner service. We are glad the team made a good impression and we would love to show you a better experience on your next visit. Weekday evenings tend to be much calmer — we hope to see you again soon!',
-    responseTime: 'Responded in 5 minutes',
+    id: 'positive',
+    label: 'Positive Review',
+    badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+    dotColor: 'bg-emerald-400',
+    author: 'Elena V.',
+    rating: 5,
+    time: '1 week ago',
+    reviewText:
+      'Absolutely loved my experience at Bloom Studio! The team was professional, attentive, and clearly talented. My hair color came out exactly as I envisioned — maybe even better. The salon has a beautiful, relaxing vibe. Booked my next appointment already!',
+    response:
+      'Elena, your kind words made our whole team smile! 😊 We\'re so thrilled the color came out exactly as you envisioned — our stylists put a lot of care into every consultation to make that happen. We absolutely love having you as a client and can\'t wait to see you at your next appointment. Don\'t forget, refer a friend and you both get 15% off your next service. See you soon! — The Bloom Studio Team',
+    responseTime: 'Responded in 3 minutes',
   },
 ];
-
-const typeLabels: Record<Review['type'], { label: string; color: string }> = {
-  negative: { label: 'Negative Review', color: 'text-red-400 bg-red-400/10 border-red-400/20' },
-  positive: { label: 'Positive Review', color: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20' },
-  neutral: { label: 'Neutral Review', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20' },
-};
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -63,7 +54,9 @@ function StarRating({ rating }: { rating: number }) {
       {[1, 2, 3, 4, 5].map((star) => (
         <svg
           key={star}
-          className={`w-4 h-4 ${star <= rating ? 'text-yellow-400' : 'text-gray-600'}`}
+          className={`w-4 h-4 ${
+            star <= rating ? 'text-yellow-400' : 'text-gray-600'
+          }`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -75,28 +68,15 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function Demo() {
-  const [activeId, setActiveId] = useState<string>('1');
-  const [isTyping, setIsTyping] = useState(false);
-  const [showResponse, setShowResponse] = useState(true);
+  const [activeId, setActiveId] = useState<string>('negative');
 
   const activeReview = reviews.find((r) => r.id === activeId)!;
-
-  const handleSelectReview = (id: string) => {
-    if (id === activeId) return;
-    setShowResponse(false);
-    setIsTyping(true);
-    setActiveId(id);
-    setTimeout(() => {
-      setIsTyping(false);
-      setShowResponse(true);
-    }, 1200);
-  };
 
   return (
     <section id="demo" className="py-24 px-4 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#00e5ff]/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00e5ff]/3 blur-[120px]" />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -108,246 +88,162 @@ export default function Demo() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 text-xs font-semibold tracking-widest uppercase text-[#00e5ff] bg-[#00e5ff]/10 border border-[#00e5ff]/20 rounded-full mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00e5ff]/10 border border-[#00e5ff]/20 text-[#00e5ff] text-sm font-medium mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse" />
             Live Demo
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
             See ReviewAgent in{' '}
-            <span className="text-[#00e5ff]">action</span>
+            <span className="text-[#00e5ff]">Action</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Select any review type below and watch ReviewAgent craft a perfect, on-brand response in seconds — just like it does for your business, 24/7.
+            Real reviews, real responses — generated and posted automatically within minutes.
+            Pick a review type to see how ReviewAgent handles it.
           </p>
         </motion.div>
 
+        {/* Tab selector */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="grid lg:grid-cols-2 gap-6"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-3 mb-10"
         >
-          {/* Left panel: Review selector + review card */}
-          <div className="flex flex-col gap-4">
-            {/* Selector tabs */}
-            <div className="flex gap-2 flex-wrap">
-              {reviews.map((review) => {
-                const meta = typeLabels[review.type];
-                const isActive = review.id === activeId;
-                return (
-                  <button
-                    key={review.id}
-                    onClick={() => handleSelectReview(review.id)}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all duration-200 ${
-                      isActive
-                        ? `${meta.color} ring-1 ring-current`
-                        : 'text-gray-400 bg-[#111118] border-white/10 hover:border-white/20 hover:text-white'
-                    }`}
-                  >
-                    {meta.label}
-                  </button>
-                );
-              })}
+          {reviews.map((review) => (
+            <button
+              key={review.id}
+              onClick={() => setActiveId(review.id)}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 border ${
+                activeId === review.id
+                  ? review.badgeColor + ' shadow-lg'
+                  : 'bg-[#111118] border-white/10 text-gray-400 hover:border-white/20 hover:text-white'
+              }`}
+            >
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  activeId === review.id ? review.dotColor : 'bg-gray-600'
+                }`}
+              />
+              {review.label}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Demo card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeId}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+          >
+            {/* Google Maps header bar */}
+            <div className="flex items-center gap-3 px-5 py-3.5 bg-[#0d0d14] border-b border-white/8">
+              <div className="flex gap-1.5">
+                <span className="w-3 h-3 rounded-full bg-red-500/60" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                <span className="w-3 h-3 rounded-full bg-emerald-500/60" />
+              </div>
+              <div className="flex-1 flex items-center gap-2 bg-[#111118] rounded-md px-3 py-1.5 max-w-xs mx-auto">
+                <svg className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                </svg>
+                <span className="text-gray-500 text-xs truncate">google.com/maps/reviews</span>
+              </div>
             </div>
 
-            {/* Review card */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeReview.id + '-review'}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-                className="flex-1 bg-[#111118] border border-white/10 rounded-2xl p-6"
-              >
-                {/* Google header */}
-                <div className="flex items-center gap-2 mb-5">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[#4285F4] font-bold text-lg">G</span>
-                    <span className="text-xs text-gray-500 font-medium">Google Review</span>
+            <div className="p-6 md:p-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Original review */}
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Customer Review</span>
                   </div>
-                  <span className="ml-auto text-xs text-gray-600">{activeReview.date}</span>
+                  <div className="bg-[#0a0a0f] rounded-xl p-5 border border-white/8 h-full">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                        {activeReview.author.charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-white font-semibold text-sm">{activeReview.author}</span>
+                          <span className="text-gray-600 text-xs flex-shrink-0">{activeReview.time}</span>
+                        </div>
+                        <StarRating rating={activeReview.rating} />
+                      </div>
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{activeReview.reviewText}</p>
+                  </div>
                 </div>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00e5ff]/30 to-purple-500/30 flex items-center justify-center text-sm font-semibold text-white border border-white/10">
-                    {activeReview.avatar}
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold">{activeReview.author}</p>
-                    <StarRating rating={activeReview.rating} />
-                  </div>
-                  <div className="ml-auto">
-                    <span className={`px-2 py-0.5 text-xs font-medium rounded border ${typeLabels[activeReview.type].color}`}>
-                      {activeReview.rating}/5
+                {/* AI response */}
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">AI-Generated Response</span>
+                    <span className="flex items-center gap-1.5 text-xs text-[#00e5ff] bg-[#00e5ff]/10 border border-[#00e5ff]/20 px-2.5 py-1 rounded-full">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00e5ff] opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00e5ff]" />
+                      </span>
+                      Auto-posted
                     </span>
                   </div>
-                </div>
-
-                {/* Review text */}
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  &ldquo;{activeReview.text}&rdquo;
-                </p>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Stats strip */}
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { value: '< 5 min', label: 'Avg response time' },
-                { value: '98%', label: 'Positive sentiment' },
-                { value: '24/7', label: 'Always on' },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-[#111118] border border-white/10 rounded-xl p-3 text-center"
-                >
-                  <p className="text-[#00e5ff] font-bold text-lg">{stat.value}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right panel: AI response */}
-          <div className="flex flex-col">
-            <div className="bg-[#111118] border border-white/10 rounded-2xl p-6 flex-1 flex flex-col">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#00e5ff]/15 border border-[#00e5ff]/30 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-[#00e5ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                    </svg>
-                  </div>
-                  <span className="text-white text-sm font-semibold">ReviewAgent Response</span>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  {isTyping ? (
-                    <motion.div
-                      key="typing"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-1.5"
-                    >
-                      <span className="text-xs text-[#00e5ff]">Generating</span>
-                      <div className="flex gap-1">
-                        {[0, 1, 2].map((i) => (
-                          <motion.div
-                            key={i}
-                            className="w-1.5 h-1.5 rounded-full bg-[#00e5ff]"
-                            animate={{ opacity: [0.3, 1, 0.3] }}
-                            transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
-                          />
-                        ))}
+                  <div className="bg-[#0a0a0f] rounded-xl p-5 border border-[#00e5ff]/20 h-full relative">
+                    <div className="absolute top-3 right-3">
+                      <svg className="w-4 h-4 text-[#00e5ff]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                      </svg>
+                    </div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-6 h-6 rounded-full bg-[#00e5ff]/20 border border-[#00e5ff]/30 flex items-center justify-center">
+                        <svg className="w-3 h-3 text-[#00e5ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
                       </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="done"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-1.5"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      <span className="text-xs text-emerald-400 font-medium">{activeReview.responseTime}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      <span className="text-[#00e5ff] text-xs font-semibold">ReviewAgent</span>
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{activeReview.response}</p>
+                    <div className="mt-4 pt-4 border-t border-white/8 flex items-center gap-2">
+                      <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-emerald-400 text-xs font-medium">{activeReview.responseTime}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Response body */}
-              <div className="flex-1 relative">
-                <AnimatePresence mode="wait">
-                  {isTyping ? (
-                    <motion.div
-                      key="skeleton"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-3"
-                    >
-                      {[100, 85, 90, 70, 95, 60].map((width, i) => (
-                        <motion.div
-                          key={i}
-                          className="h-3 bg-white/5 rounded-full"
-                          style={{ width: `${width}%` }}
-                          animate={{ opacity: [0.4, 0.8, 0.4] }}
-                          transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.1 }}
-                        />
-                      ))}
-                    </motion.div>
-                  ) : showResponse ? (
-                    <motion.div
-                      key={activeReview.id + '-response'}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <p className="text-gray-300 text-sm leading-relaxed">
-                        {activeReview.response}
-                      </p>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
-
-              {/* Footer actions */}
-              <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Auto-posted to Google
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                    Tone-matched
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <button className="p-1.5 text-gray-500 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                  </button>
-                  <button className="p-1.5 text-gray-500 hover:text-[#00e5ff] transition-colors rounded-lg hover:bg-[#00e5ff]/10">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
-                    </svg>
-                  </button>
-                </div>
+              {/* Bottom stats bar */}
+              <div className="mt-6 pt-6 border-t border-white/8 grid grid-cols-3 gap-4">
+                {[
+                  { label: 'Avg. Response Time', value: '< 5 min', icon: '⚡' },
+                  { label: 'Response Rate', value: '100%', icon: '✅' },
+                  { label: 'Tone Matched', value: 'Always', icon: '🎯' },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <div className="text-lg mb-0.5">{stat.icon}</div>
+                    <div className="text-white font-bold text-lg">{stat.value}</div>
+                    <div className="text-gray-500 text-xs">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
+          </motion.div>
+        </AnimatePresence>
 
-            {/* CTA nudge */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-4 p-4 bg-[#00e5ff]/5 border border-[#00e5ff]/20 rounded-xl flex items-center justify-between gap-4"
-            >
-              <p className="text-sm text-gray-400">
-                <span className="text-white font-medium">Ready to automate your reviews?</span>{' '}
-                Set up takes less than 5 minutes.
-              </p>
-              <a
-                href="#pricing"
-                className="shrink-0 px-4 py-2 text-sm font-semibold text-[#00e5ff] bg-[#00e5ff]/10 border border-[#00e5ff]/30 rounded-lg hover:bg-[#00e5ff]/20 transition-colors whitespace-nowrap"
-              >
-                Get started
-              </a>
-            </motion.div>
-          </div>
-        </motion.div>
+        {/* Disclaimer note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center text-gray-600 text-sm mt-6"
+        >
+          * Example responses shown above. ReviewAgent learns your brand voice and personalizes every reply.
+        </motion.p>
       </div>
     </section>
   );
