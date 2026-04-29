@@ -1,13 +1,37 @@
-import Hero from '@/components/Hero';
-import Sections from '@/components/Sections';
-import Pricing from '@/components/Pricing';
+'use client';
 
-export default function HomePage() {
+import { useState } from 'react';
+import Hero from '@/components/Hero';
+import Pricing from '@/components/Pricing';
+import LeadModal from '@/components/LeadModal';
+import { FeaturesSection, TestimonialsSection, CTABanner, Footer } from '@/components/Sections';
+
+export default function Page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string>('pro');
+
+  const handleOpenModal = (plan: string) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <main className="min-h-screen" style={{ backgroundColor: '#0a0a0f', color: '#ffffff' }}>
-      <Hero />
-      <Sections />
-      <Pricing />
+    <main className="min-h-screen" style={{ backgroundColor: '#0a0a0f' }}>
+      <Hero onOpenModal={handleOpenModal} />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <Pricing onSelectPlan={(plan) => handleOpenModal(plan)} />
+      <CTABanner onOpenModal={handleOpenModal} />
+      <Footer />
+      <LeadModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        selectedPlan={selectedPlan}
+      />
     </main>
   );
 }
