@@ -1,14 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { Check, Zap, Building2, Sparkles } from 'lucide-react';
+import { Check, Zap, Star, Building2 } from 'lucide-react';
 
-type Plan = 'free' | 'pro' | 'business';
+export type Plan = 'free' | 'pro' | 'business';
 
-interface PricingPlan {
+export interface PricingProps {
+  onSelectPlan: (plan: Plan) => void;
+}
+
+interface PlanConfig {
   id: Plan;
   name: string;
-  price: number | null;
+  price: string;
   period: string;
   description: string;
   icon: React.ReactNode;
@@ -18,25 +21,21 @@ interface PricingPlan {
   badge?: string;
 }
 
-interface PricingProps {
-  onSelectPlan: (plan: Plan) => void;
-}
-
-const plans: PricingPlan[] = [
+const plans: PlanConfig[] = [
   {
     id: 'free',
     name: 'Free',
-    price: 0,
+    price: '$0',
     period: 'forever',
-    description: 'Perfect for getting started with review management.',
-    icon: <Sparkles size={22} />,
+    description: 'Perfect for getting started and exploring ReviewAgent capabilities.',
+    icon: <Zap size={22} className="text-gray-400" />,
     features: [
-      'Up to 50 reviews/month',
-      '1 business location',
+      'Up to 20 reviews/month',
       'Google Reviews integration',
       'Basic AI response templates',
       'Email notifications',
-      'Dashboard analytics (7-day)',
+      'Dashboard with key metrics',
+      '1 business location',
     ],
     cta: 'Get Started Free',
     highlighted: false,
@@ -44,19 +43,19 @@ const plans: PricingPlan[] = [
   {
     id: 'pro',
     name: 'Pro',
-    price: 49,
+    price: '$49',
     period: 'per month',
-    description: 'For restaurants and salons serious about their reputation.',
-    icon: <Zap size={22} />,
+    description: 'For growing restaurants and salons that want full AI-powered automation.',
+    icon: <Star size={22} className="text-[#00e5ff]" />,
     features: [
       'Unlimited reviews',
-      'Up to 3 business locations',
-      'Google, Yelp & TripAdvisor',
+      'Google + TripAdvisor + Yelp',
       'Advanced AI auto-responses',
-      'Sentiment analysis',
-      'Dashboard analytics (90-day)',
+      'Sentiment analysis & alerts',
+      'Weekly performance reports',
+      'Up to 3 business locations',
       'Priority email support',
-      'Weekly digest reports',
+      'Custom response tone settings',
     ],
     cta: 'Start Pro Trial',
     highlighted: true,
@@ -65,19 +64,19 @@ const plans: PricingPlan[] = [
   {
     id: 'business',
     name: 'Business',
-    price: 149,
+    price: '$149',
     period: 'per month',
-    description: 'For multi-location chains and marketing teams.',
-    icon: <Building2 size={22} />,
+    description: 'For chains and marketing teams managing multiple venues at scale.',
+    icon: <Building2 size={22} className="text-purple-400" />,
     features: [
-      'Unlimited reviews',
+      'Everything in Pro',
       'Unlimited locations',
-      'All platforms + custom sources',
-      'Custom AI response tone & brand voice',
+      'All major review platforms',
+      'Competitor benchmarking',
+      'Custom AI persona per brand',
       'Advanced analytics & exports',
-      'API access',
       'Dedicated account manager',
-      'Onboarding & training session',
+      'API access & webhooks',
       'SLA 99.9% uptime guarantee',
     ],
     cta: 'Contact Sales',
@@ -86,172 +85,150 @@ const plans: PricingPlan[] = [
 ];
 
 export default function Pricing({ onSelectPlan }: PricingProps) {
-  const [hoveredPlan, setHoveredPlan] = useState<Plan | null>(null);
-
   return (
-    <section id="pricing" className="py-24 px-4 relative overflow-hidden" style={{ background: '#0a0a0f' }}>
-      {/* Background glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10 blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
-      />
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section header */}
+    <section id="pricing" className="py-24 px-4" style={{ background: '#0a0a0f' }}>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
+          <span
+            className="inline-block text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4"
             style={{ background: 'rgba(0,229,255,0.08)', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)' }}
           >
-            <Zap size={12} />
-            Simple Pricing
-          </div>
+            Pricing
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Transparent plans,{' '}
-            <span style={{ color: '#00e5ff' }}>real results</span>
+            Simple, transparent pricing
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: '#8888aa' }}>
-            No hidden fees. No long-term contracts. Cancel anytime. Start free and upgrade as you grow.
+          <p className="text-lg text-gray-400 max-w-xl mx-auto">
+            No hidden fees. No contracts. Cancel anytime. Start free and upgrade when you're ready to grow.
           </p>
         </div>
 
-        {/* Pricing cards */}
+        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {plans.map((plan) => {
-            const isHovered = hoveredPlan === plan.id;
-            const isHighlighted = plan.highlighted;
-
-            return (
-              <div
-                key={plan.id}
-                onMouseEnter={() => setHoveredPlan(plan.id)}
-                onMouseLeave={() => setHoveredPlan(null)}
-                className="relative rounded-2xl flex flex-col transition-all duration-300"
-                style={{
-                  background: isHighlighted ? 'rgba(0,229,255,0.05)' : '#111118',
-                  border: isHighlighted
-                    ? '1.5px solid rgba(0,229,255,0.5)'
-                    : isHovered
-                    ? '1.5px solid rgba(0,229,255,0.25)'
-                    : '1.5px solid rgba(255,255,255,0.06)',
-                  boxShadow: isHighlighted
-                    ? '0 0 40px rgba(0,229,255,0.12), 0 8px 32px rgba(0,0,0,0.4)'
-                    : isHovered
-                    ? '0 8px 32px rgba(0,0,0,0.3)'
-                    : '0 4px 16px rgba(0,0,0,0.2)',
-                  transform: isHighlighted ? 'scale(1.03)' : isHovered ? 'translateY(-4px)' : 'none',
-                }}
-              >
-                {/* Popular badge */}
-                {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span
-                      className="px-4 py-1 rounded-full text-xs font-bold tracking-wide"
-                      style={{
-                        background: 'linear-gradient(90deg, #00e5ff, #00b8cc)',
-                        color: '#0a0a0f',
-                      }}
-                    >
-                      {plan.badge}
-                    </span>
-                  </div>
-                )}
-
-                <div className="p-8 flex flex-col flex-1">
-                  {/* Plan header */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{
-                        background: isHighlighted ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.05)',
-                        color: isHighlighted ? '#00e5ff' : '#8888aa',
-                      }}
-                    >
-                      {plan.icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-                  </div>
-
-                  {/* Price */}
-                  <div className="mb-4">
-                    {plan.price === 0 ? (
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-5xl font-extrabold text-white">$0</span>
-                        <span className="text-sm ml-1" style={{ color: '#8888aa' }}>{plan.period}</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-bold" style={{ color: '#8888aa' }}>$</span>
-                        <span className="text-5xl font-extrabold text-white">{plan.price}</span>
-                        <span className="text-sm ml-1" style={{ color: '#8888aa' }}>{plan.period}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm mb-8 leading-relaxed" style={{ color: '#8888aa' }}>
-                    {plan.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <div
-                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{
-                            background: isHighlighted ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.06)',
-                          }}
-                        >
-                          <Check
-                            size={11}
-                            style={{ color: isHighlighted ? '#00e5ff' : '#8888aa' }}
-                            strokeWidth={3}
-                          />
-                        </div>
-                        <span className="text-sm leading-snug" style={{ color: isHighlighted ? '#ccccdd' : '#8888aa' }}>
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <button
-                    onClick={() => onSelectPlan(plan.id)}
-                    className="w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 cursor-pointer"
-                    style={{
-                      background: isHighlighted
-                        ? 'linear-gradient(135deg, #00e5ff, #00b8cc)'
-                        : 'rgba(255,255,255,0.06)',
-                      color: isHighlighted ? '#0a0a0f' : '#ffffff',
-                      border: isHighlighted ? 'none' : '1px solid rgba(255,255,255,0.1)',
-                      boxShadow: isHighlighted ? '0 4px 20px rgba(0,229,255,0.3)' : 'none',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isHighlighted) {
-                        e.currentTarget.style.background = 'rgba(0,229,255,0.1)';
-                        e.currentTarget.style.borderColor = 'rgba(0,229,255,0.3)';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isHighlighted) {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                      }
-                    }}
-                  >
-                    {plan.cta}
-                  </button>
+          {plans.map((plan) => (
+            <div
+              key={plan.id}
+              className="relative flex flex-col rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+              style={{
+                background: plan.highlighted
+                  ? 'linear-gradient(160deg, #0d1f2d 0%, #111118 100%)'
+                  : '#111118',
+                border: plan.highlighted
+                  ? '1.5px solid rgba(0,229,255,0.55)'
+                  : '1.5px solid rgba(255,255,255,0.07)',
+                boxShadow: plan.highlighted
+                  ? '0 0 40px rgba(0,229,255,0.12), 0 8px 32px rgba(0,0,0,0.4)'
+                  : '0 4px 24px rgba(0,0,0,0.3)',
+              }}
+            >
+              {/* Popular badge */}
+              {plan.badge && (
+                <div
+                  className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold tracking-wider uppercase px-4 py-1 rounded-full"
+                  style={{
+                    background: 'linear-gradient(90deg, #00e5ff, #0099bb)',
+                    color: '#0a0a0f',
+                  }}
+                >
+                  {plan.badge}
                 </div>
+              )}
+
+              <div className="p-8 flex flex-col flex-1">
+                {/* Icon + Name */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  >
+                    {plan.icon}
+                  </div>
+                  <span className="text-lg font-semibold text-white">{plan.name}</span>
+                </div>
+
+                {/* Price */}
+                <div className="mb-3">
+                  <span
+                    className="text-5xl font-extrabold"
+                    style={{ color: plan.highlighted ? '#00e5ff' : 'white' }}
+                  >
+                    {plan.price}
+                  </span>
+                  <span className="text-gray-500 text-sm ml-2">{plan.period}</span>
+                </div>
+
+                {/* Description */}
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
+
+                {/* Divider */}
+                <div
+                  className="w-full h-px mb-6"
+                  style={{ background: 'rgba(255,255,255,0.07)' }}
+                />
+
+                {/* Features */}
+                <ul className="flex flex-col gap-3 mb-8 flex-1">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <span
+                        className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
+                        style={{
+                          background: plan.highlighted
+                            ? 'rgba(0,229,255,0.15)'
+                            : 'rgba(255,255,255,0.06)',
+                        }}
+                      >
+                        <Check
+                          size={11}
+                          strokeWidth={3}
+                          style={{ color: plan.highlighted ? '#00e5ff' : '#9ca3af' }}
+                        />
+                      </span>
+                      <span className="text-sm text-gray-300 leading-snug">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <button
+                  onClick={() => onSelectPlan(plan.id)}
+                  className="w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  style={{
+                    background: plan.highlighted
+                      ? 'linear-gradient(90deg, #00e5ff, #00b8cc)'
+                      : 'rgba(255,255,255,0.07)',
+                    color: plan.highlighted ? '#0a0a0f' : 'white',
+                    border: plan.highlighted ? 'none' : '1px solid rgba(255,255,255,0.1)',
+                    focusRingColor: '#00e5ff',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!plan.highlighted) {
+                      (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)';
+                    } else {
+                      (e.currentTarget as HTMLButtonElement).style.opacity = '0.92';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!plan.highlighted) {
+                      (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.07)';
+                    } else {
+                      (e.currentTarget as HTMLButtonElement).style.opacity = '1';
+                    }
+                  }}
+                >
+                  {plan.cta}
+                </button>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
-        {/* Footer note */}
-        <p className="text-center text-sm mt-10" style={{ color: '#555566' }}>
-          All plans include GDPR-compliant data handling · Prices in USD · VAT may apply in EU countries
+        {/* Bottom note */}
+        <p className="text-center text-gray-500 text-sm mt-10">
+          All plans include a{' '}
+          <span style={{ color: '#00e5ff' }}>14-day free trial</span>
+          {' '}on paid tiers. No credit card required to start.
         </p>
       </div>
     </section>
