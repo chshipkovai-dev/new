@@ -1,34 +1,25 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-inter',
+  display: 'swap',
 });
-
-export const viewport: Viewport = {
-  themeColor: '#0a0a0f',
-  width: 'device-width',
-  initialScale: 1,
-};
 
 export const metadata: Metadata = {
   title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
   description:
-    'Automate Google Reviews responses, collect new reviews, and boost your reputation on autopilot. Trusted by 500+ restaurants and beauty salons across Europe.',
+    'Automate Google Reviews responses, collect more 5-star ratings, and grow your business with ReviewAgent. Trusted by restaurants and beauty salons across Europe.',
   keywords: [
     'review management',
     'AI reviews',
     'Google Reviews automation',
-    'restaurant reputation',
+    'restaurant reviews',
     'beauty salon reviews',
+    'reputation management Europe',
     'automated review responses',
-    'review agent',
-    'Europe',
-    'Germany',
-    'Poland',
   ],
   authors: [{ name: 'ailnex', url: 'https://ailnex.com' }],
   creator: 'ailnex',
@@ -44,13 +35,13 @@ export const metadata: Metadata = {
     siteName: 'ReviewAgent',
     title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
     description:
-      'Stop losing customers to bad reviews. ReviewAgent automatically responds to Google Reviews 24/7, collects new 5-star reviews, and gives you actionable insights.',
+      'Automate Google Reviews responses, collect more 5-star ratings, and grow your business with ReviewAgent. Trusted by restaurants and beauty salons across Europe.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ReviewAgent — AI Review Management Platform',
+        alt: 'ReviewAgent — AI Review Management',
       },
     ],
   },
@@ -58,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ReviewAgent — AI-Powered Review Management',
     description:
-      'Automate Google Reviews responses and boost your reputation on autopilot.',
+      'Automate Google Reviews responses and collect more 5-star ratings with AI. Built for restaurants and salons in Europe.',
     images: ['/og-image.png'],
     creator: '@ailnex',
   },
@@ -73,7 +64,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  category: 'technology',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  other: {
+    'theme-color': '#0a0a0f',
+  },
 };
 
 export default function RootLayout({
@@ -84,12 +83,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="geo.region" content="EU" />
-        <meta name="geo.placename" content="Europe" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0a0a0f" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,9 +100,9 @@ export default function RootLayout({
               '@type': 'SoftwareApplication',
               name: 'ReviewAgent',
               applicationCategory: 'BusinessApplication',
-              operatingSystem: 'Web',
               description:
-                'AI-powered review management platform for restaurants and beauty salons in Europe.',
+                'AI-powered review management platform for restaurants and beauty salons in Europe. Automate responses, collect more reviews, and protect your online reputation.',
+              operatingSystem: 'Web',
               offers: [
                 {
                   '@type': 'Offer',
@@ -121,23 +123,17 @@ export default function RootLayout({
                   priceCurrency: 'USD',
                 },
               ],
-              creator: {
+              provider: {
                 '@type': 'Organization',
                 name: 'ailnex',
                 url: 'https://ailnex.com',
-              },
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.9',
-                reviewCount: '127',
               },
             }),
           }}
         />
       </head>
       <body
-        className="font-sans antialiased"
-        style={{ backgroundColor: '#0a0a0f', color: '#f0f0f5' }}
+        className={`${inter.variable} font-sans bg-[#0a0a0f] text-white antialiased min-h-screen`}
       >
         {children}
       </body>
