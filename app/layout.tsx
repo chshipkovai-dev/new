@@ -18,16 +18,16 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
   description:
-    'ReviewAgent automatically responds to your Google reviews 24/7. Save hours every week, boost your rating, and never miss a customer feedback. Trusted by restaurants, salons, and cafés across Europe.',
+    'ReviewAgent automatically responds to your Google reviews 24/7. Save hours every week, boost your rating, and never miss a customer — perfect for restaurants, salons, and cafés across Europe.',
   keywords: [
-    'google reviews automation',
-    'automated review replies',
+    'Google reviews automation',
+    'automated review responses',
     'restaurant review management',
-    'salon review software',
-    'cafe reputation management',
-    'google my business automation',
-    'review response tool',
-    'local business SaaS',
+    'salon review replies',
+    'local business reputation',
+    'Google My Business automation',
+    'review response software',
+    'SaaS review tool Europe',
   ],
   authors: [{ name: 'ailnex', url: 'https://ailnex.com' }],
   creator: 'ailnex',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: 'ReviewAgent',
     title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
     description:
-      'Stop spending hours on Google review responses. ReviewAgent AI replies instantly, 24/7 — in your brand voice. Trusted by 500+ local businesses across Europe.',
+      'Stop spending hours replying to reviews manually. ReviewAgent handles it automatically — professional, personalized responses in seconds. Try free today.',
     images: [
       {
         url: '/og-image.png',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
     description:
-      'Stop spending hours on Google review responses. ReviewAgent AI replies instantly, 24/7 — in your brand voice.',
+      'Stop spending hours replying to reviews manually. ReviewAgent handles it automatically — professional, personalized responses in seconds.',
     images: ['/og-image.png'],
     creator: '@ailnex',
   },
@@ -75,10 +75,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: '/apple-touch-icon.png',
-    shortcut: '/favicon-16x16.png',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: '/favicon.ico',
   },
   manifest: '/site.webmanifest',
   category: 'technology',
@@ -94,9 +95,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
@@ -120,55 +121,52 @@ export default function RootLayout({
               applicationCategory: 'BusinessApplication',
               operatingSystem: 'Web',
               description:
-                'ReviewAgent automatically responds to your Google reviews 24/7 using AI. Designed for restaurants, salons, and cafés across Europe.',
+                'ReviewAgent automatically responds to your Google reviews 24/7. Perfect for restaurants, salons, and cafés across Europe.',
               offers: [
                 {
                   '@type': 'Offer',
                   name: 'Free Plan',
                   price: '0',
                   priceCurrency: 'USD',
-                  description: 'Up to 10 automated replies per month',
                 },
                 {
                   '@type': 'Offer',
                   name: 'Pro Plan',
                   price: '49',
                   priceCurrency: 'USD',
-                  billingIncrement: 'month',
-                  description: 'Unlimited replies for a single location',
                 },
                 {
                   '@type': 'Offer',
                   name: 'Business Plan',
                   price: '149',
                   priceCurrency: 'USD',
-                  billingIncrement: 'month',
-                  description: 'Up to 10 locations with advanced analytics',
                 },
               ],
-              provider: {
+              creator: {
                 '@type': 'Organization',
                 name: 'ailnex',
                 url: 'https://ailnex.com',
               },
+              url: 'https://reviewagent.ailnex.com',
             }),
           }}
         />
       </head>
       <body
-        className="bg-[#0a0a0f] text-white font-sans antialiased min-h-screen overflow-x-hidden"
+        className="bg-[#0a0a0f] text-white font-sans antialiased selection:bg-[#00e5ff]/20 selection:text-[#00e5ff]"
         style={{ fontFamily: 'var(--font-plus-jakarta), var(--font-inter), sans-serif' }}
       >
-        <div className="relative">
+        <div className="relative min-h-screen overflow-x-hidden">
+          {/* Global ambient glow background */}
           <div
-            className="pointer-events-none fixed inset-0 z-0"
             aria-hidden="true"
-            style={{
-              background:
-                'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,229,255,0.08) 0%, transparent 60%)',
-            }}
-          />
-          {children}
+            className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+          >
+            <div className="absolute -top-[400px] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[#00e5ff]/5 blur-[120px]" />
+            <div className="absolute top-[60%] -left-[200px] w-[500px] h-[500px] rounded-full bg-[#00e5ff]/3 blur-[100px]" />
+            <div className="absolute top-[40%] -right-[150px] w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[100px]" />
+          </div>
+          <div className="relative z-10">{children}</div>
         </div>
       </body>
     </html>
