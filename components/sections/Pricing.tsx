@@ -1,9 +1,114 @@
 'use client';
 
 import { useState } from 'react';
-import PricingCard from '@/components/ui/PricingCard';
 
-const plans = [
+interface PlanFeature {
+  text: string;
+  included: boolean;
+}
+
+interface Plan {
+  id: string;
+  name: string;
+  price: { monthly: number; annual: number };
+  description: string;
+  badge: string | null;
+  features: PlanFeature[];
+  cta: string;
+  ctaVariant: 'primary' | 'outline';
+  highlighted: boolean;
+}
+
+function PricingCard({
+  plan,
+  isAnnual,
+  onSelectPlan,
+}: {
+  plan: Plan;
+  isAnnual: boolean;
+  onSelectPlan?: (planId: string) => void;
+}) {
+  const price = isAnnual ? plan.price.annual : plan.price.monthly;
+
+  return (
+    <div
+      className="relative flex flex-col rounded-2xl p-6 transition-all duration-200"
+      style={{
+        background: plan.highlighted ? '#111118' : '#0d0d14',
+        border: plan.highlighted
+          ? '1px solid rgba(0,229,255,0.4)'
+          : '1px solid rgba(255,255,255,0.07)',
+        boxShadow: plan.highlighted ? '0 0 40px rgba(0,229,255,0.08)' : 'none',
+      }}
+    >
+      {plan.badge && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span
+            className="px-3 py-1 rounded-full text-xs font-bold"
+            style={{ background: '#00e5ff', color: '#0a0a0f' }}
+          >
+            {plan.badge}
+          </span>
+        </div>
+      )}
+
+      <div className="mb-6">
+        <h3 className="text-lg font-bold text-white mb-1">{plan.name}</h3>
+        <p className="text-sm text-gray-400 leading-relaxed">{plan.description}</p>
+      </div>
+
+      <div className="mb-6">
+        {price === 0 ? (
+          <div className="text-4xl font-extrabold text-white">Free</div>
+        ) : (
+          <div className="flex items-end gap-1">
+            <span className="text-4xl font-extrabold text-white">€{price}</span>
+            <span className="text-gray-400 text-sm mb-1">/mo</span>
+          </div>
+        )}
+        {isAnnual && price > 0 && (
+          <p className="text-xs text-gray-500 mt-1">billed annually</p>
+        )}
+      </div>
+
+      <button
+        onClick={() => onSelectPlan?.(plan.id)}
+        className="w-full py-3 rounded-xl text-sm font-semibold mb-6 transition-all duration-200"
+        style={
+          plan.ctaVariant === 'primary'
+            ? { background: '#00e5ff', color: '#0a0a0f' }
+            : { border: '1px solid rgba(0,229,255,0.4)', color: '#00e5ff' }
+        }
+      >
+        {plan.cta}
+      </button>
+
+      <ul className="flex flex-col gap-3">
+        {plan.features.map((feature, i) => (
+          <li key={i} className="flex items-start gap-3">
+            <span
+              className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[10px]"
+              style={{
+                background: feature.included ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.05)',
+                color: feature.included ? '#00e5ff' : '#4b5563',
+              }}
+            >
+              {feature.included ? '✓' : '×'}
+            </span>
+            <span
+              className="text-sm leading-snug"
+              style={{ color: feature.included ? '#d1d5db' : '#4b5563' }}
+            >
+              {feature.text}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const plans: Plan[] = [
   {
     id: 'free',
     name: 'Free',
@@ -23,7 +128,7 @@ const plans = [
       { text: 'Priority support', included: false },
     ],
     cta: 'Start for Free',
-    ctaVariant: 'outline' as const,
+    ctaVariant: 'outline',
     highlighted: false,
   },
   {
@@ -45,7 +150,7 @@ const plans = [
       { text: 'Priority support', included: false },
     ],
     cta: 'Get Started',
-    ctaVariant: 'primary' as const,
+    ctaVariant: 'primary',
     highlighted: true,
   },
   {
@@ -67,7 +172,7 @@ const plans = [
       { text: 'Priority support + dedicated CSM', included: true },
     ],
     cta: 'Contact Sales',
-    ctaVariant: 'outline' as const,
+    ctaVariant: 'outline',
     highlighted: false,
   },
 ];
@@ -85,7 +190,6 @@ export default function Pricing({ onSelectPlan }: PricingSectionProps) {
       className="relative py-24 px-4 overflow-hidden"
       style={{ background: '#0a0a0f' }}
     >
-      {/* Background decorations */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-5 blur-3xl pointer-events-none"
         style={{ background: 'radial-gradient(circle, #00e5ff 0%, transparent 70%)' }}
@@ -104,8 +208,7 @@ export default function Pricing({ onSelectPlan }: PricingSectionProps) {
             Simple, transparent pricing
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            No hidden fees. No long-term contracts. Cancel anytime.
-            All plans include a{' '}
+            No hidden fees. No long-term contracts. Cancel anytime. All plans include a{' '}
             <span style={{ color: '#00e5ff' }}>14-day free trial</span>.
           </p>
 
@@ -116,11 +219,8 @@ export default function Pricing({ onSelectPlan }: PricingSectionProps) {
             </span>
             <button
               onClick={() => setIsAnnual((prev) => !prev)}
-              className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black"
-              style={{
-                background: isAnnual ? '#00e5ff' : 'rgba(255,255,255,0.1)',
-                focusRingColor: '#00e5ff',
-              }}
+              className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#00e5ff] focus:ring-offset-2 focus:ring-offset-black"
+              style={{ background: isAnnual ? '#00e5ff' : 'rgba(255,255,255,0.1)' }}
               aria-label="Toggle billing period"
             >
               <span
@@ -158,9 +258,7 @@ export default function Pricing({ onSelectPlan }: PricingSectionProps) {
           style={{ borderColor: 'rgba(255,255,255,0.07)', background: '#111118' }}
         >
           <div>
-            <p className="text-white font-semibold text-lg mb-1">
-              Need a custom Enterprise plan?
-            </p>
+            <p className="text-white font-semibold text-lg mb-1">Need a custom Enterprise plan?</p>
             <p className="text-gray-400 text-sm">
               For large hospitality groups with 20+ locations, white-label options, or custom AI training on your brand voice.
             </p>
@@ -176,30 +274,14 @@ export default function Pricing({ onSelectPlan }: PricingSectionProps) {
 
         {/* Trust signals */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            No credit card required
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            Cancel anytime
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            GDPR compliant
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            Prices in EUR
-          </div>
+          {['No credit card required', 'Cancel anytime', 'GDPR compliant', 'Prices in EUR'].map((item) => (
+            <div key={item} className="flex items-center gap-2">
+              <svg className="w-4 h-4" style={{ color: '#00e5ff' }} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </section>
