@@ -9,30 +9,54 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://reviewagent.ailnex.com'),
-  title: {
-    default: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
-    template: '%s | ReviewAgent by ailnex',
-  },
+  title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
   description:
-    'Automatically respond to Google reviews with AI. Built for restaurants and beauty salons across Europe. Save time, boost reputation, grow trust — starting free.',
+    'Automatically respond to Google reviews, boost your reputation, and attract more customers. Trusted by restaurants and beauty salons across Europe. Start free today.',
   keywords: [
     'review management',
-    'AI review responses',
+    'AI reviews',
     'Google reviews automation',
-    'restaurant reputation management',
-    'salon review tool',
-    'review software Europe',
-    'automated review replies',
-    'ailnex',
-    'ReviewAgent',
+    'restaurant reputation',
+    'salon reviews',
+    'review response AI',
+    'online reputation management',
+    'Europe',
+    'Germany',
+    'Spain',
+    'Poland',
   ],
   authors: [{ name: 'ailnex', url: 'https://ailnex.com' }],
   creator: 'ailnex',
   publisher: 'ailnex',
-  category: 'Technology',
-  applicationName: 'ReviewAgent',
-  referrer: 'origin-when-cross-origin',
+  metadataBase: new URL('https://reviewagent.ailnex.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_EU',
+    url: 'https://reviewagent.ailnex.com',
+    siteName: 'ReviewAgent by ailnex',
+    title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
+    description:
+      'Stop losing customers to unanswered reviews. ReviewAgent auto-replies to Google reviews in seconds — personalized, on-brand, and always professional.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ReviewAgent — AI Review Management Dashboard',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
+    description:
+      'Auto-respond to Google reviews with AI. Boost reputation. Attract more customers. Free plan available.',
+    images: ['/og-image.png'],
+    creator: '@ailnex',
+  },
   robots: {
     index: true,
     follow: true,
@@ -44,78 +68,40 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  openGraph: {
-    type: 'website',
-    locale: 'en_GB',
-    alternateLocale: ['de_DE', 'es_ES', 'pl_PL', 'fr_FR'],
-    url: 'https://reviewagent.ailnex.com',
-    siteName: 'ReviewAgent',
-    title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
-    description:
-      'Stop losing customers to unanswered reviews. ReviewAgent responds to every Google review automatically — in your brand voice, 24/7. Free plan available.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'ReviewAgent — AI Review Management Dashboard',
-        type: 'image/png',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@ailnex',
-    creator: '@ailnex',
-    title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
-    description:
-      'Automatically respond to Google reviews with AI. Built for restaurants and beauty salons across Europe. Starting free.',
-    images: ['/og-image.png'],
-  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
       { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/icon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/icon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon-16x16.png',
   },
   manifest: '/site.webmanifest',
-  alternates: {
-    canonical: 'https://reviewagent.ailnex.com',
-  },
-  verification: {
-    google: 'google-site-verification-placeholder',
-  },
-  other: {
-    'msapplication-TileColor': '#0a0a0f',
-    'theme-color': '#0a0a0f',
-  },
+  category: 'technology',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0a0a0f',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  themeColor: '#0a0a0f',
   colorScheme: 'dark',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className={`${inter.variable} scroll-smooth`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -126,42 +112,35 @@ export default function RootLayout({
               applicationCategory: 'BusinessApplication',
               operatingSystem: 'Web',
               description:
-                'AI-powered review management tool for restaurants and beauty salons in Europe. Automatically respond to Google reviews in your brand voice.',
-              url: 'https://reviewagent.ailnex.com',
-              author: {
-                '@type': 'Organization',
-                name: 'ailnex',
-                url: 'https://ailnex.com',
-              },
+                'AI-powered review management tool for restaurants and beauty salons in Europe. Automatically respond to Google reviews, monitor reputation, and attract more customers.',
               offers: [
                 {
                   '@type': 'Offer',
                   name: 'Free Plan',
                   price: '0',
                   priceCurrency: 'EUR',
-                  description: 'Up to 30 AI review responses per month',
                 },
                 {
                   '@type': 'Offer',
                   name: 'Pro Plan',
                   price: '49',
                   priceCurrency: 'EUR',
-                  description: 'Unlimited AI responses with sentiment analytics',
                 },
                 {
                   '@type': 'Offer',
                   name: 'Business Plan',
                   price: '149',
                   priceCurrency: 'EUR',
-                  description: 'Multi-location management with white-label reports',
                 },
               ],
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.8',
-                reviewCount: '127',
-                bestRating: '5',
-                worstRating: '1',
+              provider: {
+                '@type': 'Organization',
+                name: 'ailnex',
+                url: 'https://ailnex.com',
+              },
+              audience: {
+                '@type': 'BusinessAudience',
+                audienceType: 'Restaurant owners and beauty salon managers in Europe',
               },
             }),
           }}
@@ -174,7 +153,6 @@ export default function RootLayout({
           text-white
           antialiased
           min-h-screen
-          overflow-x-hidden
           selection:bg-[#00e5ff]/20
           selection:text-[#00e5ff]
         `}
