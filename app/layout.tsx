@@ -1,33 +1,26 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-inter',
-  display: 'swap',
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-plus-jakarta',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {
-  title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
+  title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
   description:
-    'ReviewAgent automatically responds to your Google reviews in seconds. Save hours every week, boost your rating, and never miss a customer review. Trusted by restaurants, salons, and cafés across Europe.',
+    'Automatically respond to Google reviews, boost your reputation, and attract more customers. ReviewAgent uses AI to manage your online reviews 24/7. Trusted by businesses across Europe.',
   keywords: [
+    'review management',
+    'AI reviews',
     'Google reviews automation',
-    'automated review responses',
-    'restaurant review management',
-    'salon review replies',
-    'Google Business Profile automation',
-    'review management SaaS',
-    'local business reviews',
-    'AI review responses',
+    'restaurant reputation management',
+    'salon review tool',
+    'review response AI',
+    'online reputation Europe',
+    'ReviewAgent',
   ],
   authors: [{ name: 'ailnex', url: 'https://ailnex.com' }],
   creator: 'ailnex',
@@ -38,26 +31,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_GB',
     url: 'https://reviewagent.ailnex.com',
-    siteName: 'ReviewAgent',
-    title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
+    siteName: 'ReviewAgent by ailnex',
+    title: 'ReviewAgent — AI-Powered Review Management for Restaurants & Salons',
     description:
-      'Stop spending hours replying to Google reviews manually. ReviewAgent handles it automatically — personalized, professional, and instant. Start free today.',
+      'Stop losing customers to bad reviews. ReviewAgent automatically responds to Google reviews using AI — saving hours of manual work while boosting your star rating.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ReviewAgent — Automated Google Review Replies',
+        alt: 'ReviewAgent — AI Review Management Dashboard',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ReviewAgent — Automated Google Review Replies',
+    title: 'ReviewAgent — AI-Powered Review Management',
     description:
-      'Stop spending hours replying to Google reviews manually. ReviewAgent handles it automatically — personalized, professional, and instant.',
+      'Automatically respond to Google reviews with AI. Boost your reputation 24/7. Trusted by restaurants and salons across Europe.',
     images: ['/og-image.png'],
     creator: '@ailnex',
   },
@@ -74,11 +67,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
-    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon-32x32.png',
   },
   manifest: '/site.webmanifest',
   category: 'technology',
@@ -98,11 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${plusJakarta.variable} scroll-smooth`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${inter.variable} scroll-smooth`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -110,7 +99,6 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <meta name="format-detection" content="telephone=no" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,69 +106,54 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'SoftwareApplication',
               name: 'ReviewAgent',
-              description:
-                'Automated Google review response platform for restaurants, salons, and cafés.',
               applicationCategory: 'BusinessApplication',
               operatingSystem: 'Web',
-              offers: [
-                {
-                  '@type': 'Offer',
-                  name: 'Free',
-                  price: '0',
-                  priceCurrency: 'USD',
-                },
-                {
-                  '@type': 'Offer',
-                  name: 'Pro',
-                  price: '49',
-                  priceCurrency: 'USD',
-                },
-                {
-                  '@type': 'Offer',
-                  name: 'Business',
-                  price: '149',
-                  priceCurrency: 'USD',
-                },
-              ],
-              publisher: {
+              description:
+                'AI-powered review management tool for restaurants and beauty salons. Automatically respond to Google reviews, monitor your reputation, and attract more customers across Europe.',
+              url: 'https://reviewagent.ailnex.com',
+              author: {
                 '@type': 'Organization',
                 name: 'ailnex',
                 url: 'https://ailnex.com',
+              },
+              offers: [
+                {
+                  '@type': 'Offer',
+                  name: 'Free Plan',
+                  price: '0',
+                  priceCurrency: 'EUR',
+                  description: 'Up to 20 AI responses per month, 1 location',
+                },
+                {
+                  '@type': 'Offer',
+                  name: 'Pro Plan',
+                  price: '49',
+                  priceCurrency: 'EUR',
+                  description:
+                    'Unlimited AI responses, 1 location, analytics dashboard',
+                },
+                {
+                  '@type': 'Offer',
+                  name: 'Business Plan',
+                  price: '149',
+                  priceCurrency: 'EUR',
+                  description:
+                    'Unlimited responses, up to 10 locations, priority support',
+                },
+              ],
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.9',
+                reviewCount: '127',
               },
             }),
           }}
         />
       </head>
       <body
-        className={`
-          bg-[#0a0a0f]
-          text-white
-          font-[family-name:var(--font-inter)]
-          antialiased
-          min-h-screen
-          overflow-x-hidden
-          selection:bg-[#00e5ff]/20
-          selection:text-[#00e5ff]
-        `}
+        className={`${inter.className} bg-[#0a0a0f] text-white antialiased min-h-screen`}
       >
-        <div className="relative">
-          <div
-            className="pointer-events-none fixed inset-0 z-0"
-            aria-hidden="true"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,229,255,0.06),transparent)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(0,229,255,0.03),transparent)]" />
-            <div
-              className="absolute inset-0 opacity-[0.015]"
-              style={{
-                backgroundImage:
-                  'linear-gradient(rgba(0,229,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '80px 80px',
-              }}
-            />
-          </div>
-          <div className="relative z-10">{children}</div>
-        </div>
+        {children}
       </body>
     </html>
   );
