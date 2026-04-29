@@ -1,42 +1,42 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { X, Loader2, CheckCircle, AlertCircle, Mail, Building2 } from 'lucide-react';
+import { X, CheckCircle, AlertCircle, Loader2, Sparkles } from 'lucide-react';
 
-export type PlanType = 'free' | 'pro' | 'business';
+export type Plan = 'free' | 'pro' | 'business';
 
 interface LeadModalProps {
   isOpen: boolean;
+  selectedPlan: Plan;
   onClose: () => void;
-  initialPlan?: PlanType;
 }
 
-const PLAN_LABELS: Record<PlanType, string> = {
+const PLAN_LABELS: Record<Plan, string> = {
   free: 'Free — $0/mo',
   pro: 'Pro — $49/mo',
   business: 'Business — $149/mo',
 };
 
-const PLAN_DESCRIPTIONS: Record<PlanType, string> = {
-  free: 'Perfect to get started with AI review management',
-  pro: 'Most popular for growing restaurants & salons',
-  business: 'Full power for multi-location businesses',
+const PLAN_COLORS: Record<Plan, string> = {
+  free: 'text-slate-300',
+  pro: 'text-[#00e5ff]',
+  business: 'text-violet-400',
 };
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
-export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: LeadModalProps) {
+export default function LeadModal({ isOpen, selectedPlan, onClose }: LeadModalProps) {
   const [email, setEmail] = useState('');
   const [businessName, setBusinessName] = useState('');
-  const [plan, setPlan] = useState<PlanType>(initialPlan);
+  const [plan, setPlan] = useState<Plan>(selectedPlan);
   const [formState, setFormState] = useState<FormState>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const overlayRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setPlan(initialPlan);
-  }, [initialPlan]);
+    setPlan(selectedPlan);
+  }, [selectedPlan]);
 
   useEffect(() => {
     if (isOpen) {
@@ -44,6 +44,14 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
       setTimeout(() => emailRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = '';
+      if (formState === 'success') {
+        setTimeout(() => {
+          setFormState('idle');
+          setEmail('');
+          setBusinessName('');
+          setErrorMessage('');
+        }, 300);
+      }
     }
     return () => {
       document.body.style.overflow = '';
@@ -53,49 +61,41 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && formState !== 'loading') {
-        handleClose();
+        onClose();
       }
     };
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
+    window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, formState]);
+  }, [formState, onClose]);
 
-  const handleClose = () => {
-    if (formState === 'loading') return;
-    onClose();
-    setTimeout(() => {
-      setEmail('');
-      setBusinessName('');
-      setPlan(initialPlan);
-      setFormState('idle');
-      setErrorMessage('');
-    }, 300);
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === backdropRef.current && formState !== 'loading') {
+      onClose();
+    }
   };
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === overlayRef.current && formState !== 'loading') {
-      handleClose();
-    }
+  const validateEmail = (value: string): boolean => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formState === 'loading') return;
+    setErrorMessage('');
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!validateEmail(email)) {
       setErrorMessage('Please enter a valid email address.');
-      setFormState('error');
+      return;
+    }
+
+    if (!businessName.trim()) {
+      setErrorMessage('Please enter your business name.');
       return;
     }
 
     setFormState('loading');
-    setErrorMessage('');
 
     try {
-      const response = await fetch('/api/leads', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -105,19 +105,19 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
         }),
       });
 
-      if (response.ok) {
+      if (res.ok) {
         setFormState('success');
-      } else if (response.status === 503) {
+      } else if (res.status === 503) {
+        setFormState('error');
         setErrorMessage('Service temporarily unavailable. Please try again later.');
-        setFormState('error');
       } else {
-        const data = await response.json().catch(() => ({}));
-        setErrorMessage(data?.error || 'Something went wrong. Please try again.');
+        const data = await res.json().catch(() => ({}));
         setFormState('error');
+        setErrorMessage(data?.error || 'Something went wrong. Please try again.');
       }
     } catch {
-      setErrorMessage('Network error. Please check your connection and try again.');
       setFormState('error');
+      setErrorMessage('Network error. Please check your connection and try again.');
     }
   };
 
@@ -125,10 +125,10 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
 
   return (
     <div
-      ref={overlayRef}
-      onClick={handleOverlayClick}
+      ref={backdropRef}
+      onClick={handleBackdropClick}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+      style={{ backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)' }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -137,11 +137,17 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
         className="relative w-full max-w-md rounded-2xl border border-white/10 shadow-2xl"
         style={{ backgroundColor: '#111118' }}
       >
+        {/* Glow accent */}
+        <div
+          className="absolute -top-px left-1/2 -translate-x-1/2 h-px w-3/4 rounded-full"
+          style={{ background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }}
+        />
+
         {/* Close button */}
         <button
-          onClick={handleClose}
+          onClick={onClose}
           disabled={formState === 'loading'}
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           aria-label="Close modal"
         >
           <X size={18} />
@@ -149,205 +155,237 @@ export default function LeadModal({ isOpen, onClose, initialPlan = 'pro' }: Lead
 
         <div className="p-8">
           {formState === 'success' ? (
-            /* Success State */
-            <div className="text-center py-4">
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-                style={{ backgroundColor: 'rgba(0,229,255,0.1)' }}
-              >
-                <CheckCircle size={32} style={{ color: '#00e5ff' }} />
-              </div>
-              <h2 className="text-2xl font-bold text-white mb-3">You're on the list!</h2>
-              <p className="text-gray-400 mb-2">
-                We'll contact you at <span className="text-white font-medium">{email}</span> within 24 hours to get you started.
-              </p>
-              <p className="text-sm text-gray-500 mb-6">
-                Plan selected: <span style={{ color: '#00e5ff' }} className="font-medium">{PLAN_LABELS[plan]}</span>
-              </p>
-              <button
-                onClick={handleClose}
-                className="w-full py-3 px-6 rounded-xl font-semibold text-sm transition-all"
-                style={{ backgroundColor: 'rgba(0,229,255,0.1)', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.3)' }}
-              >
-                Close
-              </button>
-            </div>
+            <SuccessState onClose={onClose} plan={plan} />
           ) : (
-            /* Form State */
-            <>
-              {/* Header */}
-              <div className="mb-6">
-                <h2 id="modal-title" className="text-2xl font-bold text-white mb-1">
-                  Get started with ReviewAgent
-                </h2>
-                <p className="text-gray-400 text-sm">
-                  {PLAN_DESCRIPTIONS[plan]}. No credit card required to start.
-                </p>
-              </div>
-
-              {/* Plan Selector */}
-              <div className="mb-5">
-                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                  Selected Plan
-                </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['free', 'pro', 'business'] as PlanType[]).map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => setPlan(p)}
-                      className="relative py-2.5 px-2 rounded-xl text-xs font-semibold transition-all border"
-                      style={{
-                        backgroundColor: plan === p ? 'rgba(0,229,255,0.12)' : 'rgba(255,255,255,0.04)',
-                        borderColor: plan === p ? 'rgba(0,229,255,0.5)' : 'rgba(255,255,255,0.08)',
-                        color: plan === p ? '#00e5ff' : '#9ca3af',
-                      }}
-                    >
-                      {p === 'pro' && (
-                        <span
-                          className="absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap"
-                          style={{ backgroundColor: '#00e5ff', color: '#0a0a0f' }}
-                        >
-                          POPULAR
-                        </span>
-                      )}
-                      <div>{p.charAt(0).toUpperCase() + p.slice(1)}</div>
-                      <div className="text-[10px] font-normal opacity-70 mt-0.5">
-                        {p === 'free' ? '$0' : p === 'pro' ? '$49/mo' : '$149/mo'}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Form */}
-              <form onSubmit={handleSubmit} noValidate>
-                {/* Business Name */}
-                <div className="mb-4">
-                  <label htmlFor="business-name" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                    Business Name
-                  </label>
-                  <div className="relative">
-                    <Building2
-                      size={16}
-                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-                    />
-                    <input
-                      id="business-name"
-                      type="text"
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                      placeholder="e.g. Bella Ristorante, Studio Lumière"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 outline-none transition-all border"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.05)',
-                        borderColor: 'rgba(255,255,255,0.1)',
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = 'rgba(0,229,255,0.4)';
-                        e.target.style.backgroundColor = 'rgba(0,229,255,0.04)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-                        e.target.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                      }}
-                      disabled={formState === 'loading'}
-                    />
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="mb-5">
-                  <label htmlFor="email" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                    Work Email <span style={{ color: '#00e5ff' }}>*</span>
-                  </label>
-                  <div className="relative">
-                    <Mail
-                      size={16}
-                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-                    />
-                    <input
-                      ref={emailRef}
-                      id="email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (formState === 'error') {
-                          setFormState('idle');
-                          setErrorMessage('');
-                        }
-                      }}
-                      placeholder="you@yourbusiness.com"
-                      required
-                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 outline-none transition-all border"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.05)',
-                        borderColor: formState === 'error' ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.1)',
-                      }}
-                      onFocus={(e) => {
-                        if (formState !== 'error') {
-                          e.target.style.borderColor = 'rgba(0,229,255,0.4)';
-                          e.target.style.backgroundColor = 'rgba(0,229,255,0.04)';
-                        }
-                      }}
-                      onBlur={(e) => {
-                        if (formState !== 'error') {
-                          e.target.style.borderColor = 'rgba(255,255,255,0.1)';
-                          e.target.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                        }
-                      }}
-                      disabled={formState === 'loading'}
-                    />
-                  </div>
-                </div>
-
-                {/* Error message */}
-                {formState === 'error' && errorMessage && (
-                  <div
-                    className="flex items-start gap-2.5 p-3 rounded-xl mb-4 text-sm"
-                    style={{ backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}
-                  >
-                    <AlertCircle size={16} className="text-red-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-red-400">{errorMessage}</span>
-                  </div>
-                )}
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={formState === 'loading' || !email}
-                  className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                  style={{
-                    background: formState === 'loading' ? 'rgba(0,229,255,0.6)' : 'linear-gradient(135deg, #00e5ff, #00b8cc)',
-                    color: '#0a0a0f',
-                    boxShadow: formState !== 'loading' ? '0 0 24px rgba(0,229,255,0.25)' : 'none',
-                  }}
-                >
-                  {formState === 'loading' ? (
-                    <>
-                      <Loader2 size={16} className="animate-spin" />
-                      <span>Submitting...</span>
-                    </>
-                  ) : (
-                    <span>
-                      {plan === 'free' ? 'Start for Free →' : `Get Started with ${plan.charAt(0).toUpperCase() + plan.slice(1)} →`}
-                    </span>
-                  )}
-                </button>
-
-                <p className="text-center text-xs text-gray-600 mt-3">
-                  By submitting, you agree to our{' '}
-                  <span className="underline cursor-pointer" style={{ color: 'rgba(0,229,255,0.6)' }}>Terms of Service</span>
-                  {' '}and{' '}
-                  <span className="underline cursor-pointer" style={{ color: 'rgba(0,229,255,0.6)' }}>Privacy Policy</span>.
-                  GDPR compliant.
-                </p>
-              </form>
-            </>
+            <FormState
+              email={email}
+              setEmail={setEmail}
+              businessName={businessName}
+              setBusinessName={setBusinessName}
+              plan={plan}
+              setPlan={setPlan}
+              formState={formState}
+              errorMessage={errorMessage}
+              handleSubmit={handleSubmit}
+              emailRef={emailRef}
+            />
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+interface FormStateProps {
+  email: string;
+  setEmail: (v: string) => void;
+  businessName: string;
+  setBusinessName: (v: string) => void;
+  plan: Plan;
+  setPlan: (v: Plan) => void;
+  formState: FormState;
+  errorMessage: string;
+  handleSubmit: (e: React.FormEvent) => void;
+  emailRef: React.RefObject<HTMLInputElement>;
+}
+
+function FormState({
+  email,
+  setEmail,
+  businessName,
+  setBusinessName,
+  plan,
+  setPlan,
+  formState,
+  errorMessage,
+  handleSubmit,
+  emailRef,
+}: FormStateProps) {
+  const isLoading = formState === 'loading';
+
+  return (
+    <>
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles size={18} style={{ color: '#00e5ff' }} />
+          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#00e5ff' }}>
+            Get Started
+          </span>
+        </div>
+        <h2 id="modal-title" className="text-2xl font-bold text-white mb-2">
+          Activate ReviewAgent
+        </h2>
+        <p className="text-slate-400 text-sm leading-relaxed">
+          Join 500+ restaurants and beauty salons across Europe automating their reputation management.
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        {/* Business Name */}
+        <div>
+          <label htmlFor="business-name" className="block text-sm font-medium text-slate-300 mb-1.5">
+            Business Name
+          </label>
+          <input
+            id="business-name"
+            type="text"
+            value={businessName}
+            onChange={(e) => setBusinessName(e.target.value)}
+            placeholder="e.g. La Bella Cucina"
+            required
+            disabled={isLoading}
+            className="w-full px-4 py-3 rounded-xl text-white placeholder-slate-500 text-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: '#0a0a0f',
+              border: '1px solid rgba(255,255,255,0.1)',
+              boxShadow: 'none',
+            }}
+            onFocus={(e) => (e.target.style.borderColor = '#00e5ff')}
+            onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
+          />
+        </div>
+
+        {/* Email */}
+        <div>
+          <label htmlFor="lead-email" className="block text-sm font-medium text-slate-300 mb-1.5">
+            Work Email
+          </label>
+          <input
+            ref={emailRef}
+            id="lead-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@yourbusiness.com"
+            required
+            disabled={isLoading}
+            className="w-full px-4 py-3 rounded-xl text-white placeholder-slate-500 text-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: '#0a0a0f',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+            onFocus={(e) => (e.target.style.borderColor = '#00e5ff')}
+            onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
+          />
+        </div>
+
+        {/* Plan selector */}
+        <div>
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">Selected Plan</label>
+          <div className="grid grid-cols-3 gap-2">
+            {(['free', 'pro', 'business'] as Plan[]).map((p) => (
+              <button
+                key={p}
+                type="button"
+                disabled={isLoading}
+                onClick={() => setPlan(p)}
+                className={`py-2.5 px-2 rounded-xl text-xs font-semibold border transition-all capitalize disabled:cursor-not-allowed ${
+                  plan === p
+                    ? p === 'pro'
+                      ? 'border-[#00e5ff] bg-[#00e5ff]/10 text-[#00e5ff]'
+                      : p === 'business'
+                      ? 'border-violet-400 bg-violet-400/10 text-violet-400'
+                      : 'border-slate-400 bg-slate-400/10 text-slate-300'
+                    : 'border-white/10 text-slate-500 hover:border-white/20 hover:text-slate-400 bg-transparent'
+                }`}
+              >
+                {p === 'free' ? 'Free' : p === 'pro' ? 'Pro $49' : 'Biz $149'}
+              </button>
+            ))}
+          </div>
+          <p className={`mt-1.5 text-xs font-medium ${PLAN_COLORS[plan]}`}>
+            {PLAN_LABELS[plan]}
+          </p>
+        </div>
+
+        {/* Error message */}
+        {formState === 'error' && errorMessage && (
+          <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20">
+            <AlertCircle size={16} className="text-red-400 mt-0.5 shrink-0" />
+            <p className="text-sm text-red-300">{errorMessage}</p>
+          </div>
+        )}
+
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm text-black transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-90 active:scale-[0.98]"
+          style={{
+            background: isLoading
+              ? 'rgba(0,229,255,0.7)'
+              : 'linear-gradient(135deg, #00e5ff 0%, #00b8d4 100%)',
+          }}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              <span>Submitting...</span>
+            </>
+          ) : (
+            <span>Activate {plan.charAt(0).toUpperCase() + plan.slice(1)} Plan</span>
+          )}
+        </button>
+
+        <p className="text-center text-xs text-slate-500">
+          No credit card required for Free plan. By submitting, you agree to our{' '}
+          <span className="text-slate-400 underline cursor-pointer">Terms of Service</span>.
+        </p>
+      </form>
+    </>
+  );
+}
+
+function SuccessState({ onClose, plan }: { onClose: () => void; plan: Plan }) {
+  return (
+    <div className="text-center py-4">
+      <div
+        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+        style={{ backgroundColor: 'rgba(0,229,255,0.1)', border: '2px solid rgba(0,229,255,0.3)' }}
+      >
+        <CheckCircle size={32} style={{ color: '#00e5ff' }} />
+      </div>
+      <h3 className="text-2xl font-bold text-white mb-2">You're on the list!</h3>
+      <p className="text-slate-400 text-sm leading-relaxed mb-1">
+        Thanks for choosing the{' '}
+        <span className={`font-semibold ${PLAN_COLORS[plan]}`}>{PLAN_LABELS[plan]}</span> plan.
+      </p>
+      <p className="text-slate-400 text-sm leading-relaxed mb-6">
+        We'll contact you within{' '}
+        <span className="text-white font-semibold">24 hours</span> to set up your ReviewAgent account
+        and connect your Google Business Profile.
+      </p>
+      <div
+        className="rounded-xl px-4 py-3 mb-6 text-left"
+        style={{ backgroundColor: 'rgba(0,229,255,0.05)', border: '1px solid rgba(0,229,255,0.15)' }}
+      >
+        <p className="text-xs font-semibold text-slate-300 mb-2">What happens next:</p>
+        <ul className="space-y-1.5">
+          {[
+            'Onboarding email with setup instructions',
+            'Connect Google Business & other platforms',
+            'AI agent starts responding to reviews',
+          ].map((step, i) => (
+            <li key={i} className="flex items-center gap-2 text-xs text-slate-400">
+              <span
+                className="w-4 h-4 rounded-full flex items-center justify-center text-black text-[10px] font-bold shrink-0"
+                style={{ backgroundColor: '#00e5ff' }}
+              >
+                {i + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <button
+        onClick={onClose}
+        className="w-full py-3 rounded-xl font-semibold text-sm text-slate-300 border border-white/10 hover:bg-white/5 transition-colors"
+      >
+        Close
+      </button>
     </div>
   );
 }
