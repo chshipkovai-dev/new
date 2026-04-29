@@ -88,7 +88,6 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
   return (
     <section id="pricing" className="py-24 px-4" style={{ background: '#0a0a0f' }}>
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <span
             className="inline-block text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4"
@@ -100,11 +99,10 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
             Simple, transparent pricing
           </h2>
           <p className="text-lg text-gray-400 max-w-xl mx-auto">
-            No hidden fees. No contracts. Cancel anytime. Start free and upgrade when you're ready to grow.
+            No hidden fees. No contracts. Cancel anytime. Start free and upgrade when you&apos;re ready to grow.
           </p>
         </div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {plans.map((plan) => (
             <div
@@ -122,21 +120,16 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
                   : '0 4px 24px rgba(0,0,0,0.3)',
               }}
             >
-              {/* Popular badge */}
               {plan.badge && (
                 <div
                   className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs font-bold tracking-wider uppercase px-4 py-1 rounded-full"
-                  style={{
-                    background: 'linear-gradient(90deg, #00e5ff, #0099bb)',
-                    color: '#0a0a0f',
-                  }}
+                  style={{ background: 'linear-gradient(90deg, #00e5ff, #0099bb)', color: '#0a0a0f' }}
                 >
                   {plan.badge}
                 </div>
               )}
 
               <div className="p-8 flex flex-col flex-1">
-                {/* Icon + Name */}
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -147,74 +140,45 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
                   <span className="text-lg font-semibold text-white">{plan.name}</span>
                 </div>
 
-                {/* Price */}
                 <div className="mb-3">
-                  <span
-                    className="text-5xl font-extrabold"
-                    style={{ color: plan.highlighted ? '#00e5ff' : 'white' }}
-                  >
+                  <span className="text-5xl font-extrabold" style={{ color: plan.highlighted ? '#00e5ff' : 'white' }}>
                     {plan.price}
                   </span>
                   <span className="text-gray-500 text-sm ml-2">{plan.period}</span>
                 </div>
 
-                {/* Description */}
                 <p className="text-gray-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
+                <div className="w-full h-px mb-6" style={{ background: 'rgba(255,255,255,0.07)' }} />
 
-                {/* Divider */}
-                <div
-                  className="w-full h-px mb-6"
-                  style={{ background: 'rgba(255,255,255,0.07)' }}
-                />
-
-                {/* Features */}
                 <ul className="flex flex-col gap-3 mb-8 flex-1">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
                       <span
                         className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
-                        style={{
-                          background: plan.highlighted
-                            ? 'rgba(0,229,255,0.15)'
-                            : 'rgba(255,255,255,0.06)',
-                        }}
+                        style={{ background: plan.highlighted ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.06)' }}
                       >
-                        <Check
-                          size={11}
-                          strokeWidth={3}
-                          style={{ color: plan.highlighted ? '#00e5ff' : '#9ca3af' }}
-                        />
+                        <Check size={11} strokeWidth={3} style={{ color: plan.highlighted ? '#00e5ff' : '#9ca3af' }} />
                       </span>
                       <span className="text-sm text-gray-300 leading-snug">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                {/* CTA */}
                 <button
                   onClick={() => onSelectPlan(plan.id)}
-                  className="w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  className="w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00e5ff] focus:ring-offset-2"
                   style={{
-                    background: plan.highlighted
-                      ? 'linear-gradient(90deg, #00e5ff, #00b8cc)'
-                      : 'rgba(255,255,255,0.07)',
+                    background: plan.highlighted ? 'linear-gradient(90deg, #00e5ff, #00b8cc)' : 'rgba(255,255,255,0.07)',
                     color: plan.highlighted ? '#0a0a0f' : 'white',
                     border: plan.highlighted ? 'none' : '1px solid rgba(255,255,255,0.1)',
-                    focusRingColor: '#00e5ff',
                   }}
                   onMouseEnter={(e) => {
-                    if (!plan.highlighted) {
-                      (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)';
-                    } else {
-                      (e.currentTarget as HTMLButtonElement).style.opacity = '0.92';
-                    }
+                    if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.12)';
+                    else (e.currentTarget as HTMLButtonElement).style.opacity = '0.92';
                   }}
                   onMouseLeave={(e) => {
-                    if (!plan.highlighted) {
-                      (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.07)';
-                    } else {
-                      (e.currentTarget as HTMLButtonElement).style.opacity = '1';
-                    }
+                    if (!plan.highlighted) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.07)';
+                    else (e.currentTarget as HTMLButtonElement).style.opacity = '1';
                   }}
                 >
                   {plan.cta}
@@ -224,7 +188,6 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
           ))}
         </div>
 
-        {/* Bottom note */}
         <p className="text-center text-gray-500 text-sm mt-10">
           All plans include a{' '}
           <span style={{ color: '#00e5ff' }}>14-day free trial</span>
