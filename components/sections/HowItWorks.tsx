@@ -3,104 +3,90 @@ import React from 'react';
 const steps = [
   {
     number: '01',
-    title: 'Connect Your Business Profiles',
+    title: 'Connect Your Locations',
     description:
-      'Link your Google Business Profile, Yelp, TripAdvisor, or any other review platform in under 2 minutes. No technical skills required — just authenticate and ReviewAgent handles the rest.',
+      'Link your Google Business Profile in minutes. No technical setup required — just authenticate and ReviewAgent instantly syncs all your reviews across every location.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2C7.373 2 2 7.373 2 14s5.373 12 12 12 12-5.373 12-12S20.627 2 14 2zm0 2c5.523 0 10 4.477 10 10S19.523 24 14 24 4 19.523 4 14 8.477 4 14 4zm-1 5v4H9l5 5 5-5h-4V9h-2z" fill="#00e5ff"/>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
       </svg>
     ),
-    highlight: 'Supports 10+ platforms',
   },
   {
     number: '02',
-    title: 'AI Reads Every New Review',
+    title: 'AI Reads Every Review',
     description:
-      'Our AI engine monitors your connected profiles 24/7. The moment a new review appears — positive, neutral, or negative — ReviewAgent analyses the sentiment, tone, and key topics mentioned by the customer.',
+      'Our AI engine analyses tone, sentiment, and context of each incoming review — whether it is a glowing 5-star compliment or a frustrated 1-star complaint — in real time, 24 / 7.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3a11 11 0 100 22A11 11 0 0014 3zm0 2a9 9 0 110 18A9 9 0 0114 5zm-1 4v5.586l-3.707 3.707 1.414 1.414L15 16.414V9h-2z" fill="#00e5ff"/>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15m-6.75-12.896c.251.023.501.05.75.082M19.8 15l-1.572 1.572A4.5 4.5 0 0116.5 18H7.5a4.5 4.5 0 01-1.728-.428L4.2 16.2m15.6-1.2l1.5 1.5M4.2 16.2l-1.5 1.5m0 0A2.25 2.25 0 004.5 21h15a2.25 2.25 0 001.8-3.6" />
       </svg>
     ),
-    highlight: 'Real-time monitoring',
   },
   {
     number: '03',
-    title: 'Personalised Reply Is Generated',
+    title: 'Get a Personalised Draft',
     description:
-      'ReviewAgent crafts a unique, human-sounding response tailored to each review. It matches your brand voice, addresses the specific feedback, and — for negative reviews — includes a professional de-escalation strategy to protect your reputation.',
+      'ReviewAgent generates a brand-aligned, human-sounding reply tailored to the specific review. Each response matches your business tone — warm and professional for a salon, or casual and friendly for a café.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 4a2 2 0 00-2 2v12a2 2 0 002 2h2v3l4-3h12a2 2 0 002-2V6a2 2 0 00-2-2H5zm0 2h18v12H12.5L9 20.5V18H5V6zm3 3v2h12V9H8zm0 4v2h8v-2H8z" fill="#00e5ff"/>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
       </svg>
     ),
-    highlight: 'Matches your brand voice',
   },
   {
     number: '04',
-    title: 'You Approve or Auto-Publish',
+    title: 'Approve or Auto-Publish',
     description:
-      'On the Free and Pro plans you review each AI-generated reply before it goes live. On the Business plan, enable full autopilot mode — responses are published automatically within minutes, so your customers always feel heard even while you sleep.',
+      'On the Pro and Business plans, responses are published automatically the moment a review comes in. On Free, review every draft in your dashboard before it goes live — full control, zero stress.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3C7.925 3 3 7.925 3 14s4.925 11 11 11 11-4.925 11-11S20.075 3 14 3zm0 2c4.971 0 9 4.029 9 9s-4.029 9-9 9-9-4.029-9-9 4.029-9 9-9zm4.293 5.293l-5.543 5.543-2.543-2.543-1.414 1.414 3.957 3.957 6.957-6.957-1.414-1.414z" fill="#00e5ff"/>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    highlight: 'Full autopilot on Business',
   },
   {
     number: '05',
-    title: 'Track Results & Improve Over Time',
+    title: 'Track Your Reputation Growth',
     description:
-      'Your dashboard shows response rates, average reply time, sentiment trends, and star-rating evolution across all locations. Use these insights to spot recurring issues, reward your best-performing venues, and prove ROI to stakeholders.',
+      'Monitor your average rating, response rate, and sentiment trends from a single dashboard. Export reports, spot problem areas early, and watch your star rating climb month after month.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 22v-2h2v-6h4v6h2v-10h4v10h2v-14h4v14h2v2H4zm4-2h2v-4H8v4zm6 0h2v-8h-2v8zm6 0h2v-12h-2v12z" fill="#00e5ff"/>
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
       </svg>
     ),
-    highlight: 'Analytics across all locations',
   },
 ];
 
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="relative py-24 overflow-hidden" style={{ background: '#0a0a0f' }}>
-      {/* Background accent */}
+      {/* Background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 70%)',
-        }}
+        className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-      />
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-5"
+          style={{ background: 'radial-gradient(circle, #00e5ff 0%, transparent 70%)' }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-5"
-            style={{
-              background: 'rgba(0,229,255,0.08)',
-              border: '1px solid rgba(0,229,255,0.2)',
-              color: '#00e5ff',
-            }}
+          <span
+            className="inline-block text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4 border"
+            style={{ color: '#00e5ff', borderColor: 'rgba(0,229,255,0.25)', background: 'rgba(0,229,255,0.06)' }}
           >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: '#00e5ff' }}
-            />
             How It Works
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-            From New Review to Perfect Reply
-            <br />
-            <span style={{ color: '#00e5ff' }}>in Under 5 Minutes</span>
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            From first review to published reply{' '}
+            <span style={{ color: '#00e5ff' }}>in seconds</span>
           </h2>
-          <p className="text-base sm:text-lg max-w-2xl mx-auto" style={{ color: '#8b8ba7' }}>
-            ReviewAgent removes the manual work of reputation management. Here is exactly how it works
-            — from the moment a customer posts a review to your polished, on-brand response going live.
+          <p className="mt-4 text-lg max-w-2xl mx-auto" style={{ color: '#8b8b9a' }}>
+            ReviewAgent handles the full cycle automatically. Set it up once and let the AI do the work — while you focus on running your business.
           </p>
         </div>
 
@@ -108,156 +94,81 @@ export default function HowItWorks() {
         <div className="relative">
           {/* Vertical connector line (desktop) */}
           <div
-            className="hidden lg:block absolute left-[calc(50%-1px)] top-0 bottom-0 w-px"
-            style={{
-              background:
-                'linear-gradient(to bottom, transparent, rgba(0,229,255,0.3) 15%, rgba(0,229,255,0.3) 85%, transparent)',
-            }}
+            className="hidden lg:block absolute left-[3.25rem] top-8 bottom-8 w-px"
+            style={{ background: 'linear-gradient(to bottom, transparent, rgba(0,229,255,0.2) 15%, rgba(0,229,255,0.2) 85%, transparent)' }}
             aria-hidden="true"
           />
 
-          <div className="flex flex-col gap-12 lg:gap-0">
-            {steps.map((step, index) => {
-              const isEven = index % 2 === 1;
-              return (
-                <div
-                  key={step.number}
-                  className={`relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-0 ${
-                    isEven ? 'lg:flex-row-reverse' : ''
-                  }`}
-                >
-                  {/* Content card */}
-                  <div className={`lg:w-5/12 ${isEven ? 'lg:pl-16' : 'lg:pr-16'} ${isEven ? 'lg:ml-auto' : ''}`}>
-                    <div
-                      className="group rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1"
-                      style={{
-                        background: '#111118',
-                        border: '1px solid rgba(255,255,255,0.07)',
-                        boxShadow: '0 4px 32px rgba(0,0,0,0.3)',
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.border =
-                          '1px solid rgba(0,229,255,0.25)';
-                        (e.currentTarget as HTMLDivElement).style.boxShadow =
-                          '0 8px 48px rgba(0,229,255,0.08)';
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLDivElement).style.border =
-                          '1px solid rgba(255,255,255,0.07)';
-                        (e.currentTarget as HTMLDivElement).style.boxShadow =
-                          '0 4px 32px rgba(0,0,0,0.3)';
-                      }}
-                    >
-                      {/* Card top row */}
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div
-                          className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                          style={{
-                            background: 'rgba(0,229,255,0.08)',
-                            border: '1px solid rgba(0,229,255,0.18)',
-                          }}
-                        >
-                          {step.icon}
-                        </div>
-                        <span
-                          className="text-xs font-semibold px-3 py-1 rounded-full"
-                          style={{
-                            background: 'rgba(0,229,255,0.06)',
-                            color: '#00e5ff',
-                            border: '1px solid rgba(0,229,255,0.15)',
-                          }}
-                        >
-                          {step.highlight}
-                        </span>
-                      </div>
-
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-3 leading-snug">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#8b8ba7' }}>
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Center node (desktop) */}
-                  <div className="hidden lg:flex lg:w-2/12 items-center justify-center relative z-10">
-                    <div
-                      className="flex items-center justify-center w-14 h-14 rounded-full font-bold text-sm"
-                      style={{
-                        background: '#0a0a0f',
-                        border: '2px solid rgba(0,229,255,0.5)',
-                        color: '#00e5ff',
-                        boxShadow: '0 0 20px rgba(0,229,255,0.2)',
-                      }}
-                    >
-                      {step.number}
-                    </div>
-                  </div>
-
-                  {/* Spacer for the other side (desktop) */}
-                  <div className="hidden lg:block lg:w-5/12" />
-
-                  {/* Step number pill (mobile only) */}
+          <div className="flex flex-col gap-8">
+            {steps.map((step, index) => (
+              <div
+                key={step.number}
+                className="relative flex flex-col lg:flex-row gap-6 lg:gap-8 group"
+              >
+                {/* Step indicator */}
+                <div className="flex-shrink-0 flex items-start">
                   <div
-                    className="lg:hidden inline-flex items-center gap-2 text-xs font-bold"
-                    style={{ color: '#00e5ff' }}
+                    className="relative z-10 w-[3.25rem] h-[3.25rem] rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      background: 'rgba(0,229,255,0.1)',
+                      border: '1px solid rgba(0,229,255,0.25)',
+                      color: '#00e5ff',
+                    }}
                   >
-                    <span
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
-                      style={{
-                        background: 'rgba(0,229,255,0.1)',
-                        border: '1px solid rgba(0,229,255,0.3)',
-                      }}
-                    >
-                      {step.number}
-                    </span>
-                    Step {index + 1} of {steps.length}
+                    {step.icon}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Bottom CTA banner */}
-        <div
-          className="mt-20 rounded-2xl p-8 sm:p-10 text-center"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(0,229,255,0.06) 0%, rgba(0,229,255,0.02) 100%)',
-            border: '1px solid rgba(0,229,255,0.15)',
-          }}
-        >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#00e5ff' }}>
-            Total setup time
-          </p>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Be Up and Running in{' '}
-            <span style={{ color: '#00e5ff' }}>Less Than 10 Minutes</span>
-          </h3>
-          <p className="text-sm sm:text-base max-w-xl mx-auto" style={{ color: '#8b8ba7' }}>
-            No developer needed. No long onboarding. Connect your profile, set your brand voice once,
-            and ReviewAgent takes over from there — so you can focus on running your business.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-            {[
-              { value: '< 10 min', label: 'Setup time' },
-              { value: '24 / 7', label: 'Review monitoring' },
-              { value: '< 5 min', label: 'Avg. reply time' },
-              { value: '99.9%', label: 'Platform uptime' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold" style={{ color: '#00e5ff' }}>
-                  {stat.value}
-                </div>
-                <div className="text-xs mt-1" style={{ color: '#8b8ba7' }}>
-                  {stat.label}
+                {/* Content card */}
+                <div
+                  className="flex-1 rounded-2xl p-6 transition-all duration-300 group-hover:border-opacity-60"
+                  style={{
+                    background: '#111118',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <span
+                      className="text-xs font-bold tracking-widest"
+                      style={{ color: 'rgba(0,229,255,0.5)' }}
+                    >
+                      STEP {step.number}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#8b8b9a' }}>
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Bottom CTA strip */}
+        <div
+          className="mt-16 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+          style={{
+            background: 'linear-gradient(135deg, rgba(0,229,255,0.07) 0%, rgba(0,229,255,0.02) 100%)',
+            border: '1px solid rgba(0,229,255,0.15)',
+          }}
+        >
+          <div>
+            <p className="text-white font-semibold text-lg">Ready to automate your reputation?</p>
+            <p className="text-sm mt-1" style={{ color: '#8b8b9a' }}>
+              Join 500+ European businesses already using ReviewAgent.
+            </p>
+          </div>
+          <a
+            href="#pricing"
+            className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:brightness-110 hover:scale-105 active:scale-95"
+            style={{ background: '#00e5ff', color: '#0a0a0f' }}
+          >
+            See Pricing Plans
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>
