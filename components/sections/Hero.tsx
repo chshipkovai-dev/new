@@ -1,100 +1,107 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, Zap, TrendingUp, Shield } from 'lucide-react';
-import Modal from '@/components/ui/Modal';
-import LeadForm from '@/components/ui/LeadForm';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
+import Image from 'next/image';
+import { Modal } from '@/components/ui/Modal';
+import { LeadForm } from '@/components/ui/LeadForm';
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
 
-const stats = [
-  { value: '4.8x', label: 'More reviews collected' },
-  { value: '94%', label: 'Response rate' },
-  { value: '2 min', label: 'Average setup time' },
-  { value: '500+', label: 'Businesses in Europe' },
+const STATS = [
+  { value: '4.8★', label: 'Average rating boost' },
+  { value: '3×', label: 'More reviews collected' },
+  { value: '90%', label: 'Response automation' },
+  { value: '2 min', label: 'Setup time' },
 ];
 
-const trustLogos = [
-  'Gastro Berlin',
-  'Bella Vita Roma',
-  'Studio Glam Madrid',
-  'Le Petit Paris',
-  'Salon Vienna',
-];
-
-export default function Hero() {
+export function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<'free' | 'pro' | 'business'>('free');
 
-  const handleOpenModal = (plan: 'free' | 'pro' | 'business' = 'free') => {
-    setSelectedPlan(plan);
+  function handleCTA() {
+    setSelectedPlan('free');
     setIsModalOpen(true);
-  };
+  }
+
+  function handleSuccess() {
+    setIsModalOpen(false);
+    window.location.href = '/thank-you';
+  }
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 pb-16 px-4" style={{ background: '#0a0a0f' }}>
-      {/* Background glow effects */}
+    <section
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-24 pb-16"
+      style={{ background: '#0a0a0f' }}
+    >
+      {/* Ambient glow background */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-10 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)' }}
+        className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-5 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)' }}
-        aria-hidden="true"
-      />
+      >
+        <div
+          className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
+        />
+        <div
+          className="absolute bottom-0 right-[-15%] w-[600px] h-[400px] rounded-full opacity-10 blur-[100px]"
+          style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
+        />
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              'linear-gradient(#00e5ff 1px, transparent 1px), linear-gradient(90deg, #00e5ff 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+      </div>
 
-      {/* Animated grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(#00e5ff 1px, transparent 1px), linear-gradient(90deg, #00e5ff 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center text-center">
         {/* Badge */}
-        <div className="flex justify-center mb-6">
+        <div className="mb-6">
           <Badge>
-            <Zap className="w-3 h-3 mr-1" style={{ color: '#00e5ff' }} />
-            AI-Powered Review Automation for European Businesses
+            <span
+              className="inline-block w-2 h-2 rounded-full mr-2 animate-pulse"
+              style={{ background: '#00e5ff' }}
+            />
+            Now live across Europe — Restaurants &amp; Salons
           </Badge>
         </div>
 
         {/* Headline */}
-        <h1 className="text-center font-extrabold tracking-tight text-white mb-6" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', lineHeight: 1.1 }}>
-          Turn Every Guest Into a{' '}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight max-w-4xl mb-6">
+          Your AI Agent That{' '}
           <span
             className="relative inline-block"
-            style={{
-              background: 'linear-gradient(90deg, #00e5ff, #00b8cc)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            style={{ color: '#00e5ff' }}
           >
-            5-Star Review
-          </span>
-          <br />
-          — Automatically
+            Handles Every Review
+            <span
+              className="absolute -bottom-1 left-0 w-full h-[3px] rounded-full opacity-60"
+              style={{ background: 'linear-gradient(90deg, #00e5ff, transparent)' }}
+            />
+          </span>{' '}
+          — While You Run Your Business
         </h1>
 
         {/* Subheadline */}
-        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
-          ReviewAgent sends personalised review requests, responds to feedback in your brand voice,
-          and gives you actionable insights — so you can focus on running your restaurant or salon,
-          not chasing reviews.
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-2xl mb-10 leading-relaxed">
+          ReviewAgent reads, responds, and escalates customer feedback on Google, Tripadvisor, and Yelp — 24/7, in any language. Built for European restaurants and beauty salons.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+        <div className="flex flex-col sm:flex-row gap-4 mb-14 w-full max-w-md sm:max-w-none sm:w-auto">
           <Button
             variant="primary"
             size="lg"
-            onClick={() => handleOpenModal('free')}
+            onClick={handleCTA}
+            className="text-base font-semibold px-8 py-4 rounded-xl shadow-lg"
+            style={{
+              background: '#00e5ff',
+              color: '#0a0a0f',
+              boxShadow: '0 0 32px rgba(0,229,255,0.35)',
+            }}
           >
             Start Free — No Credit Card
           </Button>
@@ -102,39 +109,31 @@ export default function Hero() {
             variant="ghost"
             size="lg"
             onClick={() => {
-              const el = document.getElementById('pricing');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
+              document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
             }}
+            className="text-base font-semibold px-8 py-4 rounded-xl border text-white"
+            style={{ borderColor: 'rgba(255,255,255,0.15)' }}
           >
-            View Pricing
+            See How It Works →
           </Button>
         </div>
 
-        {/* Trust indicators */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-14">
-          <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <Shield className="w-4 h-4" style={{ color: '#00e5ff' }} />
-            GDPR Compliant
-          </div>
-          <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <TrendingUp className="w-4 h-4" style={{ color: '#00e5ff' }} />
-            Works with Google & TripAdvisor
-          </div>
-          <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <Star className="w-4 h-4 fill-current" style={{ color: '#00e5ff' }} />
-            Rated 4.9 / 5 by 200+ owners
-          </div>
-        </div>
+        {/* Social trust line */}
+        <p className="text-sm text-gray-500 mb-10">
+          Trusted by{' '}
+          <span className="text-white font-medium">500+ businesses</span>{' '}
+          in Germany, Spain, France, Italy &amp; the Netherlands
+        </p>
 
-        {/* Stats */}
+        {/* Stats row */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden mb-16"
-          style={{ background: '#1a1a2e' }}
+          className="w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden mb-16"
+          style={{ background: 'rgba(255,255,255,0.06)' }}
         >
-          {stats.map((stat) => (
+          {STATS.map((stat, i) => (
             <div
-              key={stat.label}
-              className="flex flex-col items-center justify-center py-8 px-4"
+              key={i}
+              className="flex flex-col items-center justify-center py-6 px-4"
               style={{ background: '#111118' }}
             >
               <span
@@ -143,184 +142,139 @@ export default function Hero() {
               >
                 {stat.value}
               </span>
-              <span className="text-gray-400 text-sm text-center">{stat.label}</span>
+              <span className="text-xs text-gray-400 text-center leading-snug">{stat.label}</span>
             </div>
           ))}
         </div>
 
-        {/* Dashboard preview */}
-        <div className="relative mx-auto max-w-4xl">
+        {/* Hero visual: mock dashboard card */}
+        <div
+          className="relative w-full max-w-3xl rounded-2xl overflow-hidden border"
+          style={{
+            background: '#111118',
+            borderColor: 'rgba(0,229,255,0.15)',
+            boxShadow: '0 0 80px rgba(0,229,255,0.08), 0 30px 60px rgba(0,0,0,0.5)',
+          }}
+        >
+          {/* Window chrome */}
           <div
-            className="rounded-2xl p-1"
-            style={{
-              background: 'linear-gradient(135deg, #00e5ff22, #00e5ff05, #00e5ff22)',
-            }}
+            className="flex items-center gap-2 px-4 py-3 border-b"
+            style={{ borderColor: 'rgba(255,255,255,0.06)' }}
           >
-            <div
-              className="rounded-xl overflow-hidden"
-              style={{ background: '#111118' }}
-            >
-              {/* Fake browser bar */}
-              <div
-                className="flex items-center gap-2 px-4 py-3 border-b"
-                style={{ background: '#0d0d14', borderColor: '#1e1e2e' }}
-              >
-                <div className="w-3 h-3 rounded-full bg-red-500 opacity-70" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-70" />
-                <div className="w-3 h-3 rounded-full bg-green-500 opacity-70" />
-                <div
-                  className="ml-4 flex-1 max-w-xs rounded px-3 py-1 text-xs text-gray-500"
-                  style={{ background: '#1a1a2e' }}
-                >
-                  app.reviewagent.io/dashboard
-                </div>
-              </div>
+            <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+            <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+            <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+            <span className="ml-4 text-xs text-gray-500 font-mono">ReviewAgent Dashboard — La Bella Cucina, Berlin</span>
+          </div>
 
-              {/* Dashboard content */}
-              <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Reviews sent */}
+          {/* Dashboard body */}
+          <div className="p-6">
+            {/* Top row */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              {[
+                { label: 'New Reviews', value: '12', delta: '+4 today', color: '#00e5ff' },
+                { label: 'Auto-Replied', value: '11', delta: '91% automated', color: '#a78bfa' },
+                { label: 'Avg Rating', value: '4.9★', delta: '↑ 0.3 this month', color: '#34d399' },
+              ].map((card, i) => (
                 <div
-                  className="rounded-xl p-4"
-                  style={{ background: '#0d0d14', border: '1px solid #1e1e2e' }}
+                  key={i}
+                  className="rounded-xl p-4 flex flex-col gap-1"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
                 >
-                  <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Reviews Sent This Week</div>
-                  <div className="text-3xl font-bold text-white mb-1">248</div>
-                  <div className="text-xs flex items-center gap-1" style={{ color: '#00e5ff' }}>
-                    <TrendingUp className="w-3 h-3" />
-                    +18% vs last week
-                  </div>
+                  <span className="text-xs text-gray-500">{card.label}</span>
+                  <span className="text-2xl font-bold text-white">{card.value}</span>
+                  <span className="text-xs font-medium" style={{ color: card.color }}>{card.delta}</span>
                 </div>
+              ))}
+            </div>
 
-                {/* Avg rating */}
+            {/* Review items */}
+            <div className="flex flex-col gap-3">
+              {[
+                {
+                  platform: 'Google',
+                  author: 'Maria K.',
+                  country: '🇩🇪',
+                  rating: 5,
+                  text: 'Amazing pasta and incredible service! Will definitely come back.',
+                  reply: 'Thank you so much, Maria! We are thrilled you enjoyed your visit. See you soon at La Bella Cucina! 🍝',
+                  status: 'Replied',
+                  statusColor: '#34d399',
+                  time: '2m ago',
+                },
+                {
+                  platform: 'Tripadvisor',
+                  author: 'James O.',
+                  country: '🇬🇧',
+                  rating: 3,
+                  text: 'Good food but the wait was a bit long on Friday evening.',
+                  reply: 'Hi James, thank you for the honest feedback! Friday evenings are our busiest — we are adding staff from next week. Hope to see you again!',
+                  status: 'Escalated',
+                  statusColor: '#fbbf24',
+                  time: '18m ago',
+                },
+              ].map((review, i) => (
                 <div
+                  key={i}
                   className="rounded-xl p-4"
-                  style={{ background: '#0d0d14', border: '1px solid #1e1e2e' }}
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
                 >
-                  <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Average Rating</div>
-                  <div className="flex items-end gap-2">
-                    <div className="text-3xl font-bold text-white">4.8</div>
-                    <div className="flex gap-0.5 mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-4 h-4 fill-current"
-                          style={{ color: i < 5 ? '#fbbf24' : '#374151' }}
-                        />
-                      ))}
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                        style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff' }}
+                      >
+                        {review.platform}
+                      </span>
+                      <span className="text-sm text-white font-medium">{review.country} {review.author}</span>
+                      <span className="text-yellow-400 text-xs">
+                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-xs text-gray-500">{review.time}</span>
+                      <span
+                        className="text-xs font-medium px-2 py-0.5 rounded-full"
+                        style={{ background: `${review.statusColor}18`, color: review.statusColor }}
+                      >
+                        {review.status}
+                      </span>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500">Google & TripAdvisor</div>
-                </div>
-
-                {/* Response rate */}
-                <div
-                  className="rounded-xl p-4"
-                  style={{ background: '#0d0d14', border: '1px solid #1e1e2e' }}
-                >
-                  <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Auto-Response Rate</div>
-                  <div className="text-3xl font-bold text-white mb-1">94%</div>
-                  <div className="w-full rounded-full h-1.5 mt-2" style={{ background: '#1e1e2e' }}>
-                    <div
-                      className="h-1.5 rounded-full"
-                      style={{ width: '94%', background: 'linear-gradient(90deg, #00e5ff, #00b8cc)' }}
-                    />
+                  <p className="text-sm text-gray-400 mb-2">{review.text}</p>
+                  <div
+                    className="rounded-lg px-3 py-2 text-sm text-gray-300 italic border-l-2"
+                    style={{
+                      background: 'rgba(0,229,255,0.05)',
+                      borderColor: '#00e5ff',
+                    }}
+                  >
+                    <span className="text-xs font-semibold not-italic" style={{ color: '#00e5ff' }}>AI Reply: </span>
+                    {review.reply}
                   </div>
                 </div>
-
-                {/* Recent activity */}
-                <div
-                  className="md:col-span-3 rounded-xl p-4"
-                  style={{ background: '#0d0d14', border: '1px solid #1e1e2e' }}
-                >
-                  <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">Recent AI Responses</div>
-                  <div className="space-y-3">
-                    {[
-                      {
-                        name: 'Maria S.',
-                        platform: 'Google',
-                        rating: 5,
-                        review: 'Absolutely amazing experience! The food was perfect.',
-                        response: 'Thank you so much, Maria! We\'re thrilled you enjoyed your visit. We look forward to welcoming you back soon! 🌟',
-                        time: '2m ago',
-                      },
-                      {
-                        name: 'Klaus B.',
-                        platform: 'TripAdvisor',
-                        rating: 4,
-                        review: 'Great service, slightly long wait but worth it.',
-                        response: 'Hi Klaus, thank you for your kind words! We\'re working on improving our wait times — see you again soon!',
-                        time: '14m ago',
-                      },
-                    ].map((item) => (
-                      <div key={item.name} className="flex gap-3 items-start">
-                        <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                          style={{ background: '#1a1a2e', color: '#00e5ff' }}
-                        >
-                          {item.name[0]}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className="text-xs font-semibold text-white">{item.name}</span>
-                            <span
-                              className="text-xs px-1.5 py-0.5 rounded"
-                              style={{ background: '#1a1a2e', color: '#00e5ff' }}
-                            >
-                              {item.platform}
-                            </span>
-                            <div className="flex gap-0.5">
-                              {[...Array(item.rating)].map((_, i) => (
-                                <Star key={i} className="w-2.5 h-2.5 fill-current" style={{ color: '#fbbf24' }} />
-                              ))}
-                            </div>
-                            <span className="text-xs text-gray-600 ml-auto">{item.time}</span>
-                          </div>
-                          <p className="text-xs text-gray-400 mb-1 truncate">{item.review}</p>
-                          <p
-                            className="text-xs px-2 py-1 rounded"
-                            style={{ background: '#00e5ff0d', color: '#00e5ff', border: '1px solid #00e5ff22' }}
-                          >
-                            🤖 AI: {item.response}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Glow under dashboard */}
+          {/* Glow edge */}
           <div
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 opacity-20 blur-2xl pointer-events-none"
-            style={{ background: '#00e5ff' }}
-            aria-hidden="true"
+            className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+            style={{ background: 'linear-gradient(to top, #0a0a0f, transparent)' }}
           />
-        </div>
-
-        {/* Social proof logos */}
-        <div className="mt-16 text-center">
-          <p className="text-xs text-gray-600 uppercase tracking-widest mb-6">Trusted by restaurants & salons across Europe</p>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            {trustLogos.map((logo) => (
-              <div
-                key={logo}
-                className="text-sm font-semibold px-4 py-2 rounded-lg"
-                style={{ color: '#4a4a6a', background: '#111118', border: '1px solid #1e1e2e' }}
-              >
-                {logo}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
-      {/* Lead form modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Get Started for Free">
+      {/* Lead capture modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Get Started Free"
+      >
         <LeadForm
           defaultPlan={selectedPlan}
-          onSuccess={() => setIsModalOpen(false)}
+          onSuccess={handleSuccess}
         />
       </Modal>
     </section>
