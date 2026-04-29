@@ -3,15 +3,15 @@
 import { useState } from 'react';
 import Hero from '@/components/Hero';
 import Pricing from '@/components/Pricing';
-import LeadModal from '@/components/LeadModal';
+import LeadModal, { type Plan } from '@/components/LeadModal';
 import { FeaturesSection, TestimonialsSection, CTABanner, Footer } from '@/components/Sections';
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<string>('pro');
+  const [selectedPlan, setSelectedPlan] = useState<Plan>('pro');
 
   const handleOpenModal = (plan: string) => {
-    setSelectedPlan(plan);
+    setSelectedPlan(plan as Plan);
     setIsModalOpen(true);
   };
 
