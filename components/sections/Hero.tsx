@@ -1,19 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, ArrowRight, CheckCircle, TrendingUp, MessageSquare } from 'lucide-react';
+import { Star, TrendingUp, Shield, Zap } from 'lucide-react';
 import LeadModal from '@/components/ui/LeadModal';
 
 const stats = [
-  { value: '4.8★', label: 'Average rating boost', icon: Star },
-  { value: '3x', label: 'Faster reply time', icon: MessageSquare },
-  { value: '+38%', label: 'More positive reviews', icon: TrendingUp },
+  { value: '2,400+', label: 'Businesses trust us' },
+  { value: '94%', label: 'Faster response time' },
+  { value: '4.8★', label: 'Average rating boost' },
+  { value: '€0', label: 'To get started' },
 ];
 
 const trustBadges = [
-  'No credit card required',
-  'Setup in 2 minutes',
-  'Cancel anytime',
+  { icon: Star, text: 'Google Reviews' },
+  { icon: Shield, text: 'GDPR Compliant' },
+  { icon: Zap, text: 'Setup in 5 min' },
+  { icon: TrendingUp, text: 'AI-Powered' },
 ];
 
 export default function Hero() {
@@ -26,127 +28,93 @@ export default function Hero() {
   };
 
   return (
-    <section
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-24 pb-16"
-      style={{ background: '#0a0a0f' }}
-    >
-      {/* Ambient glow background */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-10 blur-[120px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
-      />
-      <div
-        className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-5 blur-[100px] pointer-events-none"
-        style={{ background: '#00e5ff' }}
-      />
-
-      {/* Announcement badge */}
-      <div className="relative z-10 mb-6 flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-sm text-cyan-400 backdrop-blur-sm">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
-        </span>
-        Now live across Europe — 500+ restaurants & salons trust ReviewAgent
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-16 overflow-hidden bg-[#0a0a0f]">
+      {/* Background glow effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-10" style={{ background: 'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)' }} />
+        <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] rounded-full opacity-5" style={{ background: 'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)' }} />
+        <div className="absolute top-[30%] right-[-5%] w-[300px] h-[300px] rounded-full opacity-5" style={{ background: 'radial-gradient(ellipse at center, #7c3aed 0%, transparent 70%)' }} />
+        {/* Grid overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(0,229,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
-      {/* Headline */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
-          Stop Losing Customers
-          <br />
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: 'linear-gradient(90deg, #00e5ff, #0090ff)' }}
-          >
-            to Unanswered Reviews
+      <div className="relative z-10 max-w-5xl mx-auto text-center">
+        {/* Top badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00e5ff]/20 bg-[#00e5ff]/5 text-[#00e5ff] text-sm font-medium mb-8">
+          <span className="w-2 h-2 rounded-full bg-[#00e5ff] animate-pulse" />
+          AI Review Management for European Businesses
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
+          Stop Losing Customers{' '}
+          <br className="hidden sm:block" />
+          to{' '}
+          <span className="relative inline-block">
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #00e5ff 0%, #7c3aed 100%)' }}>
+              Ignored Reviews
+            </span>
+            <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: 'linear-gradient(90deg, #00e5ff, #7c3aed)' }} />
           </span>
         </h1>
 
-        <p className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-400 leading-relaxed mb-10">
-          ReviewAgent uses AI to automatically respond to your Google reviews in seconds — in any language, 24/7. Protect your reputation and win more local customers without lifting a finger.
+        {/* Sub-headline / Pain */}
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4 leading-relaxed">
+          Every unanswered Google review costs you a new customer.
+        </p>
+        <p className="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+          ReviewAgent uses AI to automatically respond to every review — in your brand voice, in seconds. Restaurants and salons across Europe use it to protect and grow their reputation on autopilot.
         </p>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
             onClick={() => handleCTAClick('free')}
-            className="group inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold text-black transition-all duration-200 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-cyan-500/25"
-            style={{ background: 'linear-gradient(135deg, #00e5ff, #0090ff)' }}
+            className="group relative w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-[#0a0a0f] transition-all duration-200 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#00e5ff] focus:ring-offset-2 focus:ring-offset-[#0a0a0f]"
+            style={{ background: 'linear-gradient(135deg, #00e5ff 0%, #00b8d4 100%)', boxShadow: '0 0 30px rgba(0,229,255,0.25)' }}
           >
-            Start Free — No Card Needed
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <span className="relative z-10">Start Free — No Credit Card</span>
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ background: 'linear-gradient(135deg, #33ecff 0%, #00d4f0 100%)' }} />
           </button>
+
           <button
             onClick={() => handleCTAClick('pro')}
-            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:border-cyan-500/40 hover:bg-white/10"
+            className="group w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/10 bg-white/5 transition-all duration-200 hover:border-[#00e5ff]/40 hover:bg-white/10 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-[#0a0a0f]"
           >
-            See Pro Plan
-            <ArrowRight className="w-5 h-5 text-cyan-400" />
+            See Pro Plan →
           </button>
         </div>
 
         {/* Trust badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
-          {trustBadges.map((badge) => (
-            <div key={badge} className="flex items-center gap-1.5 text-sm text-gray-400">
-              <CheckCircle className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-              <span>{badge}</span>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-14">
+          {trustBadges.map(({ icon: Icon, text }) => (
+            <div key={text} className="flex items-center gap-2 text-gray-500 text-sm">
+              <Icon className="w-4 h-4 text-[#00e5ff]" />
+              <span>{text}</span>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Stats bar */}
-      <div className="relative z-10 w-full max-w-3xl mx-auto">
-        <div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-px rounded-2xl overflow-hidden border border-white/8"
-          style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))' }}
-        >
-          {stats.map(({ value, label, icon: Icon }, index) => (
+        {/* Stats bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          {stats.map(({ value, label }) => (
             <div
               key={label}
-              className={`flex flex-col items-center justify-center gap-1 py-6 px-4 backdrop-blur-sm ${
-                index < stats.length - 1 ? 'sm:border-r border-b sm:border-b-0 border-white/8' : ''
-              }`}
-              style={{ background: '#111118' }}
+              className="flex flex-col items-center p-4 rounded-xl border border-white/5 bg-[#111118]/80 backdrop-blur-sm"
             >
-              <Icon className="w-5 h-5 mb-1" style={{ color: '#00e5ff' }} />
-              <span className="text-2xl sm:text-3xl font-extrabold text-white">{value}</span>
-              <span className="text-xs sm:text-sm text-gray-400 text-center">{label}</span>
+              <span className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #00e5ff, #ffffff)' }}>
+                {value}
+              </span>
+              <span className="text-xs sm:text-sm text-gray-500 mt-1 text-center">{label}</span>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Mock review card — visual proof */}
-      <div className="relative z-10 mt-16 w-full max-w-lg mx-auto">
-        <div
-          className="rounded-2xl border border-white/8 p-5 backdrop-blur-sm"
-          style={{ background: '#111118' }}
-        >
-          <div className="flex items-start gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style={{ background: 'linear-gradient(135deg, #00e5ff, #0090ff)' }}>M</div>
-            <div>
-              <p className="text-white font-semibold text-sm">Maria García</p>
-              <div className="flex gap-0.5 mt-0.5">
-                {[1,2,3,4,5].map((s) => (
-                  <Star key={s} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-            </div>
-            <span className="ml-auto text-xs text-gray-500">2 min ago</span>
-          </div>
-          <p className="text-gray-300 text-sm leading-relaxed mb-4">"Amazing food and great service! Came here for my birthday dinner and it was absolutely perfect. Will definitely come back!"</p>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#00e5ff' }} />
-            <p className="text-sm" style={{ color: '#00e5ff' }}>AI is generating a reply…</p>
-          </div>
-          <div
-            className="mt-3 rounded-xl p-3 text-sm text-gray-300 border border-cyan-500/20"
-            style={{ background: 'rgba(0, 229, 255, 0.05)' }}
-          >
-            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#00e5ff' }}>ReviewAgent reply</span>
-            <p className="mt-1 leading-relaxed">"Thank you so much, Maria! 🎉 We're thrilled your birthday dinner was special. Our team works hard to create memorable moments. We can't wait to welcome you back — next celebration is on us! 🥂"</p>
+        {/* Scroll indicator */}
+        <div className="mt-14 flex flex-col items-center gap-2 text-gray-600 text-xs">
+          <span>Scroll to explore</span>
+          <div className="w-5 h-8 rounded-full border border-gray-700 flex items-start justify-center p-1">
+            <div className="w-1 h-2 rounded-full bg-[#00e5ff] animate-bounce" />
           </div>
         </div>
       </div>
@@ -155,7 +123,7 @@ export default function Hero() {
       <LeadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        defaultPlan={selectedPlan}
+        selectedPlan={selectedPlan}
       />
     </section>
   );
