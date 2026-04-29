@@ -24,16 +24,16 @@ const plans: PricingPlan[] = [
     name: 'Free',
     price: '€0',
     period: 'forever',
-    description: 'Perfect for testing ReviewAgent and seeing the value before committing.',
+    description: 'Perfect for testing ReviewAgent and seeing how AI-powered responses work for your business.',
     features: [
       '1 business location',
-      'Up to 20 AI replies / month',
+      'Up to 20 AI responses/month',
       'Google Reviews integration',
-      'Basic sentiment analysis',
+      'Basic response templates',
       'Email support',
-      'ReviewAgent branding on replies',
+      'Review dashboard',
     ],
-    cta: 'Get Started Free',
+    cta: 'Start for Free',
     highlighted: false,
   },
   {
@@ -41,18 +41,18 @@ const plans: PricingPlan[] = [
     name: 'Pro',
     price: '€49',
     period: 'per month',
-    description: 'For growing restaurants and salons ready to automate their reputation fully.',
+    description: 'The complete toolkit for restaurants and salons that want to dominate their local reputation.',
     features: [
       '1 business location',
-      'Unlimited AI replies',
-      'Google & Tripadvisor integration',
-      'Advanced sentiment & trend analytics',
-      'Custom reply tone & brand voice',
-      'Auto-reply scheduling',
+      'Unlimited AI responses',
+      'Google + TripAdvisor + Yelp',
+      'Sentiment analysis & alerts',
+      'Custom brand tone & voice',
+      'Response approval workflow',
+      'Monthly analytics report',
       'Priority email & chat support',
-      'No ReviewAgent branding',
     ],
-    cta: 'Start Pro Trial',
+    cta: 'Get Pro Access',
     highlighted: true,
     badge: 'Most Popular',
   },
@@ -61,17 +61,17 @@ const plans: PricingPlan[] = [
     name: 'Business',
     price: '€149',
     period: 'per month',
-    description: 'For multi-location chains and agencies managing reputation at scale.',
+    description: 'Built for multi-location chains and agencies managing reputation at scale across Europe.',
     features: [
-      'Up to 10 business locations',
-      'Unlimited AI replies across all locations',
-      'Google, Tripadvisor & Yelp integration',
+      'Up to 10 locations',
+      'Unlimited AI responses',
+      'All review platforms',
       'Multi-location dashboard',
-      'Custom AI model fine-tuning',
+      'Team roles & permissions',
+      'White-label reports',
+      'API access',
       'Dedicated account manager',
-      'API access & webhooks',
-      'SLA-backed support (24h response)',
-      'White-label option available',
+      'Custom onboarding',
     ],
     cta: 'Contact Sales',
     highlighted: false,
@@ -79,17 +79,12 @@ const plans: PricingPlan[] = [
 ];
 
 export default function Pricing() {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<Plan>('free');
 
   const handleSelectPlan = (plan: Plan) => {
     setSelectedPlan(plan);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedPlan(null);
+    setModalOpen(true);
   };
 
   return (
@@ -100,56 +95,41 @@ export default function Pricing() {
     >
       {/* Background glow */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10 blur-3xl"
-          style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
-        />
-      </div>
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10 blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)' }}
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Header */}
+        {/* Section header */}
         <div className="text-center mb-16">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-6"
-            style={{
-              borderColor: 'rgba(0, 229, 255, 0.3)',
-              color: '#00e5ff',
-              backgroundColor: 'rgba(0, 229, 255, 0.05)',
-            }}
+          <span
+            className="inline-block text-xs font-semibold tracking-widest uppercase mb-4 px-3 py-1 rounded-full border"
+            style={{ color: '#00e5ff', borderColor: 'rgba(0,229,255,0.3)', backgroundColor: 'rgba(0,229,255,0.05)' }}
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Simple, Transparent Pricing
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Choose the plan that{' '}
-            <span style={{ color: '#00e5ff' }}>fits your business</span>
+            Pricing
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+            Simple, Transparent{' '}
+            <span style={{ color: '#00e5ff' }}>Pricing</span>
           </h2>
-
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Start free, upgrade when you're ready. No hidden fees, no long-term contracts.
-            Cancel anytime.
+            No hidden fees. No contracts. Start free and upgrade when you see the results — most businesses do within the first week.
           </p>
         </div>
 
-        {/* Billing toggle note */}
-        <div className="flex justify-center mb-12">
-          <div
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm"
-            style={{ backgroundColor: '#111118', border: '1px solid rgba(255,255,255,0.08)' }}
+        {/* Billing toggle hint */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <span className="text-sm text-gray-500">All prices in EUR. Cancel anytime.</span>
+          <span
+            className="text-xs font-medium px-2.5 py-1 rounded-full"
+            style={{ backgroundColor: 'rgba(0,229,255,0.1)', color: '#00e5ff' }}
           >
-            <span className="text-gray-400">All prices in EUR · VAT may apply ·</span>
-            <span style={{ color: '#00e5ff' }} className="font-medium">Annual billing saves 20%</span>
-          </div>
+            🇪🇺 EU VAT may apply
+          </span>
         </div>
 
-        {/* Pricing cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* Pricing cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center">
           {plans.map((plan) => (
             <PricingCard
               key={plan.id}
@@ -167,68 +147,33 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* Bottom guarantee */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <svg className="w-5 h-5 shrink-0" style={{ color: '#00e5ff' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <span>14-day money-back guarantee</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <svg className="w-5 h-5 shrink-0" style={{ color: '#00e5ff' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-              </svg>
-              <span>No credit card for Free plan</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <svg className="w-5 h-5 shrink-0" style={{ color: '#00e5ff' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-              </svg>
-              <span>Upgrade or downgrade anytime</span>
-            </div>
+        {/* Bottom trust note */}
+        <div className="mt-14 text-center">
+          <p className="text-sm text-gray-500 mb-4">
+            Trusted by 500+ local businesses across Germany, Spain, Poland, and beyond.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {[
+              { icon: '🔒', text: 'GDPR compliant' },
+              { icon: '💳', text: 'No credit card for Free' },
+              { icon: '⚡', text: 'Setup in under 5 minutes' },
+              { icon: '🔄', text: 'Cancel anytime' },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-2">
+                <span className="text-base">{item.icon}</span>
+                <span className="text-sm text-gray-400">{item.text}</span>
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* Enterprise callout */}
-        <div
-          className="mt-12 p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{
-            backgroundColor: '#111118',
-            border: '1px solid rgba(0, 229, 255, 0.15)',
-          }}
-        >
-          <div>
-            <h3 className="text-xl font-semibold text-white mb-2">
-              Need a custom Enterprise solution?
-            </h3>
-            <p className="text-gray-400 text-sm max-w-lg">
-              Managing 10+ locations, need white-label, SSO, or a dedicated infrastructure? Let's
-              build a plan that fits your enterprise needs.
-            </p>
-          </div>
-          <button
-            onClick={() => handleSelectPlan('business')}
-            className="shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-95"
-            style={{
-              backgroundColor: 'rgba(0, 229, 255, 0.1)',
-              color: '#00e5ff',
-              border: '1px solid rgba(0, 229, 255, 0.3)',
-            }}
-          >
-            Talk to Sales →
-          </button>
         </div>
       </div>
 
       {/* Lead Modal */}
-      {isModalOpen && selectedPlan && (
-        <LeadModal
-          plan={selectedPlan}
-          onClose={handleCloseModal}
-        />
-      )}
+      <LeadModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        selectedPlan={selectedPlan}
+      />
     </section>
   );
 }
