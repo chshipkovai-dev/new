@@ -1,4 +1,4 @@
-import React from 'react';
+import { Star, Zap, Globe, BarChart3, Shield, Clock, MessageSquare, TrendingUp } from 'lucide-react';
 
 interface Feature {
   icon: React.ReactNode;
@@ -7,153 +7,150 @@ interface Feature {
   highlight?: boolean;
 }
 
-const CheckIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16.667 5L7.5 14.167 3.333 10" stroke="#00e5ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 const features: Feature[] = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2L17.09 8.26L24 9.27L19 14.14L20.18 21.02L14 17.77L7.82 21.02L9 14.14L4 9.27L10.91 8.26L14 2Z" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      </svg>
-    ),
-    title: 'AI-Powered Reply Generation',
-    description: 'Our AI analyzes the sentiment and context of every review and generates personalised, on-brand responses in seconds — in English, German, Spanish, Polish and more.',
+    icon: <Zap className="w-6 h-6" />,
+    title: "Instant AI Responses",
+    description: "Generate professional, personalized replies to every Google review in seconds. Our AI understands context, tone, and your brand voice to craft responses that feel human.",
     highlight: true,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="14" cy="14" r="10" stroke="#00e5ff" strokeWidth="1.8" />
-        <path d="M14 9v5l3 3" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Automated 24/7 Monitoring',
-    description: 'ReviewAgent continuously monitors your Google Business Profile for new reviews so you never miss a single piece of customer feedback, even while you sleep.',
+    icon: <Globe className="w-6 h-6" />,
+    title: "Multi-Language Support",
+    description: "Respond to reviews in 20+ languages automatically. Perfect for European businesses serving diverse customers across Germany, Spain, Poland, France, and beyond.",
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="5" width="22" height="18" rx="3" stroke="#00e5ff" strokeWidth="1.8" />
-        <path d="M3 10h22" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M8 15h5M8 19h8" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-    title: 'Multi-Location Dashboard',
-    description: 'Manage reviews for all your branches from one unified dashboard. Perfect for restaurant chains and beauty salon networks operating across multiple cities or countries.',
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "Reputation Analytics",
+    description: "Track your rating trends, response rates, and sentiment scores over time. Identify patterns in customer feedback and act before small issues become big problems.",
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 20l6-6 4 4 8-10" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Reputation Analytics',
-    description: 'Track your average rating trends, response rate, and sentiment score over time. Actionable insights help you identify what delights customers — and what needs improvement.',
+    icon: <Star className="w-6 h-6" />,
+    title: "Review Request Automation",
+    description: "Automatically send follow-up messages to satisfied customers encouraging them to leave a review. Grow your review count on autopilot with smart timing logic.",
+    highlight: true,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 6H6a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2z" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M4 8l10 8 10-8" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Smart Alert Notifications',
-    description: 'Receive instant email or Slack alerts for negative reviews so you can respond before damage spreads. Priority alerts ensure critical feedback is never ignored.',
+    icon: <MessageSquare className="w-6 h-6" />,
+    title: "Negative Review Alerts",
+    description: "Get instant notifications when a negative review lands. Respond within minutes to show potential customers you take feedback seriously and protect your reputation.",
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3C8.477 3 4 7.477 4 13c0 2.136.67 4.116 1.81 5.74L4 25l6.26-1.81A10 10 0 1014 3z" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Tone & Brand Customisation',
-    description: 'Set your business voice — formal, friendly or casual — and train ReviewAgent on your specific FAQs, offers and policies so every reply sounds authentically yours.',
+    icon: <Shield className="w-6 h-6" />,
+    title: "Brand Voice Consistency",
+    description: "Train the AI on your brand tone — professional, friendly, or premium. Every response reflects your business identity across all locations and team members.",
   },
-];
-
-const benefitPoints = [
-  'Save 5–10 hours per week on manual review management',
-  'Increase your average Google rating within 60 days',
-  'Respond to 100% of reviews, not just the ones you notice',
-  'GDPR-compliant data handling for European businesses',
+  {
+    icon: <Clock className="w-6 h-6" />,
+    title: "24/7 Auto-Response Mode",
+    description: "Never let a review go unanswered again. Enable fully automated responses for common review types while keeping manual control for complex situations.",
+  },
+  {
+    icon: <TrendingUp className="w-6 h-6" />,
+    title: "Competitor Benchmarking",
+    description: "See how your ratings and response rate compare to competitors in your area. Understand where you stand and discover opportunities to pull ahead in local search.",
+  },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-24 bg-[#0a0a0f] overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[#00e5ff22] to-transparent" />
+    <section id="features" className="py-24 bg-[#0a0a0f] relative overflow-hidden">
+      {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-40 left-10 w-72 h-72 bg-[#00e5ff] opacity-[0.03] rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#00e5ff] opacity-[0.03] rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00e5ff] opacity-[0.03] rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#00e5ff] opacity-[0.03] rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00e5ff33] bg-[#00e5ff0d] mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00e5ff] animate-pulse" />
-            <span className="text-xs font-semibold tracking-widest text-[#00e5ff] uppercase">Everything you need</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00e5ff]/20 bg-[#00e5ff]/5 mb-6">
+            <Zap className="w-4 h-4 text-[#00e5ff]" />
+            <span className="text-sm font-medium text-[#00e5ff] tracking-wide uppercase">Everything You Need</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
-            Built for restaurants &amp; salons{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] to-[#0099bb]">across Europe</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Powerful features built for
+            <span className="block mt-1">
+              <span className="text-[#00e5ff]">local business</span> growth
+            </span>
           </h2>
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-400 leading-relaxed">
-            ReviewAgent combines AI intelligence with deep local business understanding to turn your Google reviews into a competitive advantage — without adding to your workload.
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            ReviewAgent combines cutting-edge AI with deep review platform integrations to give your restaurant or salon a competitive edge in local search and customer trust.
           </p>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+        {/* Features grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`relative group rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 ${
+              className={`relative group p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
                 feature.highlight
-                  ? 'bg-gradient-to-br from-[#00e5ff0d] to-[#111118] border-[#00e5ff33] shadow-[0_0_30px_#00e5ff0d]'
-                  : 'bg-[#111118] border-[#1e1e2e] hover:border-[#00e5ff22]'
+                  ? 'bg-[#111118] border-[#00e5ff]/30 hover:border-[#00e5ff]/60 hover:shadow-[0_0_30px_rgba(0,229,255,0.08)]'
+                  : 'bg-[#111118] border-white/5 hover:border-[#00e5ff]/20 hover:shadow-[0_0_20px_rgba(0,229,255,0.04)]'
               }`}
             >
+              {/* Highlight glow */}
               {feature.highlight && (
-                <div className="absolute top-4 right-4">
-                  <span className="text-[10px] font-bold tracking-widest text-[#00e5ff] bg-[#00e5ff1a] border border-[#00e5ff33] px-2 py-0.5 rounded-full uppercase">Core</span>
-                </div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#00e5ff]/5 to-transparent pointer-events-none" />
               )}
-              <div className="w-12 h-12 rounded-xl bg-[#00e5ff0d] border border-[#00e5ff1a] flex items-center justify-center mb-5 group-hover:bg-[#00e5ff15] transition-colors duration-300">
+
+              {/* Icon */}
+              <div
+                className={`relative z-10 inline-flex items-center justify-center w-12 h-12 rounded-xl mb-5 ${
+                  feature.highlight
+                    ? 'bg-[#00e5ff]/15 text-[#00e5ff]'
+                    : 'bg-white/5 text-gray-400 group-hover:bg-[#00e5ff]/10 group-hover:text-[#00e5ff]'
+                } transition-all duration-300`}
+              >
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 leading-snug">{feature.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{feature.description}</p>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <h3 className="text-base font-semibold text-white mb-3 leading-snug">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+
+              {/* Highlight badge */}
+              {feature.highlight && (
+                <div className="relative z-10 mt-4 pt-4 border-t border-[#00e5ff]/10">
+                  <span className="text-xs font-medium text-[#00e5ff] flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-[#00e5ff]" />
+                    Most used feature
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Bottom benefit strip */}
-        <div className="rounded-2xl border border-[#1e1e2e] bg-[#111118] p-8 md:p-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        {/* Bottom CTA banner */}
+        <div className="mt-16 p-8 md:p-10 rounded-2xl bg-[#111118] border border-[#00e5ff]/20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#00e5ff]/5 via-transparent to-[#00e5ff]/5 pointer-events-none" />
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                The ROI that speaks for itself
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                Integrates with Google Business Profile in under 2 minutes
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Local businesses that actively respond to reviews see up to 35% more clicks on their Google listing. ReviewAgent makes that effortless — for every review, every time.
+              <p className="text-gray-400 text-sm md:text-base">
+                No technical knowledge required. Connect your account, set your preferences, and let ReviewAgent handle the rest.
               </p>
             </div>
-            <ul className="space-y-3">
-              {benefitPoints.map((point, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 mt-0.5">
-                    <CheckIcon />
-                  </span>
-                  <span className="text-sm text-gray-300">{point}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center gap-4 shrink-0">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-sm text-gray-300 font-medium">Live integration</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                <Shield className="w-4 h-4 text-[#00e5ff]" />
+                <span className="text-sm text-gray-300 font-medium">GDPR compliant</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
