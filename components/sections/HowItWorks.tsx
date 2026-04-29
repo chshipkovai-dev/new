@@ -5,52 +5,49 @@ import { motion, useInView } from 'framer-motion';
 
 interface Step {
   number: string;
+  icon: React.ReactNode;
   title: string;
   description: string;
-  icon: React.ReactNode;
   detail: string;
 }
 
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Connect Your Google Business Profile',
-    description:
-      'Link your Google Business account in under 2 minutes. No technical skills required — just authorize access and ReviewAgent starts monitoring your reviews instantly.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2C7.373 2 2 7.373 2 14s5.373 12 12 12 12-5.373 12-12S20.627 2 14 2z" stroke="#00e5ff" strokeWidth="1.5" fill="none"/>
-        <path d="M9 14l3.5 3.5L19 10" stroke="#00e5ff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" />
       </svg>
     ),
-    detail: 'OAuth 2.0 secure connection — we never store your password',
+    title: 'Connect Your Google Business',
+    description: 'Link your Google Business Profile in under 60 seconds. No technical skills required — just sign in with Google and grant access.',
+    detail: 'Works with single locations and multi-branch chains alike.',
   },
   {
     number: '02',
-    title: 'AI Learns Your Brand Voice',
-    description:
-      'Our AI analyzes your business type, existing responses, and tone preferences. It crafts personalized replies that sound like you — professional, warm, and on-brand every time.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="6" width="22" height="16" rx="3" stroke="#00e5ff" strokeWidth="1.5" fill="none"/>
-        <path d="M9 12h10M9 16h6" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="21" cy="7" r="3" fill="#00e5ff"/>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18" />
+        <path d="M9 21V9" />
       </svg>
     ),
-    detail: 'Supports 12 languages including English, German, French, and Spanish',
+    title: 'Set Your Response Style',
+    description: 'Choose your tone — friendly, professional, or brand-specific. Upload a few sentences about your business and our AI learns your voice.',
+    detail: 'Supports English, German, French, Spanish, Italian and more.',
   },
   {
     number: '03',
-    title: 'Replies Go Live Automatically',
-    description:
-      'The moment a new review appears, ReviewAgent composes and posts a tailored response within minutes. Your reputation stays active and responsive — 24/7, even while you sleep.',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 4v6M14 18v6M4 14h6M18 14h6" stroke="#00e5ff" strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="14" cy="14" r="4" stroke="#00e5ff" strokeWidth="1.5" fill="none"/>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
       </svg>
     ),
-    detail: 'Average response time: under 4 minutes after review is posted',
+    title: 'Auto-Reply Runs 24 / 7',
+    description: 'ReviewAgent monitors every new review and posts a personalised, context-aware reply within minutes — whether it is 3 pm or 3 am.',
+    detail: 'You stay in control: approve before posting or let it run fully automatic.',
   },
 ];
 
@@ -68,22 +65,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const lineVariants = {
-  hidden: { scaleX: 0 },
-  visible: {
-    scaleX: 1,
-    transition: {
-      duration: 0.8,
-      ease: 'easeInOut',
-      delay: 0.3,
-    },
+    transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
 
@@ -93,71 +75,51 @@ export default function HowItWorks() {
 
   return (
     <section
-      ref={sectionRef}
       id="how-it-works"
+      ref={sectionRef}
       className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: '#0a0a0f' }}
+      style={{ backgroundColor: '#0a0a0f' }}
     >
-      {/* Background decoration */}
+      {/* Subtle grid background */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-10 blur-3xl"
-          style={{
-            background:
-              'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-[400px] h-[400px] opacity-5 blur-3xl"
-          style={{
-            background:
-              'radial-gradient(ellipse at center, #00e5ff 0%, transparent 70%)',
-          }}
-        />
-      </div>
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0,229,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.6) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Glow blob */}
+      <div
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full blur-[120px] opacity-10"
+        style={{ background: 'radial-gradient(ellipse, #00e5ff 0%, transparent 70%)' }}
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-16 md:mb-20"
         >
           <span
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-4"
+            className="inline-block text-xs font-semibold tracking-[0.2em] uppercase px-4 py-1.5 rounded-full mb-4 border"
             style={{
-              background: 'rgba(0, 229, 255, 0.08)',
-              border: '1px solid rgba(0, 229, 255, 0.2)',
               color: '#00e5ff',
+              borderColor: 'rgba(0,229,255,0.25)',
+              backgroundColor: 'rgba(0,229,255,0.06)',
             }}
           >
-            <span
-              className="w-1.5 h-1.5 rounded-full animate-pulse"
-              style={{ background: '#00e5ff' }}
-            />
-            How It Works
+            Simple Setup
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mt-3">
-            Set up once.{' '}
-            <span
-              className=""
-              style={{
-                background: 'linear-gradient(90deg, #00e5ff, #00b8d4)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              Reply forever.
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+            Up and running in{' '}
+            <span style={{ color: '#00e5ff' }}>three steps</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            ReviewAgent handles your entire review response workflow in three
-            simple steps — from connection to fully automated replies.
+          <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
+            No developers, no complicated integrations. ReviewAgent plugs directly into Google Business Profile and starts working the same day.
           </p>
         </motion.div>
 
@@ -166,161 +128,118 @@ export default function HowItWorks() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 relative"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
         >
-          {/* Connector lines (desktop) */}
-          <div
-            className="hidden md:block absolute top-[52px] left-[calc(33.33%+0px)] right-[calc(33.33%+0px)] z-0"
-            aria-hidden="true"
-          >
-            <motion.div
-              variants={lineVariants}
-              initial="hidden"
-              animate={isInView ? 'visible' : 'hidden'}
-              style={{ transformOrigin: 'left center' }}
-              className="h-px"
-            >
-              <svg
-                width="100%"
-                height="2"
-                className="overflow-visible"
-              >
-                <line
-                  x1="0"
-                  y1="1"
-                  x2="100%"
-                  y2="1"
-                  stroke="rgba(0, 229, 255, 0.25)"
-                  strokeWidth="1"
-                  strokeDasharray="6 4"
-                />
-              </svg>
-            </motion.div>
-          </div>
-
           {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              variants={itemVariants}
-              className="relative group"
-            >
+            <motion.div key={step.number} variants={itemVariants}>
               <div
-                className="relative h-full rounded-2xl p-6 lg:p-8 flex flex-col transition-all duration-300 group-hover:translate-y-[-4px]"
+                className="relative h-full rounded-2xl border p-8 flex flex-col group hover:border-cyan-400/40 transition-all duration-300"
                 style={{
-                  background: '#111118',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  boxShadow: '0 0 0 0 rgba(0, 229, 255, 0)',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.border =
-                    '1px solid rgba(0, 229, 255, 0.25)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow =
-                    '0 0 32px rgba(0, 229, 255, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.border =
-                    '1px solid rgba(255,255,255,0.07)';
-                  (e.currentTarget as HTMLDivElement).style.boxShadow =
-                    '0 0 0 0 rgba(0, 229, 255, 0)';
+                  backgroundColor: '#111118',
+                  borderColor: 'rgba(255,255,255,0.07)',
                 }}
               >
-                {/* Step number badge */}
-                <div className="flex items-center justify-between mb-6">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                    style={{
-                      background: 'rgba(0, 229, 255, 0.08)',
-                      border: '1px solid rgba(0, 229, 255, 0.2)',
-                    }}
-                  >
-                    {step.icon}
-                  </div>
+                {/* Hover glow */}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(ellipse at top left, rgba(0,229,255,0.06) 0%, transparent 60%)',
+                  }}
+                />
+
+                {/* Step number + connector line */}
+                <div className="flex items-center gap-3 mb-6">
                   <span
-                    className="text-4xl font-black leading-none select-none"
-                    style={{
-                      color: 'rgba(0, 229, 255, 0.12)',
-                      fontVariantNumeric: 'tabular-nums',
-                    }}
+                    className="text-5xl font-black leading-none select-none"
+                    style={{ color: 'rgba(0,229,255,0.12)' }}
                   >
                     {step.number}
                   </span>
+                  {index < steps.length - 1 && (
+                    <div className="hidden md:block absolute -right-4 top-10 w-8 z-20">
+                      <svg width="32" height="12" viewBox="0 0 32 12" fill="none">
+                        <path
+                          d="M0 6h28M22 1l6 5-6 5"
+                          stroke="rgba(0,229,255,0.25)"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  )}
                 </div>
 
-                {/* Content */}
-                <h3 className="text-lg font-bold text-white mb-3 leading-snug">
+                {/* Icon */}
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 flex-shrink-0"
+                  style={{
+                    backgroundColor: 'rgba(0,229,255,0.08)',
+                    color: '#00e5ff',
+                    border: '1px solid rgba(0,229,255,0.18)',
+                  }}
+                >
+                  {step.icon}
+                </div>
+
+                {/* Text */}
+                <h3 className="text-xl font-semibold text-white mb-3 leading-snug">
                   {step.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed flex-1">
+                <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">
                   {step.description}
                 </p>
 
                 {/* Detail pill */}
                 <div
-                  className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium"
+                  className="inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-lg self-start mt-auto"
                   style={{
-                    background: 'rgba(0, 229, 255, 0.06)',
-                    color: 'rgba(0, 229, 255, 0.8)',
-                    border: '1px solid rgba(0, 229, 255, 0.12)',
+                    backgroundColor: 'rgba(0,229,255,0.05)',
+                    color: 'rgba(0,229,255,0.7)',
+                    border: '1px solid rgba(0,229,255,0.12)',
                   }}
                 >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    className="shrink-0"
-                  >
-                    <circle cx="6" cy="6" r="5" stroke="#00e5ff" strokeWidth="1" fill="none"/>
-                    <path d="M6 4v3M6 8.5v.5" stroke="#00e5ff" strokeWidth="1" strokeLinecap="round"/>
-                  </svg>
+                  <span
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: '#00e5ff' }}
+                  />
                   {step.detail}
                 </div>
-
-                {/* Progress indicator */}
-                {index < steps.length - 1 && (
-                  <div
-                    className="md:hidden absolute -bottom-3 left-1/2 -translate-x-1/2 w-px h-6"
-                    style={{
-                      background:
-                        'linear-gradient(to bottom, rgba(0,229,255,0.3), transparent)',
-                    }}
-                    aria-hidden="true"
-                  />
-                )}
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Bottom stats row */}
+        {/* Bottom stat bar */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4"
+          transition={{ duration: 0.55, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mt-14 md:mt-16 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x rounded-2xl overflow-hidden border"
+          style={{
+            backgroundColor: '#111118',
+            borderColor: 'rgba(255,255,255,0.07)',
+            divideColor: 'rgba(255,255,255,0.07)',
+          }}
         >
           {[
-            { value: '2 min', label: 'Average setup time' },
-            { value: '< 4 min', label: 'Response time per review' },
-            { value: '97%', label: 'Customer satisfaction rate' },
+            { value: '< 60s', label: 'Average setup time' },
+            { value: '5 min', label: 'First auto-reply posted' },
+            { value: '100%', label: 'Reviews covered — zero missed' },
           ].map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-5 px-4 rounded-xl text-center"
-              style={{
-                background: 'rgba(0, 229, 255, 0.04)',
-                border: '1px solid rgba(0, 229, 255, 0.1)',
-              }}
+              className="flex flex-col items-center justify-center py-8 px-6 text-center"
+              style={{ borderColor: 'rgba(255,255,255,0.07)' }}
             >
               <span
-                className="text-2xl font-bold mb-1"
+                className="text-3xl md:text-4xl font-black tracking-tight"
                 style={{ color: '#00e5ff' }}
               >
                 {stat.value}
               </span>
-              <span className="text-xs text-gray-500 uppercase tracking-wider">
-                {stat.label}
-              </span>
+              <span className="mt-1 text-sm text-gray-500">{stat.label}</span>
             </div>
           ))}
         </motion.div>
