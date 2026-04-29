@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'You\'re In — ReviewAgent',
+  title: 'You're In — ReviewAgent',
   description: 'Thank you for joining ReviewAgent. Check your email for next steps.',
   robots: { index: false, follow: false },
 };
@@ -10,161 +10,157 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-center px-4 py-20"
-      style={{ backgroundColor: '#0a0a0f' }}
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-24"
+      style={{ background: '#0a0a0f' }}
     >
-      {/* Glow background blob */}
+      {/* Glow backdrop */}
       <div
-        className="pointer-events-none fixed inset-0 z-0"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%)',
+        }}
         aria-hidden="true"
-      >
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #00e5ff 0%, transparent 70%)' }}
-        />
-      </div>
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-lg w-full">
-        {/* Animated checkmark circle */}
-        <div
-          className="mb-8 flex items-center justify-center w-24 h-24 rounded-full border-2"
-          style={{ borderColor: '#00e5ff', backgroundColor: 'rgba(0,229,255,0.08)' }}
-        >
-          <svg
-            width="44"
-            height="44"
-            viewBox="0 0 44 44"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
+      <div
+        className="relative z-10 w-full max-w-lg rounded-2xl border p-10 text-center"
+        style={{
+          background: '#111118',
+          borderColor: 'rgba(0,229,255,0.15)',
+          boxShadow: '0 0 60px rgba(0,229,255,0.06)',
+        }}
+      >
+        {/* Animated checkmark */}
+        <div className="flex items-center justify-center mb-8">
+          <div
+            className="flex items-center justify-center w-20 h-20 rounded-full"
+            style={{
+              background: 'rgba(0,229,255,0.1)',
+              border: '2px solid rgba(0,229,255,0.4)',
+            }}
           >
-            <path
-              d="M8 22L18 32L36 12"
-              stroke="#00e5ff"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 18L15 25L28 11"
+                stroke="#00e5ff"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
-          You&apos;re on the list!{' '}
-          <span style={{ color: '#00e5ff' }}>🎉</span>
+        <h1 className="text-3xl font-bold tracking-tight text-white mb-3">
+          You're on the list!
         </h1>
 
-        {/* Subheadline */}
-        <p className="text-lg text-gray-400 mb-6 leading-relaxed">
-          Thanks for signing up for <span className="text-white font-medium">ReviewAgent</span>. We\'ve received your request and will be in touch shortly.
+        <p className="text-base leading-relaxed mb-8" style={{ color: '#8b8b9a' }}>
+          Thanks for signing up to{' '}
+          <span style={{ color: '#00e5ff' }} className="font-medium">
+            ReviewAgent
+          </span>
+          . We've received your request and will be in touch within{' '}
+          <strong className="text-white">24 hours</strong> with your account
+          details and onboarding instructions.
         </p>
 
-        {/* What happens next card */}
+        {/* What happens next */}
         <div
-          className="w-full rounded-2xl border p-6 mb-8 text-left"
-          style={{ backgroundColor: '#111118', borderColor: 'rgba(255,255,255,0.08)' }}
+          className="rounded-xl p-6 text-left mb-8"
+          style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.08)' }}
         >
-          <h2 className="text-white font-semibold text-lg mb-4">What happens next?</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-widest mb-5" style={{ color: '#00e5ff' }}>
+            What happens next
+          </h2>
           <ol className="space-y-4">
-            <li className="flex gap-4 items-start">
-              <span
-                className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold"
-                style={{ backgroundColor: 'rgba(0,229,255,0.15)', color: '#00e5ff' }}
-              >
-                1
-              </span>
-              <div>
-                <p className="text-white font-medium text-sm">Check your inbox</p>
-                <p className="text-gray-400 text-sm mt-0.5">
-                  A confirmation email is on its way. If you don\'t see it within 5 minutes, check your spam folder.
-                </p>
-              </div>
-            </li>
-            <li className="flex gap-4 items-start">
-              <span
-                className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold"
-                style={{ backgroundColor: 'rgba(0,229,255,0.15)', color: '#00e5ff' }}
-              >
-                2
-              </span>
-              <div>
-                <p className="text-white font-medium text-sm">We\'ll set up your account</p>
-                <p className="text-gray-400 text-sm mt-0.5">
-                  Our team will prepare your ReviewAgent workspace and connect it to your review platforms.
-                </p>
-              </div>
-            </li>
-            <li className="flex gap-4 items-start">
-              <span
-                className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold"
-                style={{ backgroundColor: 'rgba(0,229,255,0.15)', color: '#00e5ff' }}
-              >
-                3
-              </span>
-              <div>
-                <p className="text-white font-medium text-sm">Start responding automatically</p>
-                <p className="text-gray-400 text-sm mt-0.5">
-                  Within 24 hours your AI agent will be live — handling Google, Tripadvisor and Yelp reviews on autopilot.
-                </p>
-              </div>
-            </li>
+            {[
+              {
+                step: '1',
+                title: 'Check your inbox',
+                desc: 'We\'ve sent a confirmation to your email address. If you don\'t see it, check your spam folder.',
+              },
+              {
+                step: '2',
+                title: 'We set up your account',
+                desc: 'Our team configures your ReviewAgent profile and connects it to Google, Tripadvisor, and Booking.com.',
+              },
+              {
+                step: '3',
+                title: 'Start getting AI-powered replies',
+                desc: 'Your AI agent begins monitoring and responding to new reviews automatically — no manual work needed.',
+              },
+            ].map(({ step, title, desc }) => (
+              <li key={step} className="flex gap-4">
+                <span
+                  className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold"
+                  style={{
+                    background: 'rgba(0,229,255,0.12)',
+                    color: '#00e5ff',
+                    border: '1px solid rgba(0,229,255,0.25)',
+                  }}
+                >
+                  {step}
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-white mb-0.5">{title}</p>
+                  <p className="text-sm" style={{ color: '#8b8b9a' }}>{desc}</p>
+                </div>
+              </li>
+            ))}
           </ol>
         </div>
 
-        {/* Social sharing nudge */}
-        <p className="text-gray-500 text-sm mb-6">
-          Got a colleague who manages reviews too?{' '}
+        {/* Social share nudge */}
+        <p className="text-sm mb-6" style={{ color: '#8b8b9a' }}>
+          Know a fellow restaurant or salon owner who could benefit?{' '}
           <a
-            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20%40ReviewAgent%20%E2%80%94%20AI-powered%20review%20automation%20for%20restaurants%20%26%20salons%20in%20Europe.%20Check%20it%20out%3A%20https%3A%2F%2Freviewagent.ai"
+            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20ReviewAgent%20%E2%80%94%20AI-powered%20review%20management%20for%20restaurants%20%26%20salons%20in%20Europe.%20Check%20it%20out!%20%F0%9F%9A%80"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium transition-colors duration-200"
+            className="font-medium transition-colors duration-200 hover:underline"
             style={{ color: '#00e5ff' }}
           >
             Share ReviewAgent on X
           </a>
         </p>
 
-        {/* Back to home CTA */}
+        {/* CTA back home */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 border"
+          className="inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200"
           style={{
-            borderColor: 'rgba(0,229,255,0.4)',
+            background: 'rgba(0,229,255,0.08)',
             color: '#00e5ff',
-            backgroundColor: 'rgba(0,229,255,0.06)',
+            border: '1px solid rgba(0,229,255,0.2)',
           }}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M10 12L6 8L10 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Back to homepage
+          Back to Home
         </Link>
-
-        {/* Support fallback */}
-        <p className="mt-8 text-xs text-gray-600">
-          Questions?{' '}
-          <a
-            href="mailto:hello@reviewagent.ai"
-            className="underline underline-offset-2 transition-colors duration-200 hover:text-gray-400"
-          >
-            hello@reviewagent.ai
-          </a>
-        </p>
       </div>
+
+      {/* Support note */}
+      <p className="relative z-10 mt-8 text-sm" style={{ color: '#4a4a5a' }}>
+        Questions? Email us at{' '}
+        <a
+          href="mailto:support@ailnex.com"
+          className="transition-colors duration-200 hover:underline"
+          style={{ color: '#8b8b9a' }}
+        >
+          support@ailnex.com
+        </a>
+      </p>
     </main>
   );
 }
