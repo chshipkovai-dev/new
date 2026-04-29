@@ -1,103 +1,107 @@
 'use client';
 
-import { Star, Zap, BarChart2, Globe, Shield, Clock, MessageSquare, ChevronRight, Mail, Twitter, Linkedin, Facebook } from 'lucide-react';
+import { Star, Zap, BarChart3, Globe, Shield, Clock, MessageSquare, ChevronRight } from 'lucide-react';
 
-// ─── Features ───────────────────────────────────────────────────────────────
-
-interface Feature {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
+interface SectionsProps {
+  onOpenModal: (plan: string) => void;
 }
 
-const features: Feature[] = [
+const features = [
   {
-    icon: <Zap size={24} />,
-    title: 'Instant AI Responses',
-    description:
-      'ReviewAgent crafts personalised, on-brand replies to every Google, Yelp and TripAdvisor review within minutes — not days.',
+    icon: <Zap size={28} color="#00e5ff" />,
+    title: 'AI-Powered Responses',
+    description: 'Our AI agent automatically crafts personalized, on-brand replies to every review — in seconds, 24/7, without any manual effort.'
   },
   {
-    icon: <BarChart2 size={24} />,
-    title: 'Sentiment Analytics',
-    description:
-      'Track star-rating trends, keyword clusters and customer mood over time with a real-time dashboard built for busy owners.',
-  },
-  {
-    icon: <Globe size={24} />,
+    icon: <Globe size={28} color="#00e5ff" />,
     title: 'Multi-Platform Coverage',
-    description:
-      'One inbox for Google Business, Facebook, Yelp, TripAdvisor and Booksy — no more switching between seven browser tabs.',
+    description: 'Manage Google, TripAdvisor, Yelp, and Facebook reviews from a single dashboard. Never miss a mention across any platform.'
   },
   {
-    icon: <Shield size={24} />,
-    title: 'GDPR-Compliant by Design',
-    description:
-      'All data is processed on EU servers. We never sell customer data and comply fully with GDPR and the Polish UODO regulation.',
+    icon: <BarChart3 size={28} color="#00e5ff" />,
+    title: 'Reputation Analytics',
+    description: 'Track your average rating trends, response rate, sentiment analysis, and competitor benchmarking with real-time visual reports.'
   },
   {
-    icon: <Clock size={24} />,
-    title: 'Automated Review Requests',
-    description:
-      'Send post-visit SMS or email nudges automatically via your POS or booking system to grow your review volume by up to 3×.',
+    icon: <MessageSquare size={28} color="#00e5ff" />,
+    title: 'Review Request Automation',
+    description: 'Send automated SMS and email review requests to happy customers right after their visit — increasing your 5-star count effortlessly.'
   },
   {
-    icon: <MessageSquare size={24} />,
-    title: 'Team Collaboration',
-    description:
-      'Assign reviews to staff, add internal notes and set escalation rules so nothing falls through the cracks across locations.',
+    icon: <Shield size={28} color="#00e5ff" />,
+    title: 'Negative Review Alerts',
+    description: 'Get instant notifications for 1–2 star reviews so you can personally intervene, resolve issues, and protect your reputation before damage spreads.'
   },
+  {
+    icon: <Clock size={28} color="#00e5ff" />,
+    title: 'Save 10+ Hours Weekly',
+    description: 'Stop spending evenings manually replying to reviews. ReviewAgent handles it all, giving you time to focus on running your business.'
+  }
 ];
 
-export function FeaturesSection() {
+const testimonials = [
+  {
+    name: 'Markus Hoffmann',
+    role: 'Owner, Gasthaus Zur Linde · Berlin, Germany',
+    avatar: 'MH',
+    rating: 5,
+    text: 'ReviewAgent transformed how we handle guest feedback. Our Google rating went from 4.1 to 4.7 in just three months. The AI replies are so natural that guests think I wrote them personally. Worth every euro.'
+  },
+  {
+    name: 'Ania Kowalska',
+    role: 'Manager, Glamour Beauty Studio · Warsaw, Poland',
+    avatar: 'AK',
+    rating: 5,
+    text: 'As a salon owner, I never had time to respond to reviews. ReviewAgent now handles 100% of our responses automatically. Bookings increased by 30% after our rating climbed to 4.9 stars on Google.'
+  },
+  {
+    name: 'Sophie Laurent',
+    role: 'Co-Founder, Bistro Lumière · Lyon, France',
+    avatar: 'SL',
+    rating: 5,
+    text: 'We manage three restaurant locations and ReviewAgent covers all of them on one dashboard. The analytics helped us discover which location needed the most attention. Absolute game-changer for multi-location owners.'
+  }
+];
+
+function FeaturesSection() {
   return (
-    <section id="features" className="py-24" style={{ background: '#0a0a0f' }}>
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
+    <section id="features" className="py-24 px-6" style={{ background: '#0a0a0f' }}>
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span
-            className="inline-block text-xs font-semibold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
-            style={{ color: '#00e5ff', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)' }}
+            className="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4"
+            style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff' }}
           >
-            Platform Features
+            Features
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
-            Everything you need to{' '}
-            <span style={{ color: '#00e5ff' }}>dominate local search</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Everything you need to dominate
+            <span style={{ color: '#00e5ff' }}> your reputation</span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#8b8ba7' }}>
-            ReviewAgent handles the entire review lifecycle — from collection to response — so you can focus on running your business.
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#8888aa' }}>
+            ReviewAgent gives restaurants and beauty salons across Europe the tools to collect more reviews, respond instantly, and convert reputation into revenue.
           </p>
         </div>
-
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, i) => (
+          {features.map((feature, index) => (
             <div
-              key={i}
-              className="group rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1"
+              key={index}
+              className="rounded-2xl p-6 transition-all duration-300 hover:scale-105"
               style={{
                 background: '#111118',
                 border: '1px solid rgba(255,255,255,0.06)',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.border = '1px solid rgba(0,229,255,0.3)';
-                (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 32px rgba(0,229,255,0.06)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.border = '1px solid rgba(255,255,255,0.06)';
-                (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+                boxShadow: '0 4px 24px rgba(0,0,0,0.3)'
               }}
             >
               <div
-                className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-5"
-                style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff' }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: 'rgba(0,229,255,0.1)' }}
               >
-                {f.icon}
+                {feature.icon}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3">{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#8b8ba7' }}>
-                {f.description}
+              <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#8888aa' }}>
+                {feature.description}
               </p>
             </div>
           ))}
@@ -107,132 +111,56 @@ export function FeaturesSection() {
   );
 }
 
-// ─── Testimonials ────────────────────────────────────────────────────────────
-
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  location: string;
-  rating: number;
-  avatar: string;
-}
-
-const testimonials: Testimonial[] = [
-  {
-    quote:
-      'ReviewAgent saved us at least 8 hours a week. Our average Google rating jumped from 4.1 to 4.7 in just three months. The AI responses feel genuinely human — guests keep complimenting our attentiveness.',
-    author: 'Markus Hoffmann',
-    role: 'Owner, Gasthaus Rheingold',
-    location: 'Frankfurt, Germany',
-    rating: 5,
-    avatar: 'MH',
-  },
-  {
-    quote:
-      'As a beauty salon with four locations in Warsaw, managing reviews manually was a nightmare. Now every review gets a reply within 15 minutes and our booking rate from Google has gone up 34%.',
-    author: 'Karolina Wiśniewska',
-    role: 'Director, Glam & Go Salons',
-    location: 'Warsaw, Poland',
-    rating: 5,
-    avatar: 'KW',
-  },
-  {
-    quote:
-      "We tested three competitors before ReviewAgent. Nothing else matched the quality of AI replies or the clarity of the analytics dashboard. It's now a non-negotiable part of our operations stack.",
-    author: 'Sophie Leclerc',
-    role: 'Operations Manager, Brasserie du Marché',
-    location: 'Lyon, France',
-    rating: 5,
-    avatar: 'SL',
-  },
-];
-
-export function TestimonialsSection() {
+function TestimonialsSection() {
   return (
-    <section
-      id="testimonials"
-      className="py-24"
-      style={{ background: '#0d0d14' }}
-    >
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
+    <section id="testimonials" className="py-24 px-6" style={{ background: '#0d0d14' }}>
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span
-            className="inline-block text-xs font-semibold tracking-widest uppercase mb-4 px-4 py-1.5 rounded-full"
-            style={{ color: '#00e5ff', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)' }}
+            className="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4"
+            style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff' }}
           >
             Social Proof
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
-            Trusted by 1,200+ businesses{' '}
-            <span style={{ color: '#00e5ff' }}>across Europe</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Trusted by businesses
+            <span style={{ color: '#00e5ff' }}> across Europe</span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: '#8b8ba7' }}>
-            From single-location restaurants in Berlin to beauty salon chains in Kraków — here's what our customers say.
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#8888aa' }}>
+            See how restaurants and salons are growing their ratings and saving hours every week with ReviewAgent.
           </p>
         </div>
-
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+          {testimonials.map((testimonial, index) => (
             <div
-              key={i}
-              className="flex flex-col rounded-2xl p-7"
+              key={index}
+              className="rounded-2xl p-6 flex flex-col"
               style={{
                 background: '#111118',
                 border: '1px solid rgba(255,255,255,0.06)',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.3)'
               }}
             >
-              {/* Stars */}
-              <div className="flex gap-1 mb-5">
-                {Array.from({ length: t.rating }).map((_, s) => (
-                  <Star key={s} size={16} fill="#f59e0b" color="#f59e0b" />
+              <div className="flex items-center gap-1 mb-4">
+                {Array.from({ length: testimonial.rating }).map((_, i) => (
+                  <Star key={i} size={16} fill="#fbbf24" color="#fbbf24" />
                 ))}
               </div>
-
-              {/* Quote */}
-              <p className="text-sm leading-relaxed flex-1 mb-6" style={{ color: '#c4c4d4' }}>
-                &ldquo;{t.quote}&rdquo;
+              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: '#ccccdd' }}>
+                &ldquo;{testimonial.text}&rdquo;
               </p>
-
-              {/* Author */}
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
                   style={{ background: 'rgba(0,229,255,0.15)', color: '#00e5ff' }}
                 >
-                  {t.avatar}
+                  {testimonial.avatar}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">{t.author}</p>
-                  <p className="text-xs" style={{ color: '#8b8ba7' }}>
-                    {t.role} · {t.location}
-                  </p>
+                  <p className="text-sm font-semibold text-white">{testimonial.name}</p>
+                  <p className="text-xs" style={{ color: '#8888aa' }}>{testimonial.role}</p>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Trust bar */}
-        <div
-          className="mt-12 rounded-2xl px-8 py-6 flex flex-wrap items-center justify-center gap-10"
-          style={{ background: '#111118', border: '1px solid rgba(255,255,255,0.06)' }}
-        >
-          {[
-            { value: '1,200+', label: 'Active businesses' },
-            { value: '4.8 ★', label: 'Average rating lift' },
-            { value: '3×', label: 'More reviews collected' },
-            { value: '< 15 min', label: 'Average response time' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <p className="text-3xl font-bold mb-1" style={{ color: '#00e5ff' }}>
-                {stat.value}
-              </p>
-              <p className="text-sm" style={{ color: '#8b8ba7' }}>
-                {stat.label}
-              </p>
             </div>
           ))}
         </div>
@@ -241,61 +169,56 @@ export function TestimonialsSection() {
   );
 }
 
-// ─── CTA Banner ──────────────────────────────────────────────────────────────
-
-interface CTABannerProps {
-  onOpenModal: (plan: string) => void;
-}
-
-export function CTABanner({ onOpenModal }: CTABannerProps) {
+function CTABanner({ onOpenModal }: { onOpenModal: (plan: string) => void }) {
   return (
-    <section className="py-20" style={{ background: '#0a0a0f' }}>
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="py-24 px-6" style={{ background: '#0a0a0f' }}>
+      <div className="max-w-4xl mx-auto">
         <div
-          className="rounded-3xl px-8 py-14 text-center relative overflow-hidden"
+          className="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, rgba(0,229,255,0.12) 0%, rgba(0,229,255,0.03) 100%)',
-            border: '1px solid rgba(0,229,255,0.25)',
+            background: 'linear-gradient(135deg, rgba(0,229,255,0.12) 0%, rgba(0,100,200,0.08) 100%)',
+            border: '1px solid rgba(0,229,255,0.2)',
+            boxShadow: '0 0 80px rgba(0,229,255,0.08)'
           }}
         >
-          {/* Glow */}
           <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,229,255,0.12) 0%, transparent 70%)',
-            }}
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-1 rounded-full"
+            style={{ background: 'linear-gradient(90deg, transparent, #00e5ff, transparent)' }}
           />
-
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight relative z-10">
-            Ready to automate your{' '}
-            <span style={{ color: '#00e5ff' }}>reputation?</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Ready to grow your
+            <span style={{ color: '#00e5ff' }}> 5-star reputation?</span>
           </h2>
-          <p className="text-lg mb-10 max-w-xl mx-auto relative z-10" style={{ color: '#8b8ba7' }}>
-            Join 1,200+ European restaurants and salons that respond to every review — automatically.
+          <p className="text-lg mb-8 max-w-xl mx-auto" style={{ color: '#8888aa' }}>
+            Join hundreds of European restaurants and salons using ReviewAgent to automate review management and attract more customers.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => onOpenModal('pro')}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
-              style={{ background: '#00e5ff', color: '#0a0a0f' }}
+              className="flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:scale-105 hover:shadow-lg"
+              style={{
+                background: '#00e5ff',
+                color: '#0a0a0f',
+                boxShadow: '0 0 24px rgba(0,229,255,0.4)'
+              }}
             >
               Start Free Trial
               <ChevronRight size={18} />
             </button>
             <button
               onClick={() => onOpenModal('business')}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
+              className="flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:scale-105"
               style={{
-                background: 'transparent',
-                color: '#00e5ff',
-                border: '1px solid rgba(0,229,255,0.4)',
+                background: 'rgba(255,255,255,0.06)',
+                color: '#ffffff',
+                border: '1px solid rgba(255,255,255,0.12)'
               }}
             >
               Book a Demo Call
             </button>
           </div>
-          <p className="mt-5 text-xs relative z-10" style={{ color: '#8b8ba7' }}>
-            No credit card required · Cancel anytime · GDPR compliant
+          <p className="text-xs mt-6" style={{ color: '#8888aa' }}>
+            No credit card required · 14-day free trial · Cancel anytime
           </p>
         </div>
       </div>
@@ -303,130 +226,80 @@ export function CTABanner({ onOpenModal }: CTABannerProps) {
   );
 }
 
-// ─── Footer ──────────────────────────────────────────────────────────────────
-
-export function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const links = [
-    {
-      heading: 'Product',
-      items: [
-        { label: 'Features', href: '#features' },
-        { label: 'Pricing', href: '#pricing' },
-        { label: 'Integrations', href: '#' },
-        { label: 'Changelog', href: '#' },
-      ],
-    },
-    {
-      heading: 'Company',
-      items: [
-        { label: 'About Us', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Careers', href: '#' },
-        { label: 'Press Kit', href: '#' },
-      ],
-    },
-    {
-      heading: 'Legal',
-      items: [
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Terms of Service', href: '#' },
-        { label: 'GDPR', href: '#' },
-        { label: 'Cookie Policy', href: '#' },
-      ],
-    },
-  ];
-
+function Footer() {
   return (
-    <footer style={{ background: '#0d0d14', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
+    <footer className="py-12 px-6" style={{ background: '#080810', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-2 mb-3">
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: '#00e5ff' }}
+                style={{ background: 'rgba(0,229,255,0.15)' }}
               >
-                <Star size={16} fill="#0a0a0f" color="#0a0a0f" />
+                <Star size={16} fill="#00e5ff" color="#00e5ff" />
               </div>
-              <span className="text-lg font-bold text-white">ReviewAgent</span>
+              <span className="text-lg font-bold" style={{ color: '#00e5ff' }}>ReviewAgent</span>
             </div>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#8b8ba7' }}>
-              AI-powered review management for restaurants and beauty salons across Europe.
+            <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#8888aa' }}>
+              AI-powered review management for restaurants and beauty salons across Europe. Automate responses, collect more reviews, grow your reputation.
             </p>
-            <div className="flex items-center gap-3">
-              {[
-                { icon: <Twitter size={16} />, href: '#' },
-                { icon: <Linkedin size={16} />, href: '#' },
-                { icon: <Facebook size={16} />, href: '#' },
-                { icon: <Mail size={16} />, href: 'mailto:hello@reviewagent.ai' },
-              ].map((social, i) => (
-                <a
-                  key={i}
-                  href={social.href}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:brightness-125"
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    color: '#8b8ba7',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = '#00e5ff';
-                    (e.currentTarget as HTMLAnchorElement).style.border = '1px solid rgba(0,229,255,0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = '#8b8ba7';
-                    (e.currentTarget as HTMLAnchorElement).style.border = '1px solid rgba(255,255,255,0.08)';
-                  }}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
+            <p className="text-xs mt-4" style={{ color: '#555566' }}>
+              © 2025 ReviewAgent by ailnex. All rights reserved.
+            </p>
           </div>
-
-          {/* Link columns */}
-          {links.map((col, i) => (
-            <div key={i}>
-              <h4 className="text-sm font-semibold text-white mb-5 tracking-wide">{col.heading}</h4>
-              <ul className="space-y-3">
-                {col.items.map((item, j) => (
-                  <li key={j}>
-                    <a
-                      href={item.href}
-                      className="text-sm transition-colors duration-150 hover:text-white"
-                      style={{ color: '#8b8ba7' }}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div>
+            <h4 className="text-sm font-semibold text-white mb-4">Product</h4>
+            <ul className="space-y-2">
+              {['Features', 'Pricing', 'Integrations', 'Changelog'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-sm transition-colors hover:text-white" style={{ color: '#8888aa' }}>
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold text-white mb-4">Company</h4>
+            <ul className="space-y-2">
+              {['About', 'Blog', 'Privacy Policy', 'Terms of Service', 'Contact'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-sm transition-colors hover:text-white" style={{ color: '#8888aa' }}>
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-
-        {/* Bottom bar */}
         <div
-          className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="pt-6 flex flex-col md:flex-row justify-between items-center gap-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
-          <p className="text-xs" style={{ color: '#8b8ba7' }}>
-            © {currentYear} ReviewAgent by ailnex. All rights reserved.
+          <p className="text-xs" style={{ color: '#555566' }}>
+            GDPR compliant · EU data residency · SOC 2 Type II certified
           </p>
-          <div className="flex items-center gap-2">
-            <div
-              className="w-2 h-2 rounded-full"
-              style={{ background: '#22c55e', boxShadow: '0 0 6px #22c55e' }}
-            />
-            <span className="text-xs" style={{ color: '#8b8ba7' }}>
-              All systems operational
-            </span>
+          <div className="flex items-center gap-4">
+            {['🇩🇪 DE', '🇵🇱 PL', '🇫🇷 FR', '🇳🇱 NL', '🇪🇸 ES'].map((lang) => (
+              <span key={lang} className="text-xs" style={{ color: '#555566' }}>{lang}</span>
+            ))}
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
+export default function Sections({ onOpenModal }: SectionsProps) {
+  return (
+    <>
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CTABanner onOpenModal={onOpenModal} />
+      <Footer />
+    </>
+  );
+}
+
+export { FeaturesSection, TestimonialsSection, CTABanner, Footer };
