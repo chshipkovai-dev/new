@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'You're In! — ReviewAgent',
-  description: 'Thank you for signing up to ReviewAgent. Check your inbox for next steps.',
+  title: 'Thank You — ReviewAgent',
+  description: 'You have successfully signed up for ReviewAgent. Check your inbox for next steps.',
   robots: { index: false, follow: false },
 };
 
@@ -11,204 +11,169 @@ export default function ThankYouPage() {
   return (
     <main
       className="min-h-screen flex flex-col items-center justify-center px-4 py-24"
-      style={{ backgroundColor: '#0a0a0f' }}
+      style={{ background: '#0a0a0f' }}
     >
       {/* Glow background */}
       <div
-        className="pointer-events-none fixed inset-0 z-0"
+        className="fixed inset-0 pointer-events-none"
         aria-hidden="true"
-      >
-        <div
-          className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #00e5ff 0%, transparent 70%)' }}
-        />
-      </div>
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,229,255,0.08) 0%, transparent 70%)',
+        }}
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-xl w-full">
-        {/* Icon */}
+      <div
+        className="relative z-10 flex flex-col items-center text-center max-w-lg w-full rounded-2xl p-10 border border-white/10"
+        style={{ background: '#111118' }}
+      >
+        {/* Animated checkmark circle */}
         <div
-          className="flex items-center justify-center w-20 h-20 rounded-full mb-8 shadow-lg"
+          className="mb-8 flex items-center justify-center w-20 h-20 rounded-full border-2"
           style={{
-            background: 'linear-gradient(135deg, rgba(0,229,255,0.15) 0%, rgba(0,229,255,0.05) 100%)',
-            border: '1.5px solid rgba(0,229,255,0.35)',
-            boxShadow: '0 0 40px rgba(0,229,255,0.18)',
+            borderColor: '#00e5ff',
+            background: 'rgba(0,229,255,0.08)',
+            boxShadow: '0 0 32px 4px rgba(0,229,255,0.18)',
           }}
         >
           <svg
-            width="38"
-            height="38"
-            viewBox="0 0 38 38"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <circle cx="19" cy="19" r="19" fill="rgba(0,229,255,0.08)" />
             <path
-              d="M11 19.5L16.5 25L27 14"
+              d="M10 21L17 28L30 14"
               stroke="#00e5ff"
-              strokeWidth="2.5"
+              strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
         </div>
 
-        {/* Headline */}
-        <h1
-          className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4"
-          style={{ color: '#f0f4ff' }}
-        >
-          You&apos;re on the list!{' '}
-          <span style={{ color: '#00e5ff' }}>🎉</span>
-        </h1>
-
-        {/* Subheadline */}
-        <p className="text-lg sm:text-xl mb-10" style={{ color: '#8892aa' }}>
-          Thanks for signing up to <span style={{ color: '#00e5ff' }}>ReviewAgent</span>. We&apos;ve
-          received your request and will be in touch within{' '}
-          <span style={{ color: '#f0f4ff', fontWeight: 600 }}>24 hours</span> with your
-          onboarding instructions.
-        </p>
-
-        {/* What happens next */}
-        <div
-          className="w-full rounded-2xl p-6 sm:p-8 mb-10 text-left"
+        {/* Badge */}
+        <span
+          className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4"
           style={{
-            backgroundColor: '#111118',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(0,229,255,0.1)',
+            color: '#00e5ff',
+            border: '1px solid rgba(0,229,255,0.25)',
           }}
         >
-          <h2
-            className="text-base font-semibold uppercase tracking-widest mb-6"
-            style={{ color: '#00e5ff' }}
-          >
-            What happens next
-          </h2>
-          <ol className="space-y-5">
-            {[
-              {
-                step: '01',
-                title: 'Check your inbox',
-                desc: 'A confirmation email is on its way. It contains your access link and a quick-start guide.',
-              },
-              {
-                step: '02',
-                title: 'Connect your Google Business profile',
-                desc: 'Follow the 2-minute setup to link your location — no technical skills required.',
-              },
-              {
-                step: '03',
-                title: 'Watch ReviewAgent reply for you',
-                desc: 'Sit back while our AI crafts personalised, on-brand replies to every new review.',
-              },
-            ].map(({ step, title, desc }) => (
-              <li key={step} className="flex gap-4">
-                <span
-                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-                  style={{
-                    background: 'rgba(0,229,255,0.10)',
-                    color: '#00e5ff',
-                    border: '1px solid rgba(0,229,255,0.25)',
-                  }}
-                >
-                  {step}
-                </span>
-                <div>
-                  <p
-                    className="text-sm font-semibold mb-0.5"
-                    style={{ color: '#f0f4ff' }}
-                  >
-                    {title}
-                  </p>
-                  <p className="text-sm" style={{ color: '#6b7485' }}>
-                    {desc}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <span
+            className="w-1.5 h-1.5 rounded-full inline-block"
+            style={{ background: '#00e5ff' }}
+          />
+          You&apos;re on the list
+        </span>
+
+        {/* Heading */}
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">
+          Thank you for signing up!
+        </h1>
+
+        {/* Subheading */}
+        <p className="text-base sm:text-lg text-white/60 mb-8 leading-relaxed">
+          We&apos;ve received your request. Check your inbox — we&apos;ll send you
+          everything you need to get started with{' '}
+          <span className="font-semibold" style={{ color: '#00e5ff' }}>
+            ReviewAgent
+          </span>{' '}
+          within the next few minutes.
+        </p>
+
+        {/* Steps */}
+        <div className="w-full flex flex-col gap-3 mb-10">
+          {[
+            {
+              step: '1',
+              title: 'Check your inbox',
+              desc: 'A confirmation email is on its way with your access details.',
+            },
+            {
+              step: '2',
+              title: 'Connect your Google account',
+              desc: 'Link your Google Business Profile to start tracking reviews.',
+            },
+            {
+              step: '3',
+              title: 'Let AI reply for you',
+              desc: 'ReviewAgent generates personalised responses in seconds.',
+            },
+          ].map(({ step, title, desc }) => (
+            <div
+              key={step}
+              className="flex items-start gap-4 rounded-xl px-4 py-3 text-left"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.07)',
+              }}
+            >
+              <div
+                className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
+                style={{
+                  background: 'rgba(0,229,255,0.12)',
+                  color: '#00e5ff',
+                  border: '1px solid rgba(0,229,255,0.3)',
+                }}
+              >
+                {step}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white mb-0.5">{title}</p>
+                <p className="text-xs text-white/50 leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-95"
-            style={{
-              background: 'linear-gradient(135deg, #00e5ff 0%, #00b8cc 100%)',
-              color: '#0a0a0f',
-              boxShadow: '0 4px 24px rgba(0,229,255,0.25)',
-            }}
+        {/* CTA back to home */}
+        <Link
+          href="/"
+          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:opacity-90 active:scale-95"
+          style={{
+            background: 'linear-gradient(135deg, #00e5ff 0%, #00b8cc 100%)',
+            color: '#0a0a0f',
+            boxShadow: '0 0 20px rgba(0,229,255,0.3)',
+          }}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 12L6 8L10 4"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Back to Homepage
-          </Link>
+            <path
+              d="M10 12L6 8L10 4"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Back to Homepage
+        </Link>
 
-          <a
-            href="mailto:support@reviewagent.ai"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-80"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              color: '#8892aa',
-              border: '1px solid rgba(255,255,255,0.08)',
-            }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <rect
-                x="1.5"
-                y="3.5"
-                width="13"
-                height="9"
-                rx="1.5"
-                stroke="currentColor"
-                strokeWidth="1.4"
-              />
-              <path
-                d="M1.5 5L8 9.5L14.5 5"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-              />
-            </svg>
-            Contact Support
-          </a>
-        </div>
-
-        {/* Footer note */}
-        <p className="mt-10 text-xs" style={{ color: '#3d4455' }}>
+        {/* Support line */}
+        <p className="mt-6 text-xs text-white/30">
           Didn&apos;t receive an email?{' '}
           <a
-            href="mailto:support@reviewagent.ai"
-            className="underline underline-offset-2 transition-colors duration-150"
-            style={{ color: '#00e5ff' }}
+            href="mailto:support@ailnex.com"
+            className="underline underline-offset-2 transition-colors duration-150 hover:text-white/60"
+            style={{ color: 'rgba(0,229,255,0.6)' }}
           >
-            Let us know
-          </a>{' '}
-          and we&apos;ll sort it out right away.
+            Contact support
+          </a>
         </p>
       </div>
+
+      {/* Footer note */}
+      <p className="mt-10 text-xs text-white/20 text-center">
+        © {new Date().getFullYear()} ailnex · ReviewAgent · All rights reserved.
+      </p>
     </main>
   );
 }
