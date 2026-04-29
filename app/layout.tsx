@@ -18,16 +18,16 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
   description:
-    'ReviewAgent automatically responds to your Google reviews 24/7. Save hours every week, boost your rating, and never miss a customer — perfect for restaurants, salons, and cafés across Europe.',
+    'ReviewAgent automatically responds to your Google reviews in seconds. Save hours every week, boost your rating, and never miss a customer review. Trusted by restaurants, salons, and cafés across Europe.',
   keywords: [
     'Google reviews automation',
     'automated review responses',
     'restaurant review management',
     'salon review replies',
-    'local business reputation',
-    'Google My Business automation',
-    'review response software',
-    'SaaS review tool Europe',
+    'Google Business Profile automation',
+    'review management SaaS',
+    'local business reviews',
+    'AI review responses',
   ],
   authors: [{ name: 'ailnex', url: 'https://ailnex.com' }],
   creator: 'ailnex',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: 'ReviewAgent',
     title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
     description:
-      'Stop spending hours replying to reviews manually. ReviewAgent handles it automatically — professional, personalized responses in seconds. Try free today.',
+      'Stop spending hours replying to Google reviews manually. ReviewAgent handles it automatically — personalized, professional, and instant. Start free today.',
     images: [
       {
         url: '/og-image.png',
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ReviewAgent — Automated Google Review Replies for Local Businesses',
+    title: 'ReviewAgent — Automated Google Review Replies',
     description:
-      'Stop spending hours replying to reviews manually. ReviewAgent handles it automatically — professional, personalized responses in seconds.',
+      'Stop spending hours replying to Google reviews manually. ReviewAgent handles it automatically — personalized, professional, and instant.',
     images: ['/og-image.png'],
     creator: '@ailnex',
   },
@@ -74,7 +74,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
@@ -87,17 +86,17 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: '#0a0a0f',
-  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
@@ -111,6 +110,7 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <meta name="format-detection" content="telephone=no" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,53 +118,66 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'SoftwareApplication',
               name: 'ReviewAgent',
+              description:
+                'Automated Google review response platform for restaurants, salons, and cafés.',
               applicationCategory: 'BusinessApplication',
               operatingSystem: 'Web',
-              description:
-                'ReviewAgent automatically responds to your Google reviews 24/7. Perfect for restaurants, salons, and cafés across Europe.',
               offers: [
                 {
                   '@type': 'Offer',
-                  name: 'Free Plan',
+                  name: 'Free',
                   price: '0',
                   priceCurrency: 'USD',
                 },
                 {
                   '@type': 'Offer',
-                  name: 'Pro Plan',
+                  name: 'Pro',
                   price: '49',
                   priceCurrency: 'USD',
                 },
                 {
                   '@type': 'Offer',
-                  name: 'Business Plan',
+                  name: 'Business',
                   price: '149',
                   priceCurrency: 'USD',
                 },
               ],
-              creator: {
+              publisher: {
                 '@type': 'Organization',
                 name: 'ailnex',
                 url: 'https://ailnex.com',
               },
-              url: 'https://reviewagent.ailnex.com',
             }),
           }}
         />
       </head>
       <body
-        className="bg-[#0a0a0f] text-white font-sans antialiased selection:bg-[#00e5ff]/20 selection:text-[#00e5ff]"
-        style={{ fontFamily: 'var(--font-plus-jakarta), var(--font-inter), sans-serif' }}
+        className={`
+          bg-[#0a0a0f]
+          text-white
+          font-[family-name:var(--font-inter)]
+          antialiased
+          min-h-screen
+          overflow-x-hidden
+          selection:bg-[#00e5ff]/20
+          selection:text-[#00e5ff]
+        `}
       >
-        <div className="relative min-h-screen overflow-x-hidden">
-          {/* Global ambient glow background */}
+        <div className="relative">
           <div
+            className="pointer-events-none fixed inset-0 z-0"
             aria-hidden="true"
-            className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
           >
-            <div className="absolute -top-[400px] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[#00e5ff]/5 blur-[120px]" />
-            <div className="absolute top-[60%] -left-[200px] w-[500px] h-[500px] rounded-full bg-[#00e5ff]/3 blur-[100px]" />
-            <div className="absolute top-[40%] -right-[150px] w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[100px]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,229,255,0.06),transparent)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(0,229,255,0.03),transparent)]" />
+            <div
+              className="absolute inset-0 opacity-[0.015]"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(0,229,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.3) 1px, transparent 1px)',
+                backgroundSize: '80px 80px',
+              }}
+            />
           </div>
           <div className="relative z-10">{children}</div>
         </div>
