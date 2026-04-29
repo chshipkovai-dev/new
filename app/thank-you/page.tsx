@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'You're In — ReviewAgent',
+  title: "You're In — ReviewAgent",
   description: 'Thank you for joining ReviewAgent. Check your email for next steps.',
   robots: { index: false, follow: false },
 };
@@ -58,9 +58,8 @@ export default function ThankYouPage() {
           </div>
         </div>
 
-        {/* Headline */}
         <h1 className="text-3xl font-bold tracking-tight text-white mb-3">
-          You're on the list!
+          You&apos;re on the list!
         </h1>
 
         <p className="text-base leading-relaxed mb-8" style={{ color: '#8b8b9a' }}>
@@ -68,12 +67,11 @@ export default function ThankYouPage() {
           <span style={{ color: '#00e5ff' }} className="font-medium">
             ReviewAgent
           </span>
-          . We've received your request and will be in touch within{' '}
+          . We&apos;ve received your request and will be in touch within{' '}
           <strong className="text-white">24 hours</strong> with your account
           details and onboarding instructions.
         </p>
 
-        {/* What happens next */}
         <div
           className="rounded-xl p-6 text-left mb-8"
           style={{ background: 'rgba(0,229,255,0.04)', border: '1px solid rgba(0,229,255,0.08)' }}
@@ -86,7 +84,7 @@ export default function ThankYouPage() {
               {
                 step: '1',
                 title: 'Check your inbox',
-                desc: 'We\'ve sent a confirmation to your email address. If you don\'t see it, check your spam folder.',
+                desc: "We've sent a confirmation to your email address. If you don't see it, check your spam folder.",
               },
               {
                 step: '2',
@@ -119,11 +117,10 @@ export default function ThankYouPage() {
           </ol>
         </div>
 
-        {/* Social share nudge */}
         <p className="text-sm mb-6" style={{ color: '#8b8b9a' }}>
           Know a fellow restaurant or salon owner who could benefit?{' '}
           <a
-            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20ReviewAgent%20%E2%80%94%20AI-powered%20review%20management%20for%20restaurants%20%26%20salons%20in%20Europe.%20Check%20it%20out!%20%F0%9F%9A%80"
+            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20ReviewAgent%20%E2%80%94%20AI-powered%20review%20management%20for%20restaurants%20%26%20salons%20in%20Europe."
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium transition-colors duration-200 hover:underline"
@@ -133,7 +130,6 @@ export default function ThankYouPage() {
           </a>
         </p>
 
-        {/* CTA back home */}
         <Link
           href="/"
           className="inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200"
@@ -150,7 +146,6 @@ export default function ThankYouPage() {
         </Link>
       </div>
 
-      {/* Support note */}
       <p className="relative z-10 mt-8 text-sm" style={{ color: '#4a4a5a' }}>
         Questions? Email us at{' '}
         <a
